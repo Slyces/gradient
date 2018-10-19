@@ -4,6 +4,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 import argparse, textwrap
 
+np.set_printoptions(precision=2)
+
 # list of implemented functions
 functions = ['square', 'sin2d']
 
@@ -12,11 +14,13 @@ def vprint(*args, v = 1):
     if verbose >= v:
         print(*args)
 
+# @TODO: à généraliser avec plusieurs méthodes
 def starting_point(def_space):
     return [np.random.uniform(d[0], d[1], 1)[0] for d in def_space]
 
 
 # ---------------------- functions and their gradients ----------------------- #
+# @TODO: mettre les fonctions dans un fichier séparé
 # each function <name> must implement:
 #
 # f_name(x):           the actual function. Assuming input of correct size.
@@ -55,21 +59,40 @@ def grad_sin2d(x, y):
             )
 
 # ----------------------- gradient descent algorithms ------------------------ #
-def gradient_descent(x_0, f, grad):
-    values = [np.array(x_0)]
-    rate = 0.1
-    epsilon = 0.00001
-    max_iter = 10000
-    i = 0
-    stop = False
+# @TODO: mettre ces méthodes dans un fichier séparé
 
-    while not stop:
-        prev_x = values[-1]
-        cur_x = prev_x - rate * gradient(*prev_x)
-        values.append(cur_x)
-        stop = i >= max_iter or np.linalg.norm(values[-1] - values[-2]) < epsilon
-        i += 1
-    return values
+# Batch gradient descent
+"""
+Descente du gradient classique
+"""
+def batchGradientDescent(x_0, func, learningRate=0.01, maxIter=1000):
+    # constantes
+    h = 0.0001 # Variation nécéssaire au calcul du gradient
+    dim = len(x_0)
+    currentX = np.array(x_0)
+
+    vprint("Starting position :", currentX)
+
+    # Initialisation de la liste des valeurs trouvées
+    listeX = [np.copy(currentX)]
+
+    # @TODO : test de convergence ϵ
+    for i in range(maxIter):
+        gradient = np.array([])
+        # Calcul du gradient pour chaque dimension
+        for j in range(dim):
+            # @TODO: mieux commenter
+            # Création de la variation : [0 .. h .. 0] (valeur h en position k)
+            liste = np.array([0 if k != j else h for k in range(dim)])
+            gradJ = (function(*(currentX + liste)) - function(*currentX)) / h
+            gradient = np.append(gradient, [learningRate * gradJ])
+
+        currentX -= gradient # Modification de X
+        listeX.append(np.copy(currentX)) # On garde la valeur de x en mémoire
+
+        if i % 500 == 0:
+            vprint("Itération {} : {}".format(i, currentX ))
+    return np.array(listeX)
 
 
 # ---------------------------- arguments parsing ----------------------------- #
@@ -83,7 +106,7 @@ if __name__ == '__main__':
                     This programs is a sandbox made to explore the
                     different gradient descent algorithms and variants
                 '''))
-    parser.add_argument("--variant", metavar="variant", type=str, dest='variant', default='mini-batch',
+    parser.add_argument("--variant", metavar="variant", type=str, dest='variant', default='batch',
                 help="""choose the variant among {batch, stochastic, mini-batch}
                      """ + default
             )
@@ -102,39 +125,45 @@ if __name__ == '__main__':
     function = globals()["f_" + args.function]
     def_space = globals()["def_space_" + args.function]
     verbose = args.verbose
-    descent = gradient_descent
+    gradient_descent = globals()[args.variant + "GradientDescent"]
 
     # ---------------------- gradient descent algorithm ---------------------- #
     x_0 = starting_point(def_space)
-    values = gradient_descent(x_0, function, gradient)
-    np.set_printoptions(precision=2)
+    values = gradient_descent(x_0, function)
+
+   # -----------------------------------  ------------------------------------ #
     print("Gradient descent converged in {n} step from {x0} ({y0}) to {x} ({y})".format(
             n= len(values), x0= values[0], x= values[-1], y0= function(*x_0), y= function(*values[-1])
         ))
 
     # ----------------- displaying the function to optimize ------------------ #
     if not args.no_display:
+        # -------------------------- one dimension --------------------------- #
         if len(def_space) == 1:
-            # one dimensional case
             vprint("One dimensional function")
+            # Plot of the function
             x = np.linspace(*def_space[0], num=100)
             y = [function(x_i) for x_i in x]
 
             fig, ax = plt.subplots()
             ax.plot(x, y)
 
-            # plot the starting x_0
+            # plot the starting x_0 and the descent curve
             ax.scatter(x_0, function(*x_0))
-            ax.plot(values, [function(v) for v in values], '-o', markersize=1, linewidth=1)
+            ax.scatter(values[-1], function(*values[-1]))
+            ax.plot(values, np.array([function(*v) for v in values]), '-o',
+                    markersize=1, linewidth=1)
 
+            # titles & misc
             ax.set(xlabel='x', ylabel='$y = {}(x)$'.format(args.function),
                     title='{} function'.format(args.function))
             ax.grid()
-
             plt.show()
+
+        # -------------------------- two dimensions -------------------------- #
         elif len(def_space) == 2:
             vprint("Two dimensional function")
-
+            # Plot of the function
             from matplotlib import cm
             from matplotlib.ticker import LinearLocator, FormatStrFormatter
             from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
@@ -150,12 +179,16 @@ if __name__ == '__main__':
 
             # Plot the start
             ax.scatter(x_0[0], x_0[1], function(*x_0), 'or', zorder=3)
-            print(x_0[0], x_0[1], function(*x_0))
+            ax.scatter(values[-1][0], values[-1][1], function(*values[-1]), 'or', zorder=3)
+            # print(x_0[0], x_0[1], function(*x_0))
 
             # Plot the convergence
             values = np.array(values)
             x, y = values[:,0], values[:,1]
             z = np.array([function(x[i],y[i]) for i in range(len(x))])
+            print(x)
+            print(y)
+            print(z)
             ax.plot(x, y, z, label='gradient convergence', linewidth=2, zorder=2)
 
             # Customize the z axis.
