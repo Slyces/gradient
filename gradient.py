@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# --------------------------------- imports ---------------------------------- #
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
@@ -100,6 +101,7 @@ def batchGradientDescent(x_0, func, learningRate=0.01, maxIter=1000):
 # ---------------------------- arguments parsing ----------------------------- #
 if __name__ == '__main__':
     # ------------------------- program description -------------------------- #
+    default = " [default: %(default)s]"
     parser = argparse.ArgumentParser(prog='gradient',
             formatter_class=argparse.RawDescriptionHelpFormatter,
             description=textwrap.dedent('''\
@@ -111,7 +113,7 @@ if __name__ == '__main__':
 
     # ------------------------- optionnal parameters ------------------------- #
     parser.add_argument("--variant", metavar="variant", dest='variant', type=str,
-                default='batch', 
+                default='batch',
     help="choose the variant among {batch, mini-batch, stochastic}" + default)
 
 
@@ -184,6 +186,9 @@ if __name__ == '__main__':
             X, Y = np.meshgrid(x, y)
             Z = np.array([[function(X[i][j], Y[i][j]) for i in range(len(x))]
                                                 for j in range(len(y))])
+
+            print(X)
+            print(Y)
 
             # Plot the start
             ax.scatter(x_0[0], x_0[1], function(*x_0), 'or', zorder=3)
