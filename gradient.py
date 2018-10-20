@@ -9,18 +9,22 @@ np.set_printoptions(precision=2)
 # list of implemented functions
 functions = ['square', 'sin2d']
 
+# @TODO: homogénéiser les noms de variables --> someVar plutôt que some_var
+
 # ----------------------------- utils functions ------------------------------ #
-def vprint(*args, v = 1):
+def vprint(*args, v: int=1):
     if verbose >= v:
         print(*args)
 
 # @TODO: à généraliser avec plusieurs méthodes
-def starting_point(def_space):
+def starting_point(def_space: np.array):
     return [np.random.uniform(d[0], d[1], 1)[0] for d in def_space]
 
 
 # ---------------------- functions and their gradients ----------------------- #
 # @TODO: mettre les fonctions dans un fichier séparé
+#        utiliser des classes (?)
+#
 # each function <name> must implement:
 #
 # f_name(x):           the actual function. Assuming input of correct size.
@@ -62,10 +66,8 @@ def grad_sin2d(x, y):
 # @TODO: mettre ces méthodes dans un fichier séparé
 
 # Batch gradient descent
-"""
-Descente du gradient classique
-"""
 def batchGradientDescent(x_0, func, learningRate=0.01, maxIter=1000):
+    """ The gradient descent classic algorithm """
     # constantes
     h = 0.0001 # Variation nécéssaire au calcul du gradient
     dim = len(x_0)
@@ -97,7 +99,7 @@ def batchGradientDescent(x_0, func, learningRate=0.01, maxIter=1000):
 
 # ---------------------------- arguments parsing ----------------------------- #
 if __name__ == '__main__':
-    default = '[default: %(default)s]' # message for default values
+    # ------------------------- program description -------------------------- #
     parser = argparse.ArgumentParser(prog='gradient',
             formatter_class=argparse.RawDescriptionHelpFormatter,
             description=textwrap.dedent('''\
@@ -106,18 +108,22 @@ if __name__ == '__main__':
                     This programs is a sandbox made to explore the
                     different gradient descent algorithms and variants
                 '''))
-    parser.add_argument("--variant", metavar="variant", type=str, dest='variant', default='batch',
-                help="""choose the variant among {batch, stochastic, mini-batch}
-                     """ + default
-            )
+
+    # ------------------------- optionnal parameters ------------------------- #
+    parser.add_argument("--variant", metavar="variant", dest='variant', type=str,
+                default='batch', 
+    help="choose the variant among {batch, mini-batch, stochastic}" + default)
+
+
     parser.add_argument("-f", metavar="function", dest='function', type=str, default='square',
                 help="""choose the function to optimize among {}
-                        {}""".format('{' + ', '.join(functions) + '}', default)
-            )
+                        {}""".format('{' + ', '.join(functions) + '}', default))
+
+    # --------------------------- optionnal flags ---------------------------- #
     parser.add_argument("-v", "--verbosity", action="count", default=0,
                 help="incremental verbosity, can be repeated",
-                dest="verbose"
-            )
+                dest="verbose")
+
     parser.add_argument("--no-display", action="store_true", dest="no_display")
     args = parser.parse_args()
 
@@ -138,6 +144,8 @@ if __name__ == '__main__':
 
     # ----------------- displaying the function to optimize ------------------ #
     if not args.no_display:
+        # @TODO: séparer les fonctions d'affichage dans un fichier, et les
+        #        généraliser
         # -------------------------- one dimension --------------------------- #
         if len(def_space) == 1:
             vprint("One dimensional function")
@@ -204,4 +212,7 @@ if __name__ == '__main__':
             fig.colorbar(surf, shrink=0.5, aspect=5)
 
             plt.show()
+        else:
+            # @TODO: gérer les cas dim > 2
+            pass
 
