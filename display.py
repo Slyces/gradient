@@ -30,37 +30,37 @@ def compute_over_grid(function, n, *grid):
     indexes = [0 for i in range(dim)]
     for (idx, _) in np.ndenumerate(grid[0]):
         v = [g[idx] for g in grid]
-        results[idx] = f(*v)
+        results[idx] = function(*v)
     return results
 
 # --------------- plot a 1 dimensional function in a 2D graph ---------------- #
-def plot2d(function, def_space, data, n=40):
+def plot2d(function, def_space, data, n=40, name=""):
     """ Plots a one dimensional function on a 2 dimensional graph """
     # ---------------------- create the figure and axes ---------------------- #
     fig, ax = plt.subplots()
-    ax.plot(x, y)
 
-    # -- discretize the definition space and compute the function's images --- #
-    x, = discretize_space(def_space, n)
+    # -- discretise the definition space and compute the function's images --- #
+    x, = discretise_space(def_space, n)
     y = compute_over_grid(function, n, x)
+
+    ax.plot(x, y, '#9A9A9A')
 
     # ----------------- plot the starting and ending points ------------------ #
     start, end = data[0], data[-1]
 
-    ax.scatter(start, function(start), 'r')
-    ax.scatter(end, function(end), 'g')
-    ax.plot(data, compute_over_grid(function, len(data), data),
-        '#CACACA', linewidth=1)
+    ax.scatter(start, function(*start))
+    ax.plot(data, [function(*v) for v in data], linewidth=1)
+    ax.scatter(end, function(*end))
 
     # ---------------------------- titles & misc ----------------------------- #
     ax.set_ylim(min(y) - 0.5, max(y) + 0.5)
-    ax.set(xlabel='x', ylabel='$y = {}(x)$'.format(args.function),
-            title='{} function'.format(args.function))
+    ax.set(xlabel='x', ylabel='$y = {}(x)$'.format(name),
+            title='{} function'.format(name))
     ax.grid()
     plt.show()
 
 # -------------- plot a 2 dimensional function in a 3D diagram --------------- #
-def plot3d(function, def_space, data, n=40):
+def plot3d(function, def_space, data, n=40, name=""):
     """ Plots a two dimensional function on a 3 dimensional graph """
     # ---------------------- create the figure and axes ---------------------- #
     fig = plt.figure()
@@ -68,16 +68,21 @@ def plot3d(function, def_space, data, n=40):
 
     # -- discretize the definition space and compute the function's images --- #
     X, Y = discretise_space(def_space, n=n)
-    Z = compute_over_grid(f, n, X, Y)
+    Z = compute_over_grid(function, n, X, Y)
+
+    # --------------------------- plot the descent --------------------------- #
+    ax.plot(data[:,0], data[:,1], [function(*v) for v in data])
 
     # ------------ plots distinctly start and stop of the descent ------------ #
-    start, stop = data[0], data[-1]
-    ax.scatter(start, function(*start), 'r')
-    ax.scatter(stop, function(*stop), 'g')
+    (start_x, start_y), (stop_x, stop_y) = data[0], data[-1]
+    ax.scatter(start_x, start_y, function(start_x, start_y))
+    ax.scatter(stop_x, stop_y, function(stop_x, stop_y))
 
     # ----------------------- appearance and plotting ------------------------ #
-    ax.set_zlim(min(Z) - 0.5, max(Z) + 0.5)
+    ax.set_zlim(np.min(Z) - 0.5, np.max(Z) + 0.5)
     ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
+    ax.set(xlabel='x', ylabel='$y = {}(x)$'.format(name),
+            title='{} function'.format(name))
 
     # Plot the surface.
     surf = ax.plot_surface(X, Y, Z, cmap='binary', alpha=0.5,
@@ -93,14 +98,14 @@ def plotNd(function, def_space, data, n=40):
     print("The N > 2 dimensional functions are not displayable yet.")
 
 # ----------- "switch case" to handle the display of any function ------------ #
-def display(function, def_space, data, n=40):
+def display(function, def_space, data, n=40, name=""):
     dim = len(def_space)
     if dim == 1:
-        return plot2d(function, def_space, data, n)
+        return plot2d(function, def_space, data, n, name)
     elif dim == 2:
-        return plot3d(function, def_space, data, n)
+        return plot3d(function, def_space, data, n, name)
     else:
-        return plotNd(function, def_space, data, n)
+        return plotNd(function, def_space, data, n, name)
 
 
 if __name__ == '__main__':

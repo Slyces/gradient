@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 import argparse, textwrap
+from display import display
 
 np.set_printoptions(precision=2)
 
@@ -136,84 +137,16 @@ if __name__ == '__main__':
 
     # ---------------------- gradient descent algorithm ---------------------- #
     x_0 = starting_point(def_space)
-    values = gradient_descent(x_0, function)
+    data = gradient_descent(x_0, function)
+    x_n = data[-1]
 
    # -----------------------------------  ------------------------------------ #
-    print("Gradient descent converged in {n} step from {x0} ({y0}) to {x} ({y})".format(
-            n= len(values), x0= values[0], x= values[-1], y0= function(*x_0), y= function(*values[-1])
-        ))
+    print("Gradient descent converged in {n} step from {x_0} ({fx_0}) to {x_n} ({fx_n})".format(
+            n= len(data), x_0= x_0, x_n= x_n, fx_0= function(*x_0), fx_n= function(*x_n)))
 
     # ----------------- displaying the function to optimize ------------------ #
     if not args.no_display:
         # @TODO: séparer les fonctions d'affichage dans un fichier, et les
         #        généraliser
-        # -------------------------- one dimension --------------------------- #
-        if len(def_space) == 1:
-            vprint("One dimensional function")
-            # Plot of the function
-            x = np.linspace(*def_space[0], num=100)
-            y = [function(x_i) for x_i in x]
-
-            fig, ax = plt.subplots()
-            ax.plot(x, y)
-
-            # plot the starting x_0 and the descent curve
-            ax.scatter(x_0, function(*x_0))
-            ax.scatter(values[-1], function(*values[-1]))
-            ax.plot(values, np.array([function(*v) for v in values]), '-o',
-                    markersize=1, linewidth=1)
-
-            # titles & misc
-            ax.set(xlabel='x', ylabel='$y = {}(x)$'.format(args.function),
-                    title='{} function'.format(args.function))
-            ax.grid()
-            plt.show()
-
-        # -------------------------- two dimensions -------------------------- #
-        elif len(def_space) == 2:
-            vprint("Two dimensional function")
-            # Plot of the function
-            from matplotlib import cm
-            from matplotlib.ticker import LinearLocator, FormatStrFormatter
-            from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
-
-            fig = plt.figure()
-            ax = fig.gca(projection='3d')
-
-            x = np.linspace(*def_space[0], num=40)
-            y = np.linspace(*def_space[1], num=40)
-            X, Y = np.meshgrid(x, y)
-            Z = np.array([[function(X[i][j], Y[i][j]) for i in range(len(x))]
-                                                for j in range(len(y))])
-
-            print(X)
-            print(Y)
-
-            # Plot the start
-            ax.scatter(x_0[0], x_0[1], function(*x_0), 'or', zorder=3)
-            ax.scatter(values[-1][0], values[-1][1], function(*values[-1]), 'or', zorder=3)
-            # print(x_0[0], x_0[1], function(*x_0))
-
-            # Plot the convergence
-            values = np.array(values)
-            x, y = values[:,0], values[:,1]
-            z = np.array([function(x[i],y[i]) for i in range(len(x))])
-            ax.plot(x, y, z, label='gradient convergence', linewidth=2, zorder=2)
-
-            # Customize the z axis.
-            ax.set_zlim(-1.01, 1.01)
-            ax.zaxis.set_major_locator(LinearLocator(10))
-            ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
-
-            # Plot the surface.
-            surf = ax.plot_surface(X, Y, Z, cmap='binary', alpha=0.5, # cm.coolwarm,
-                       linewidth=0, antialiased=False, zorder=1)
-
-            # Add a color bar which maps values to colors.
-            fig.colorbar(surf, shrink=0.5, aspect=5)
-
-            plt.show()
-        else:
-            # @TODO: gérer les cas dim > 2
-            pass
+        display(function, def_space, data, 100, name=args.function)
 
