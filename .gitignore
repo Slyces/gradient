@@ -1,3 +1,6 @@
 # vim files
 tags
 *.swp
+
+# python files
+__pycache__*

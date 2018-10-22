@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
+import utils
 from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
 from mpl_toolkits.mplot3d import Axes3D
@@ -34,7 +35,7 @@ def compute_over_grid(function, n, *grid):
     return results
 
 # --------------- plot a 1 dimensional function in a 2D graph ---------------- #
-def plot2d(function, def_space, data, n=40, name=""):
+def plot2d(function, def_space, data, n=40):
     """ Plots a one dimensional function on a 2 dimensional graph """
     # ---------------------- create the figure and axes ---------------------- #
     fig, ax = plt.subplots()
@@ -54,13 +55,13 @@ def plot2d(function, def_space, data, n=40, name=""):
 
     # ---------------------------- titles & misc ----------------------------- #
     ax.set_ylim(min(y) - 0.5, max(y) + 0.5)
-    ax.set(xlabel='x', ylabel='$y = {}(x)$'.format(name),
-            title='{} function'.format(name))
+    ax.set(xlabel='${}$'.format(str(function)),
+            title='{} function'.format(type(function).__name__))
     ax.grid()
     plt.show()
 
 # -------------- plot a 2 dimensional function in a 3D diagram --------------- #
-def plot3d(function, def_space, data, n=40, name=""):
+def plot3d(function, def_space, data, n=40):
     """ Plots a two dimensional function on a 3 dimensional graph """
     # ---------------------- create the figure and axes ---------------------- #
     fig = plt.figure()
@@ -81,8 +82,8 @@ def plot3d(function, def_space, data, n=40, name=""):
     # ----------------------- appearance and plotting ------------------------ #
     ax.set_zlim(np.min(Z) - 0.5, np.max(Z) + 0.5)
     ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
-    ax.set(xlabel='x', ylabel='$y = {}(x)$'.format(name),
-            title='{} function'.format(name))
+    ax.set(ylabel='${}$'.format(str(function)),
+            title='{} function'.format(type(function).__name__))
 
     # Plot the surface.
     surf = ax.plot_surface(X, Y, Z, cmap='binary', alpha=0.5,
@@ -98,36 +99,14 @@ def plotNd(function, def_space, data, n=40):
     print("The N > 2 dimensional functions are not displayable yet.")
 
 # ----------- "switch case" to handle the display of any function ------------ #
-def display(function, def_space, data, n=40, name=""):
+def display(function, def_space, data, n=40):
     dim = len(def_space)
     if dim == 1:
-        return plot2d(function, def_space, data, n, name)
+        utils.vprint("One dimensional function")
+        return plot2d(function, def_space, data, n)
     elif dim == 2:
-        return plot3d(function, def_space, data, n, name)
+        utils.vprint("Two dimensional function")
+        return plot3d(function, def_space, data, n)
     else:
-        return plotNd(function, def_space, data, n, name)
-
-
-if __name__ == '__main__':
-    # Plot of the function
-    N = 40
-
-    fig = plt.figure()
-    ax = fig.gca(projection='3d')
-
-    X, Y = discretise_space(def_space, n=N)
-    Z = compute_over_grid(f, N, X, Y)
-
-
-    ax.set_zlim(-1.01, 1.01)
-    ax.zaxis.set_major_locator(LinearLocator(10))
-    ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
-
-    # Plot the surface.
-    surf = ax.plot_surface(X, Y, Z, cmap='binary', alpha=0.5, # cm.coolwarm,
-               linewidth=0, antialiased=False, zorder=1)
-
-    # Add a color bar which maps values to colors.
-    fig.colorbar(surf, shrink=0.5, aspect=5)
-
-    plt.show()
+        utils.vprint("Three (or more) dimensional function")
+        return plotNd(function, def_space, data, n)
