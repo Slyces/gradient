@@ -118,13 +118,12 @@ if __name__ == '__main__':
 
 
     parser.add_argument("-f", metavar="function", dest='function', type=str, default='square',
-                help="""choose the function to optimize among {}
-                        {}""".format('{' + ', '.join(functions) + '}', default))
+    help="""choose the function to optimize among {} {}""".format(
+        '{' + ', '.join(functions) + '}', default))
 
     # --------------------------- optionnal flags ---------------------------- #
     parser.add_argument("-v", "--verbosity", action="count", default=0,
-                help="incremental verbosity, can be repeated",
-                dest="verbose")
+                help="incremental verbosity, can be repeated", dest="verbose")
 
     parser.add_argument("--no-display", action="store_true", dest="no_display")
     args = parser.parse_args()
@@ -199,9 +198,6 @@ if __name__ == '__main__':
             values = np.array(values)
             x, y = values[:,0], values[:,1]
             z = np.array([function(x[i],y[i]) for i in range(len(x))])
-            print(x)
-            print(y)
-            print(z)
             ax.plot(x, y, z, label='gradient convergence', linewidth=2, zorder=2)
 
             # Customize the z axis.
