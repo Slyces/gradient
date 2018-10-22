@@ -33,13 +33,75 @@ def compute_over_grid(function, n, *grid):
         results[idx] = f(*v)
     return results
 
-# ------------------------- plot the function in 2D -------------------------- #
-def plot2d():
-    """ """
+# --------------- plot a 1 dimensional function in a 2D graph ---------------- #
+def plot2d(function, def_space, data, n=40):
+    """ Plots a one dimensional function on a 2 dimensional graph """
+    # ---------------------- create the figure and axes ---------------------- #
+    fig, ax = plt.subplots()
+    ax.plot(x, y)
 
-def_space = [[-5, 5], [-5, 5]]
-def f(x, y):
-    return np.sin(np.sqrt(x * x + y * y))
+    # -- discretize the definition space and compute the function's images --- #
+    x, = discretize_space(def_space, n)
+    y = compute_over_grid(function, n, x)
+
+    # ----------------- plot the starting and ending points ------------------ #
+    start, end = data[0], data[-1]
+
+    ax.scatter(start, function(start), 'r')
+    ax.scatter(end, function(end), 'g')
+    ax.plot(data, compute_over_grid(function, len(data), data),
+        '#CACACA', linewidth=1)
+
+    # ---------------------------- titles & misc ----------------------------- #
+    ax.set_ylim(min(y) - 0.5, max(y) + 0.5)
+    ax.set(xlabel='x', ylabel='$y = {}(x)$'.format(args.function),
+            title='{} function'.format(args.function))
+    ax.grid()
+    plt.show()
+
+# -------------- plot a 2 dimensional function in a 3D diagram --------------- #
+def plot3d(function, def_space, data, n=40):
+    """ Plots a two dimensional function on a 3 dimensional graph """
+    # ---------------------- create the figure and axes ---------------------- #
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+
+    # -- discretize the definition space and compute the function's images --- #
+    X, Y = discretise_space(def_space, n=n)
+    Z = compute_over_grid(f, n, X, Y)
+
+    # ------------ plots distinctly start and stop of the descent ------------ #
+    start, stop = data[0], data[-1]
+    ax.scatter(start, function(*start), 'r')
+    ax.scatter(stop, function(*stop), 'g')
+
+    # ----------------------- appearance and plotting ------------------------ #
+    ax.set_zlim(min(Z) - 0.5, max(Z) + 0.5)
+    ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
+
+    # Plot the surface.
+    surf = ax.plot_surface(X, Y, Z, cmap='binary', alpha=0.5,
+               linewidth=0, antialiased=False, zorder=1)
+
+    # Add a color bar which maps values to colors.
+    fig.colorbar(surf, shrink=0.5, aspect=5)
+
+    plt.show()
+
+# ------------------ display any N > 2 dimensional function ------------------ #
+def plotNd(function, def_space, data, n=40):
+    print("The N > 2 dimensional functions are not displayable yet.")
+
+# ----------- "switch case" to handle the display of any function ------------ #
+def display(function, def_space, data, n=40):
+    dim = len(def_space)
+    if dim == 1:
+        return plot2d(function, def_space, data, n)
+    elif dim == 2:
+        return plot3d(function, def_space, data, n)
+    else:
+        return plotNd(function, def_space, data, n)
+
 
 if __name__ == '__main__':
     # Plot of the function
