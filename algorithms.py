@@ -41,15 +41,7 @@ def batchGradientDescent(x_0, function, learningRate=0.01, maxIter=1000):
 
     # @TODO : test de convergence ϵ
     for i in range(maxIter):
-        gradient = np.array([])
-        # Calcul du gradient pour chaque dimension
-        for j in range(dim):
-            # @TODO: mieux commenter
-            # Création de la variation : [0 .. h .. 0] (valeur h en position k)
-            liste = np.array([0 if k != j else h for k in range(dim)])
-            gradJ = (function(*(currentX + liste)) - function(*currentX)) / h
-            gradient = np.append(gradient, [learningRate * gradJ])
-
+        gradient = function.gradient(currentX, h) * learningRate
         currentX -= gradient # Modification de X
         listeX.append(np.copy(currentX)) # On garde la valeur de x en mémoire
 

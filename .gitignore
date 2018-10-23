@@ -1,6 +1,8 @@
 # vim files
 tags
 *.swp
+[Ss]ession.vim
+.undodir/*
 
 # python files
 __pycache__*

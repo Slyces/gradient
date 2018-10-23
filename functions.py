@@ -16,6 +16,18 @@ class Function(object):
         return "{}\ ∶\ {} \longrightarrow {}".format(type(self).__name__, self.args,
                 self.formula)
 
+    def gradient(self, x, h=0.0001):
+        gradient = np.array([])
+        dim = len(x)
+        # Computing the gradient for each dimension
+        for j in range(dim):
+            # @TODO: mieux commenter
+            # Création de la variation : [0 .. h .. 0] (valeur h en position k)
+            delta = np.array([0 if k != j else h for k in range(dim)])
+            gradJ = (self.__call__(*(x + delta)) - self.__call__(*x)) / h
+            gradient = np.append(gradient, [gradJ])
+        return gradient
+
     # ---------------------------- implement this ---------------------------- #
 
     def_space = [] # definition space: [[x₁_min, x₁_max],
@@ -26,7 +38,7 @@ class Function(object):
 
     default_start = [] # default start  : np.array of size (dim)
 
-    args = '𝑥'
+    args = '∅'
     formula = '∅'
 
     def __call__(self, *args):
@@ -35,6 +47,8 @@ class Function(object):
 # /!\ for every function implementing this abstract class, add :
 # /!\       MyFunc = MyFunc()
 # /!\ to make it a Singleton
+
+# ----------------------------- custom functions ----------------------------- #
 
 # -------------------- the 1D square function : (𝑥 + 5)² --------------------- #
 class square(Function):
@@ -62,3 +76,17 @@ class sin2d(Function):
         return np.sin(np.sqrt(x * x + y * y))
 
 sin2d = sin2d()
+
+# ---------------------------- Ackley's function ----------------------------- #
+class ackley(Function):
+    def_space = [[-5, 5], [-5, 5]]
+    default_start = [4.5, 4.5]
+
+    args = 'x,y'
+    formula = '-20 exp[-0.2\sqrt{0.5 (x^2 + y^2)}]' \
+            ' - exp[0.5 (cos2\pi x + cos2\pi y)] + e + 20'
+
+    def __call__(self, x, y):
+        return -20 * np.exp(-0.2 * np.sqrt(0.5 * (x * x + y * y))) - np.exp(0.5 * (np.cos(2 * np.pi * x) \
+                + np.cos(2 * np.pi * y))) + np.exp(1) + 20
+ackley = ackley()

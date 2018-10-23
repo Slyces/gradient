@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 # --------------------------------- imports ---------------------------------- #
-import numpy as np
-import matplotlib
-import matplotlib.pyplot as plt
-import argparse, textwrap
+import numpy as np, matplotlib, matplotlib.pyplot as plt, argparse, textwrap, regex as re
 from display import display
 from algorithms import *
 import utils, functions
@@ -41,9 +38,18 @@ if __name__ == '__main__':
     help="choose the variant among {batch, mini-batch, stochastic}" + default)
 
 
-    parser.add_argument("-f", metavar="function", dest='function', type=str, default='square',
-    help="""choose the function to optimize among {} {}""".format(
-        '{' + ', '.join(functions) + '}', default))
+    parser.add_argument("-f", metavar="function", dest='function', type=str,
+            default='square', help="""choose the function to optimize
+            among {} {}""".format('{' + ', '.join(functions) + '}', default))
+
+    parser.add_argument("-d", "--def-space", metavar="definition-space",
+            dest='def_space', type=str, help=""" definition space :
+            [[x₁-min, x₁-max], [x₂-min, x₂-max], ..., [x𝑛-min, x𝑛-max]]
+             (with n = dim(f))""")
+
+    parser.add_argument("-s", "--start", metavar="starting-point", dest='start',
+            type=str, help="""
+            Starting point : 'x_1 x_2 .. x_n' (with n = dim(f))""")
 
     # --------------------------- optionnal flags ---------------------------- #
     parser.add_argument("-v", "--verbosity", action="count", default=0,
@@ -54,19 +60,55 @@ if __name__ == '__main__':
     parser.add_argument("-r", "--random", action="store_true", dest="random",
             help="Chooses a random starting point")
 
+    # -------------- regular expressions for arguments checking -------------- #
+    re_float = r'(-?\d+[\.,]?\d*)'
+    re_min_max = re_float + ' ' + re_float
+
     # --------------------- extraction of the arguments ---------------------- #
     args = parser.parse_args()
 
-    # tests on args
+    # function
+    function = functions[args.function]
+    dim = len(function.def_space)
+
+    # definition space
+    def_space = function.def_space
+    re_def_space = r'\[?(\[' + re_min_max + r'\] ?){' + str(dim) + r'}\]?'
+    if args.def_space and re.match(re_def_space, args.def_space):
+        floats = re.findall(re_float, args.def_space)
+        floats = [float(f.replace(',', '.')) for f in floats]
+        # the first re to match will be every dim's min_max
+        def_space = [[floats[2 * i], floats[2 * i + 1]] for i in range(dim)]
+    else:
+        print("[arg missmatch] def_space did not match the expected pattern")
+
+    # starting point
+    re_x0 = re_float + r'( ' + re_float + r'){' + str(dim - 1) + r'}'
+    if args.start and re.match(re_x0, args.start):
+        floats = re.findall(re_float, args.start)
+        x_ = [float(f.replace(',', '.')) for f in floats]
+        if all([min_ < x_[i] < max_ for i, (min_, max_)
+            in enumerate(def_space)]):
+            x_0 = x_
+        else:
+            print("[arg missmatch] start-position is correct, but not in def" \
+                  "space")
+    else:
+        print("[arg missmatch] start-position did not match the expected" \
+              "pattern")
+    x_0 = starting_point(def_space) if args.random else function.default_start
+    if not all([min_ < x_0[i] < max_ for i, (min_, max_) in enumerate(def_space)]):
+        x_0 = starting_point(def_space)
+
+
+    # assertions on args
     assert args.function in functions.keys(), "choose a function from the list"
 
-    function = functions[args.function]
-    def_space = function.def_space
     utils.verbose = args.verbose
+
     gradient_descent = globals()[args.variant + "GradientDescent"]
 
     # ---------------------- gradient descent algorithm ---------------------- #
-    x_0 = starting_point(def_space) if args.random else function.default_start
     data = gradient_descent(x_0, function)
     x_n = data[-1]
 
