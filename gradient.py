@@ -79,7 +79,7 @@ if __name__ == '__main__':
         floats = [float(f.replace(',', '.')) for f in floats]
         # the first re to match will be every dim's min_max
         def_space = [[floats[2 * i], floats[2 * i + 1]] for i in range(dim)]
-    else:
+    elif args.def_space:
         print("[arg missmatch] def_space did not match the expected pattern")
 
     # starting point
@@ -93,7 +93,7 @@ if __name__ == '__main__':
         else:
             print("[arg missmatch] start-position is correct, but not in def" \
                   "space")
-    else:
+    elif args.start:
         print("[arg missmatch] start-position did not match the expected" \
               "pattern")
     x_0 = starting_point(def_space) if args.random else function.default_start
