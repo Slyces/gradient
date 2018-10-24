@@ -60,6 +60,10 @@ if __name__ == '__main__':
     parser.add_argument("-r", "--random", action="store_true", dest="random",
             help="Chooses a random starting point")
 
+    parser.add_argument("--levels", action="store_true", dest="levels",
+            help="If dim = 2, plots the 2D levels curves instead of a 3D " \
+                    "visualisation")
+
     # -------------- regular expressions for arguments checking -------------- #
     re_float = r'(-?\d+[\.,]?\d*)'
     re_min_max = re_float + ' ' + re_float
@@ -118,5 +122,5 @@ if __name__ == '__main__':
 
     # ----------------- displaying the function to optimize ------------------ #
     if not args.no_display:
-        display(function, def_space, data, 100)
+        display(function, def_space, data, 100, levels=args.levels)
 
