@@ -3,7 +3,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import utils
 from matplotlib import cm
-from matplotlib.ticker import LinearLocator, FormatStrFormatter
+from matplotlib.ticker import LinearLocator, FormatStrFormatter, AutoLocator
 from mpl_toolkits.mplot3d import Axes3D
 
 # --------------------- discretize the definition space ---------------------- #
@@ -106,19 +106,22 @@ def plotLevels(function, def_space, data, n=40):
     X, Y = discretise_space(def_space, n=n)
     Z = compute_over_grid(function, n, X, Y)
 
-    ax.contour(X, Y, Z)
+    cs = ax.contourf(X, Y, Z, locator=AutoLocator(), cmap=cm.PuBu_r)
 
     # ----------------- plot the starting and ending points ------------------ #
     start, end = data[0], data[-1]
 
-    ax.scatter(*start)
-    ax.plot([x for (x,y) in data], [y for (x,y) in data], linewidth=1)
-    ax.scatter(*end)
+    s = ax.scatter(*start, c='k', label='start')
+    d = ax.plot([x for (x,y) in data], [y for (x,y) in data], c='k', linewidth=1,
+            label='descent')
+    e = ax.scatter(*end, label='end')
 
     # ---------------------------- titles & misc ----------------------------- #
+    cbar = fig.colorbar(cs) # bar with scales
+
     ax.set(xlabel='${}$'.format(str(function)),
             title='{} function'.format(type(function).__name__))
-    ax.grid()
+    plt.legend()
     plt.show()
 
 # ------------------ display any N > 2 dimensional function ------------------ #
