@@ -107,6 +107,7 @@ def plotLevels(function, def_space, data, n=40):
     Z = compute_over_grid(function, n, X, Y)
 
     cs = ax.contourf(X, Y, Z, locator=AutoLocator(), cmap=cm.PuBu_r)
+    # cs = ax.contour(X, Y, Z)
 
     # ----------------- plot the starting and ending points ------------------ #
     start, end = data[0], data[-1]
@@ -114,7 +115,7 @@ def plotLevels(function, def_space, data, n=40):
     s = ax.scatter(*start, c='k', label='start')
     d = ax.plot([x for (x,y) in data], [y for (x,y) in data], c='k', linewidth=1,
             label='descent')
-    e = ax.scatter(*end, label='end')
+    e = ax.scatter(*end, label='end', c='orange')
 
     # ---------------------------- titles & misc ----------------------------- #
     cbar = fig.colorbar(cs) # bar with scales
