@@ -170,6 +170,6 @@ if __name__ == '__main__':
     print(text_display(function, datas))
 
     # ----------------- displaying the function to optimize ------------------ #
-    # if not args.no_display:
-        # display(function, def_space, data, 100, levels=args.levels)
+    if not args.no_display:
+        display(function, def_space, datas, 100, levels=args.levels)
 
