@@ -24,8 +24,9 @@ class Descent(object):
         # TODO: finish this
         pass
 # ----------------------- gradient descent algorithms ------------------------ #
-implemented = ['batch', 'momentum', 'nesterov', 'adagrad', 'adadelta']
+implemented = ['batch', 'momentum', 'nesterov', 'adagrad', 'adadelta', 'RMSprop']
 h = 10e-4 # Variation nécéssaire au calcul du gradient
+epsilon = 5 * 10e-5
 
 # -------------------------- Batch gradient descent -------------------------- #
 def batchGradientDescent(x_0, function, learningRate=0.01, maxIter=10e4):
@@ -40,7 +41,6 @@ def batchGradientDescent(x_0, function, learningRate=0.01, maxIter=10e4):
     listeX = [np.copy(currentX)]
 
     # Initialisation de la variation à v > ϵ
-    epsilon = 10e-5
     variation = epsilon * 10e3
 
     i = 0
@@ -68,7 +68,6 @@ def momentumGradientDescent(x_0, function, gamma=0.9, learningRate=0.01,
     listeVariation = [np.array([0 for i in range(dim)])]
 
     # Initialisation de la variation à v > ϵ
-    epsilon = 10e-5
     variation = epsilon * 10e3
 
     i = 0
@@ -98,7 +97,6 @@ def nesterovGradientDescent(x_0, function, gamma=0.9, learningRate=0.01,
     listeVariation = [np.array([0 for i in range(dim)])]
 
     # Initialisation de la variation à v > ϵ
-    epsilon = 10e-5
     variation = epsilon * 10e3
 
     i = 0
@@ -132,7 +130,6 @@ def adagradGradientDescent(x_0, function, learningRate=0.01, maxIter=10e4):
     squareGradient = np.array([0e-8 for i in range(dim)])
 
     # Initialisation de la variation à v > ϵ
-    epsilon = 10e-5
     variation = epsilon * 10e3
 
     i = 0
@@ -165,11 +162,10 @@ def adadeltaGradientDescent(x_0, function, gamma=0.9, maxIter=10e4):
     squareParameterVariation = np.array([1 for i in range(dim)])
 
     # Initialisation de la variation à v > ϵ
-    epsilon = 10e-5
     variation = epsilon * 10e3
 
     i = 0
-    while i < maxIter and np.linalg.norm(variation) >= epsilon:
+    while i < maxIter - 1 and np.linalg.norm(variation) >= epsilon:
         gradient = function.gradient(currentX, h)
 
         squareGradient = gamma * squareGradient + \
@@ -177,11 +173,12 @@ def adadeltaGradientDescent(x_0, function, gamma=0.9, maxIter=10e4):
         squareParameterVariation = gamma * squareParameterVariation + \
                 (1-gamma) * ((listeX[-1] - listeX[-2]) ** 2)
 
-        variation = np.sqrt(squareParameterVariation / squareGradient) \
+        variation = np.sqrt(squareParameterVariation) / np.sqrt(squareGradient) \
                 * gradient
 
         currentX -= variation # Modification de X
         listeX.append(np.copy(currentX)) # On garde la valeur de x en mémoire
+
 
         if i % 500 == 0:
             utils.vprint("Itération {} : {}".format(i, currentX ))
@@ -206,11 +203,10 @@ def RMSpropGradientDescent(x_0, function, gamma=0.9, learningRate=0.01,
     squareGradient = np.array([0 for i in range(dim)])
 
     # Initialisation de la variation à v > ϵ
-    epsilon = 10e-5
     variation = epsilon * 10e3
 
     i = 0
-    while i < maxIter and np.linalg.norm(variation) >= epsilon:
+    while i < maxIter - 1 and np.linalg.norm(variation) >= epsilon:
         gradient = function.gradient(currentX, h)
 
         squareGradient = gamma * squareGradient + (1 - gamma) * (gradient ** 2)

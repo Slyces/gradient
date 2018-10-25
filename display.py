@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
-import utils
+import utils, textwrap
 from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter, AutoLocator
 from mpl_toolkits.mplot3d import Axes3D
@@ -144,3 +144,39 @@ def display(function, def_space, data, n=40, levels=None):
     else:
         utils.vprint("Three (or more) dimensional function")
         return plotNd(function, def_space, data, n)
+
+# ------------------------------- text display ------------------------------- #
+def text_display(function, datas):
+    # example output:
+    # + --------- + ----- + ---- + ------- + ----- +
+    # | algorithm | start | stop | f(stop) | steps |
+    # + --------- + ----- + ---- + ------- + ----- +
+    # | batch     | 0     | -5   |         |       |
+    # + --------- + ----- + ---- + ------- + ----- +
+    # | adagrad   | 0     | -5   |         |       |
+    # + --------- + ----- + ---- + ------- + ----- +
+    ordered_columns = ['names', 'starts', 'stops', 'f_stops', 'steps']
+    columns = {
+            'names' : ['algorithms'] + list(datas.keys()),
+            'starts' : ['start'] + [str(data[0])[1:-1] for data in datas.values()],
+            'stops' : ['stops'] + [str(data[-1])[1:-1] for data in datas.values()],
+            'f_stops' : ['f(stop)'] + [str(function(*data[-1]))
+                for data in datas.values()],
+            'steps' : ['steps'] + [str(len(data)) for data in datas.values()]
+    }
+    indent = '   '
+
+    maxs = {key : max(map(len, items)) \
+            for (key, items)  in columns.items()}
+    sep = indent + '+ ' + ' + '.join(['-' * maxs[c] for c in ordered_columns]) \
+            + ' +\n' \
+    # ------------------------------------------------------------------------ #
+    rows = ['' for i in range(len(datas) + 1)]
+    for i in range(len(datas) + 1):
+        rows[i] = indent + '| '
+        rows[i] += ' | '.join(columns[c][i].ljust(maxs[c]) \
+                for c in ordered_columns)
+        rows[i] += ' |\n'
+
+    return indent + sep + sep.join(rows) + sep[:-1] #stip the final \n
+

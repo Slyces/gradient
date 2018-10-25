@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # --------------------------------- imports ---------------------------------- #
 import numpy as np, matplotlib, matplotlib.pyplot as plt, argparse, textwrap, regex as re
-from display import display
+from display import display, text_display
 from algorithms import *
 import utils, functions
 
@@ -14,13 +14,11 @@ functions = functions.Function.functions
 # @TODO: homogénéiser les noms de variables --> someVar plutôt que some_var
 
 # @TODO: à généraliser avec plusieurs méthodes
-def starting_point(def_space: np.array):
+def random_starting_point(def_space: np.array):
     return [np.random.uniform(d[0], d[1], 1)[0] for d in def_space]
 
-
-
-# ---------------------------- arguments parsing ----------------------------- #
-if __name__ == '__main__':
+# ------------------------------- parser setup ------------------------------- #
+def setup_parser():
     # ------------------------- program description -------------------------- #
     default = "[default: %(default)s]"
     parser = argparse.ArgumentParser(prog='gradient',
@@ -90,19 +88,11 @@ if __name__ == '__main__':
             help="If dim = 2, plots the 2D levels curves instead of a 3D " \
                     "visualisation")
 
-    # -------------- regular expressions for arguments checking -------------- #
-    re_float = r'(-?\d+[\.,]?\d*)'
+    return parser
+
+# --------------------- test user def space with a regex --------------------- #
+def parse_def_space(def_space, args):
     re_min_max = re_float + ' ' + re_float
-
-    # --------------------- extraction of the arguments ---------------------- #
-    args = parser.parse_args()
-
-    # function
-    function = functions[args.function]
-    dim = len(function.def_space)
-
-    # definition space
-    def_space = function.def_space
     re_def_space = r'\[?(\[' + re_min_max + r'\] ?){' + str(dim) + r'}\]?'
     if args.def_space and re.match(re_def_space, args.def_space):
         floats = re.findall(re_float, args.def_space)
@@ -112,7 +102,11 @@ if __name__ == '__main__':
     elif args.def_space:
         print("[arg missmatch] def_space did not match the expected pattern")
 
-    # starting point
+    return def_space
+
+# ------------------ test user starting point with a regex ------------------- #
+# also replaces the starting point in the def space if it's missplaced
+def parse_starting_point(x_0, args):
     re_x0 = re_float + r'( ' + re_float + r'){' + str(dim - 1) + r'}'
     if args.start and re.match(re_x0, args.start):
         floats = re.findall(re_float, args.start)
@@ -126,9 +120,30 @@ if __name__ == '__main__':
     elif args.start:
         print("[arg missmatch] start-position did not match the expected" \
               "pattern")
-    x_0 = starting_point(def_space) if args.random else function.default_start
     if not all([min_ < x_0[i] < max_ for i, (min_, max_) in enumerate(def_space)]):
-        x_0 = starting_point(def_space)
+        x_0 = random_starting_point(def_space)
+    return x_0
+
+# ---------------------------- arguments parsing ----------------------------- #
+if __name__ == '__main__':
+    parser = setup_parser()
+
+    # -------------- regular expressions for arguments checking -------------- #
+    re_float = r'(-?\d+[\.,]?\d*)'
+
+    # --------------------- extraction of the arguments ---------------------- #
+    args = parser.parse_args()
+
+    # function
+    function = functions[args.function]
+    dim = len(function.def_space)
+
+    # definition space
+    def_space = parse_def_space(function.def_space, args)
+
+    # starting point
+    x_0 = random_starting_point(def_space) if args.random else function.default_start
+    x_0 = parse_starting_point(x_0, args)
 
     # algorithms
     algorithms = args.algorithms if args.algorithms is not None else ['batch']
@@ -138,24 +153,23 @@ if __name__ == '__main__':
     if 'all' in algorithms:
         algorithms = implemented
 
-    print(algorithms)
-
     # assertions on args
     assert args.function in functions.keys(), "choose a function from the list"
 
     utils.verbose = args.verbose
 
-    gradient_descent = globals()[args.variant + "GradientDescent"]
+    # gradient_descent = globals()[args.variant + "GradientDescent"]
 
     # ---------------------- gradient descent algorithm ---------------------- #
-    data = gradient_descent(x_0, function)
-    x_n = data[-1]
+    datas = {}
+    for descent_name in algorithms:
+        descent = globals()[descent_name + "GradientDescent"]
+        datas[descent_name] = descent(x_0, function, maxIter=999)
 
-   # -----------------------------------  ------------------------------------ #
-    print("Gradient descent converged in {n} step from {x_0} ({fx_0}) to {x_n} ({fx_n})".format(
-            n= len(data), x_0= x_0, x_n= x_n, fx_0= function(*x_0), fx_n= function(*x_n)))
+    # ----------------------- display the text results ----------------------- #
+    print(text_display(function, datas))
 
     # ----------------- displaying the function to optimize ------------------ #
-    if not args.no_display:
-        display(function, def_space, data, 100, levels=args.levels)
+    # if not args.no_display:
+        # display(function, def_space, data, 100, levels=args.levels)
 
