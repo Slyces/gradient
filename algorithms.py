@@ -161,3 +161,34 @@ def adadeltaGradientDescent(x_0, function, gamma=0.9, maxIter=10000):
             utils.vprint("Itération {} : {}".format(i, currentX ))
 
     return np.array(listeX)
+
+# RMSprop gradient descent
+def RMSpropGradientDescent(x_0, function, gamma=0.9, learningRate=0.01, maxIter=10000):
+    # constantes
+    h = 0.0001 # Variation nécéssaire au calcul du gradient
+    dim = len(x_0)
+    currentX = np.array(x_0, dtype=np.float64)
+    smallValues = np.array([1e-8 for i in range(dim)])
+    utils.vprint("Starting position :", currentX)
+
+    # Initialisation de la liste des valeurs trouvées
+    listeX = [np.copy(currentX), np.copy(currentX)]
+    
+    # Initialisation de E[g]
+    squareGradient = np.array([0 for i in range(dim)])
+    
+    # @TODO : test de convergence ϵ
+    for i in range(maxIter):
+        
+        gradient = function.gradient(currentX, h)
+        
+        squareGradient = gamma*squareGradient +(1-gamma)* gradient**2        
+        
+        variation = (gradient*learningRate)/np.sqrt(squareGradient+smallValues)
+
+        currentX -= variation # Modification de X
+        listeX.append(np.copy(currentX)) # On garde la valeur de x en mémoire
+
+        if i % 500 == 0:
+            utils.vprint("Itération {} : {}".format(i, currentX ))
+    return np.array(listeX)

@@ -91,6 +91,7 @@ def adagradGradientDescent(x_0, function, learningRate=0.01, maxIter=400):
     h = 0.0001 # Variation nécéssaire au calcul du gradient
     dim = len(x_0)
     currentX = np.array(x_0, dtype=np.float64)
+    smallValues = np.array([1e-8 for i in range(dim)])
 
     utils.vprint("Starting position :", currentX)
 
@@ -98,19 +99,18 @@ def adagradGradientDescent(x_0, function, learningRate=0.01, maxIter=400):
     listeX = [np.copy(currentX)]
     
     # Initiliasation de Gt (somme des carrées des gradients trouvé jusqu'à lors pour chaque paramètre)
-    squareGradient = np.array([0e-8 for i in range(dim)])
+    squareGradient = np.array([0.0 for i in range(dim)])
 
     # @TODO : test de convergence ϵ
     for i in range(maxIter):
         
         gradient = function.gradient(currentX, h)
         squareGradient += gradient ** 2
-        variation = (gradient/ np.sqrt(squareGradient))*learningRate
+        variation = (gradient/ np.sqrt(squareGradient+smallValues))*learningRate
 
         currentX -= variation # Modification de X
         listeX.append(np.copy(currentX)) # On garde la valeur de x en mémoire
         if i % 500 == 0:
-            
             utils.vprint("Itération {} : {}".format(i, currentX ))
             
         if sum([0 if abs(k) < 0.0001 else 1 for k in variation]) == 0:
@@ -124,13 +124,14 @@ def adadeltaGradientDescent(x_0, function, gamma=0.9, maxIter=10000):
     h = 0.0001 # Variation nécéssaire au calcul du gradient
     dim = len(x_0)
     currentX = np.array(x_0, dtype=np.float64)
+    smallValues = np.array([1e-8 for i in range(dim)])
     utils.vprint("Starting position :", currentX)
 
     # Initialisation de la liste des valeurs trouvées
     listeX = [np.copy(currentX), np.copy(currentX)]
     
     # Initialisation de E[g] et E[O]
-    squareGradient = np.array([1e-8 for i in range(dim)])
+    squareGradient = np.array([0 for i in range(dim)])
     squareParameterVariation = np.array([1 for i in range(dim)])
     
     # @TODO : test de convergence ϵ
@@ -141,23 +142,93 @@ def adadeltaGradientDescent(x_0, function, gamma=0.9, maxIter=10000):
         squareGradient = gamma*squareGradient +(1-gamma)* gradient**2
         squareParameterVariation = gamma*squareParameterVariation + (1-gamma)* (listeX[-1]-listeX[-2])**2
         
-        variation = (np.sqrt(squareParameterVariation)/ np.sqrt(squareGradient))*gradient
+        variation = (np.sqrt(squareParameterVariation)/ np.sqrt(squareGradient+smallValues))*gradient
 
         currentX -= variation # Modification de X
         listeX.append(np.copy(currentX)) # On garde la valeur de x en mémoire
 
         if i % 500 == 0:
-            
             utils.vprint("Itération {} : {}".format(i, currentX ))
+        if sum([0 if abs(k) < 0.0001 else 1 for k in variation]) == 0:
+            print("fin", i, currentX)
+            return np.array(listeX)
+    return np.array(listeX)
 
+# RMSprop gradient descent
+def RMSpropGradientDescent(x_0, function, gamma=0.9, learningRate=0.01, maxIter=10000):
+    # constantes
+    h = 0.0001 # Variation nécéssaire au calcul du gradient
+    dim = len(x_0)
+    currentX = np.array(x_0, dtype=np.float64)
+    smallValues = np.array([1e-8 for i in range(dim)])
+    utils.vprint("Starting position :", currentX)
+
+    # Initialisation de la liste des valeurs trouvées
+    listeX = [np.copy(currentX), np.copy(currentX)]
+    
+    # Initialisation de E[g]
+    squareGradient = np.array([0 for i in range(dim)])
+    
+    # @TODO : test de convergence ϵ
+    for i in range(maxIter):
+        
+        gradient = function.gradient(currentX, h)
+        
+        squareGradient = gamma*squareGradient +(1-gamma)* gradient**2        
+        
+        variation = (gradient*learningRate)/np.sqrt(squareGradient+smallValues)
+
+        currentX -= variation # Modification de X
+        listeX.append(np.copy(currentX)) # On garde la valeur de x en mémoire
+
+        if i % 500 == 0:
+            utils.vprint("Itération {} : {}".format(i, currentX ))
+    return np.array(listeX)
+    
+    
+# Adam gradient descent
+# @TODO Comprendre les beta exposant t
+def adamGradientDescent(x_0, function, beta1=0.9, beta2=0.999, learningRate=0.01, maxIter=10000):
+    # constantes
+    h = 0.0001 # Variation nécéssaire au calcul du gradient
+    dim = len(x_0)
+    currentX = np.array(x_0, dtype=np.float64)
+    utils.vprint("Starting position :", currentX)
+
+    # Initialisation de la liste des valeurs trouvées
+    listeX = [np.copy(currentX), np.copy(currentX)]
+      
+    squareVariation = np.array([0 for i in range(dim)])
+    variations = np.array([0 for i in range(dim)])
+    
+    # @TODO : test de convergence ϵ
+    for i in range(maxIter):
+        
+        gradient = function.gradient(currentX, h)
+        squareVariation = beta1*squareVariation + (1-beta1)*gradient
+        variations = beta2*variations + (1-beta2)*gradient**2
+        
+        variation = (squareVariation/ np.sqrt(variations)) * learningRate
+
+        currentX -= variation # Modification de X
+        listeX.append(np.copy(currentX)) # On garde la valeur de x en mémoire
+
+        if i % 500 == 0:
+            utils.vprint("Itération {} : {}".format(i, currentX ))
+        if sum([0 if abs(k) < 0.0001 else 1 for k in variation]) == 0:
+            print("fin", i, currentX)
+            return np.array(listeX)
     return np.array(listeX)
     
 """
 Lancement du programme
 """
 if __name__ == '__main__':
-    batchGradientDescent([0], square)
-    momentumGradientDescent([0], square)
-    nesterovGradientDescent([0], square)
-    adagradGradientDescent([0], square)
-    adadeltaGradientDescent([0], square)
+    x = 4
+    batchGradientDescent([x], square)
+    momentumGradientDescent([x], square)
+    nesterovGradientDescent([x], square)
+    adagradGradientDescent([x], square)
+    adadeltaGradientDescent([x], square)
+    RMSpropGradientDescent([x], square)
+    adamGradientDescent([x], square)
