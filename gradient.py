@@ -22,9 +22,9 @@ def starting_point(def_space: np.array):
 # ---------------------------- arguments parsing ----------------------------- #
 if __name__ == '__main__':
     # ------------------------- program description -------------------------- #
-    default = " [default: %(default)s]"
+    default = "[default: %(default)s]"
     parser = argparse.ArgumentParser(prog='gradient',
-            formatter_class=argparse.RawDescriptionHelpFormatter,
+            formatter_class=argparse.RawTextHelpFormatter,
             description=textwrap.dedent('''\
                 Gradient descent algorithms comparison
                 --------------------------------------
@@ -33,29 +33,55 @@ if __name__ == '__main__':
                 '''))
 
     # ------------------------- optionnal parameters ------------------------- #
+    # variants
     parser.add_argument("--variant", metavar="variant", dest='variant', type=str,
-                default='batch',
-    help="choose the variant among {batch, mini-batch, stochastic}" + default)
+                default='batch', choices= ['batch', 'mini-batch', 'stochastic'],
+    help=textwrap.dedent("""\
+            choose the variant among {batch, mini-batch, stochastic}
+            """) + default)
 
 
-    parser.add_argument("-f", metavar="function", dest='function', type=str,
-            default='square', help="""choose the function to optimize
-            among {} {}""".format('{' + ', '.join(functions) + '}', default))
+    # algorithms: list of implemented algorithms imported from algorithms.py
+    parser.add_argument("-a", "--algorithm", metavar="algo", action='append',
+            dest="algorithms", type=str,
+            choices=implemented + [str(i) for i in range(len(implemented))],
+            help=textwrap.dedent("""\
+                    Uses the given algorithm to find a local minima.
+                    Repeat the option to compare multiple algorithms.
+                    Choose the algorithm amongst:\n
+                    {}\n
+                    You can provide the algorithm's number instead of its name.
+                    If 'all' is supplied, every algorithm will be used.
+                    If no algorithm is supplied, default will be [batch]\
+                    """).format('\n'.join([str(n) + '. ' + a for n,a in \
+                         enumerate(['all'] + implemented)])))
 
-    parser.add_argument("-d", "--def-space", metavar="definition-space",
-            dest='def_space', type=str, help=""" definition space :
-            [[x₁-min, x₁-max], [x₂-min, x₂-max], ..., [x𝑛-min, x𝑛-max]]
-             (with n = dim(f))""")
+    # functions
+    parser.add_argument("-f", "--function", metavar="f", dest='function',
+            type=str, default='square', choices=functions,
+            help=textwrap.dedent("""\
+                    choose the function f to optimize amongst {}
+                    {}""".format(
+                        '{' + ', '.join(functions) + '}', default)))
+    # definition space
+    parser.add_argument("-d", "--def-space", metavar="def-sp",
+            dest='def_space', type=str, help=textwrap.dedent("""\
+                    definition space : [[x₁-min, x₁-max],
+                                        [x₂-min, x₂-max],
+                                              ...       ,
+                                        [x𝑛-min, x𝑛-max]] (with n = dim(f))"""))
 
+    # starting point
     parser.add_argument("-s", "--start", metavar="starting-point", dest='start',
-            type=str, help="""
-            Starting point : 'x_1 x_2 .. x_n' (with n = dim(f))""")
+            type=str, help=textwrap.dedent("""\
+                    Starting point : 'x_1 x_2 .. x_n' (with n = dim(f))"""))
 
     # --------------------------- optionnal flags ---------------------------- #
     parser.add_argument("-v", "--verbosity", action="count", default=0,
                 help="incremental verbosity, can be repeated", dest="verbose")
 
-    parser.add_argument("--no-display", action="store_true", dest="no_display")
+    parser.add_argument("--no-display", action="store_true", dest="no_display",
+            help="do not use graphics outputs")
 
     parser.add_argument("-r", "--random", action="store_true", dest="random",
             help="Chooses a random starting point")
@@ -71,7 +97,7 @@ if __name__ == '__main__':
     # --------------------- extraction of the arguments ---------------------- #
     args = parser.parse_args()
 
-    # function
+    # function
     function = functions[args.function]
     dim = len(function.def_space)
 
@@ -104,6 +130,15 @@ if __name__ == '__main__':
     if not all([min_ < x_0[i] < max_ for i, (min_, max_) in enumerate(def_space)]):
         x_0 = starting_point(def_space)
 
+    # algorithms
+    algorithms = args.algorithms if args.algorithms is not None else ['batch']
+    for (i, a) in enumerate(algorithms):
+        if a in [str(x) for x in range(len(implemented))]:
+            algorithms[i] = (['all'] + implemented)[int(a)]
+    if 'all' in algorithms:
+        algorithms = implemented
+
+    print(algorithms)
 
     # assertions on args
     assert args.function in functions.keys(), "choose a function from the list"
