@@ -44,7 +44,7 @@ def batchGradientDescent(x_0, function, learningRate=0.01, maxIter=10e4):
     variation = epsilon * 10e3
 
     i = 0
-    while i < maxIter and variation >= epsilon:
+    while i < maxIter and np.linalg.norm(variation) >= epsilon:
         variation = function.gradient(currentX, h) * learningRate
         currentX -= variation # Modification de X
         listeX.append(np.copy(currentX)) # On garde la valeur de x en mémoire
@@ -72,7 +72,7 @@ def momentumGradientDescent(x_0, function, gamma=0.9, learningRate=0.01,
     variation = epsilon * 10e3
 
     i = 0
-    while i < maxIter and variation >= epsilon:
+    while i < maxIter and np.linalg.norm(variation) >= epsilon:
         variation = function.gradient(currentX, h) * learningRate + \
                 gamma * listeVariation[i]
         currentX -= variation # Modification de X
@@ -102,7 +102,7 @@ def nesterovGradientDescent(x_0, function, gamma=0.9, learningRate=0.01,
     variation = epsilon * 10e3
 
     i = 0
-    while i < maxIter and variation >= epsilon:
+    while i < maxIter and np.linalg.norm(variation) >= epsilon:
         gammaVar = gamma * listeVariation[i]
         variation = function.gradient(currentX - gammaVar, h) * learningRate \
                 + gammaVar
@@ -136,7 +136,7 @@ def adagradGradientDescent(x_0, function, learningRate=0.01, maxIter=10e4):
     variation = epsilon * 10e3
 
     i = 0
-    while i < maxIter and variation >= epsilon:
+    while i < maxIter and np.linalg.norm(variation) >= epsilon:
         gradient = function.gradient(currentX, h)
         squareGradient += gradient ** 2
         variation = (gradient/ np.sqrt(squareGradient))*learningRate
@@ -169,7 +169,7 @@ def adadeltaGradientDescent(x_0, function, gamma=0.9, maxIter=10e4):
     variation = epsilon * 10e3
 
     i = 0
-    while i < maxIter and variation >= epsilon:
+    while i < maxIter and np.linalg.norm(variation) >= epsilon:
         gradient = function.gradient(currentX, h)
 
         squareGradient = gamma * squareGradient + \
