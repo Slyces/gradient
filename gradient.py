@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # --------------------------------- imports ---------------------------------- #
-import numpy as np, matplotlib, matplotlib.pyplot as plt, argparse, textwrap, regex as re
+import numpy as np, matplotlib, matplotlib.pyplot as plt, argparse, textwrap, re
 from display import display, text_display
 from algorithms import *
 import utils, functions
