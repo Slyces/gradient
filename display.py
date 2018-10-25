@@ -57,9 +57,9 @@ def plot2d(function, def_space, datas, n=40):
     for name, data in datas.items():
         color = next(colors)
         end = data[-1]
-        ax.plot(data, [function(*v) for v in data], linewidth=1, c=color,
+        ax.plot(data, [function(*v) for v in data], linewidth=1, color=color,
                 label=name)
-        ax.scatter(end, function(*end), c=color)
+        ax.scatter(end, function(*end), color=color)
 
     # ---------------------------- titles & misc ----------------------------- #
     ax.set_ylim(min(y) - 0.5, max(y) + 0.5)
@@ -93,8 +93,8 @@ def plot3d(function, def_space, datas, n=40):
     for name, data in datas.items():
         color = next(colors)
         (stop_x, stop_y) = data[-1]
-        ax.scatter(stop_x, stop_y, function(stop_x, stop_y), c=color)
-        ax.plot(data[:,0], data[:,1], [function(*v) for v in data], c=color,
+        ax.scatter(stop_x, stop_y, function(stop_x, stop_y), color=color)
+        ax.plot(data[:,0], data[:,1], [function(*v) for v in data], color=color,
                 label=name)
 
     # ----------------------- appearance and plotting ------------------------ #
@@ -137,9 +137,9 @@ def plotLevels(function, def_space, datas, n=40):
     for name, data in datas.items():
         color = next(colors)
         end = data[-1]
-        e = ax.scatter(*end, c=color)
+        e = ax.scatter(*end, color=color)
         d = ax.plot([x for (x,y) in data], [y for (x,y) in data], linewidth=1,
-                label=name, c=color)
+                label=name, color=color)
 
     # ---------------------------- titles & misc ----------------------------- #
     cbar = fig.colorbar(cs) # bar with scales
