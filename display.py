@@ -202,5 +202,5 @@ def text_display(function, datas):
                 for c in ordered_columns)
         rows[i] += ' |\n'
 
-    return indent + sep + sep.join(rows) + sep[:-1] #stip the final \n
+    return sep + sep.join(rows) + sep[:-1] #stip the final \n
 
