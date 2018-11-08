@@ -126,7 +126,7 @@ def adagradGradientDescent(x_0, function, learningRate=0.01, maxIter=10e4):
     listeX = [np.copy(currentX)]
 
     # Initiliasation de Gt (somme des carrées des gradients trouvés
-    # jusqu'à lors pour chaque paramètre)
+    # jusqu'à lors pour chaque paramètre)
     squareGradient = np.array([0e-8 for i in range(dim)])
 
     # Initialisation de la variation à v > ϵ
@@ -158,8 +158,8 @@ def adadeltaGradientDescent(x_0, function, gamma=0.9, maxIter=10e4):
     listeX = [np.copy(currentX), np.copy(currentX)]
 
     # Initialisation de E[g] et E[O]
-    squareGradient = np.array([1e-8 for i in range(dim)])
-    squareParameterVariation = np.array([1 for i in range(dim)])
+    squareGradient = np.array([0 for i in range(dim)])
+    squareParameterVariation = np.array([1e-3 for i in range(dim)])
 
     # Initialisation de la variation à v > ϵ
     variation = epsilon * 10e3
