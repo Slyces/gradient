@@ -5,6 +5,10 @@ from display import display, text_display
 from algorithms import *
 import utils, functions
 
+# @TODO: ajouter des prints quand on force le start dans l'espace de definition
+# @TODO: ajouter learning rate en option
+# @TODO: ajouter des points intermédiaires
+#
 
 np.set_printoptions(precision=2)
 
@@ -67,7 +71,7 @@ def setup_parser():
                     definition space : [[x₁-min, x₁-max],
                                         [x₂-min, x₂-max],
                                               ...       ,
-                                        [x𝑛-min, x𝑛-max]] (with n = dim(f))"""))
+                                        [x_n-min, x_n-max]] (with n = dim(f))"""))
 
     # starting point
     parser.add_argument("-s", "--start", metavar="starting-point", dest='start',
