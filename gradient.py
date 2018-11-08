@@ -96,8 +96,8 @@ def setup_parser():
 
 # --------------------- test user def space with a regex --------------------- #
 def parse_def_space(def_space, args):
-    re_min_max = re_float + ' ' + re_float
-    re_def_space = r'\[?(\[' + re_min_max + r'\] ?){' + str(dim) + r'}\]?'
+    re_min_max = re_float + '[ ,] ?' + re_float
+    re_def_space = r'\[?(\[' + re_min_max + r'\][ ,]?){' + str(dim) + r'}\]?'
     if args.def_space and re.match(re_def_space, args.def_space):
         floats = re.findall(re_float, args.def_space)
         floats = [float(f.replace(',', '.')) for f in floats]
