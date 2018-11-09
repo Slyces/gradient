@@ -5,7 +5,6 @@ from display import display, text_display
 from algorithms import *
 import utils, functions
 
-# @TODO: ajouter learning rate en option
 # @TODO: ajouter des points intermédiaires
 #
 
@@ -99,6 +98,8 @@ def setup_parser():
     parser.add_argument("--levels", action="store_true", dest="levels",
             help="If dim = 2, plots the 2D levels curves instead of a 3D " \
                     "visualisation")
+    parser.add_argument("--steps", action="store_true", dest="steps",
+            help="Show the steps of the decent (points on the path).")
 
     return parser
 
@@ -194,4 +195,4 @@ if __name__ == '__main__':
 
     # ----------------- displaying the function to optimize ------------------ #
     if not args.no_display:
-        display(function, def_space, datas, 100, levels=args.levels)
+        display(function, def_space, datas, 100, levels=args.levels, steps=args.steps)

@@ -35,7 +35,7 @@ def compute_over_grid(function, n, *grid):
     return results
 
 # --------------- plot a 1 dimensional function in a 2D graph ---------------- #
-def plot2d(function, def_space, datas, n=40):
+def plot2d(function, def_space, datas, n=40, steps=False):
     """ Plots a one dimensional function on a 2 dimensional graph """
     assert len(def_space) == 1
     # ---------------------- create the figure and axes ---------------------- #
@@ -60,6 +60,9 @@ def plot2d(function, def_space, datas, n=40):
         ax.plot(data, [function(*v) for v in data], linewidth=1, color=color,
                 label=name)
         ax.scatter(end, function(*end), color=color)
+        if steps:
+            st = ax.scatter(data, [function(*v) for v in data], color=color,
+                    s=12)
 
     # ---------------------------- titles & misc ----------------------------- #
     ax.set_ylim(min(y) - 0.5, max(y) + 0.5)
@@ -71,7 +74,7 @@ def plot2d(function, def_space, datas, n=40):
     plt.show()
 
 # -------------- plot a 2 dimensional function in a 3D diagram --------------- #
-def plot3d(function, def_space, datas, n=40):
+def plot3d(function, def_space, datas, n=40, steps=False):
     """ Plots a two dimensional function on a 3 dimensional graph """
     assert len(def_space) == 2
     # ---------------------- create the figure and axes ---------------------- #
@@ -96,6 +99,9 @@ def plot3d(function, def_space, datas, n=40):
         ax.scatter(stop_x, stop_y, function(stop_x, stop_y), color=color)
         ax.plot(data[:,0], data[:,1], [function(*v) for v in data], color=color,
                 label=name)
+        if steps:
+            st = ax.scatter(data[:,0], data[:,1], [function(*v) for v in data],
+                    color=color, s=12)
 
     # ----------------------- appearance and plotting ------------------------ #
     ax.set_zlim(np.min(Z) - 0.5, np.max(Z) + 0.5)
@@ -114,7 +120,7 @@ def plot3d(function, def_space, datas, n=40):
     plt.show()
 
 # ---------- displays a 2 dimensional functions with levels curves ----------- #
-def plotLevels(function, def_space, datas, n=40):
+def plotLevels(function, def_space, datas, n=40, steps=False):
     assert len(def_space) == 2
     # ---------------------- create the figure and axes ---------------------- #
     fig, ax = plt.subplots()
@@ -140,6 +146,8 @@ def plotLevels(function, def_space, datas, n=40):
         e = ax.scatter(*end, color=color)
         d = ax.plot([x for (x,y) in data], [y for (x,y) in data], linewidth=1,
                 label=name, color=color)
+        if steps:
+            st = ax.scatter(data[:,0], data[:,1], color=color, s=12)
 
     # ---------------------------- titles & misc ----------------------------- #
     cbar = fig.colorbar(cs) # bar with scales
@@ -150,26 +158,31 @@ def plotLevels(function, def_space, datas, n=40):
     plt.show()
 
 # ------------------ display any N > 2 dimensional function ------------------ #
-def plotNd(function, def_space, data, n=40):
+def plotNd(function, def_space, data, n=40, steps=False):
     print("The N > 2 dimensional functions are not displayable yet.")
 
 # ----------- "switch case" to handle the display of any function ------------ #
-def display(function, def_space, data, n=40, levels=None):
+def display(function, def_space, data, n=40, levels=None, steps=False):
     dim = len(def_space)
     if dim == 1:
         utils.vprint("One dimensional function")
-        return plot2d(function, def_space, data, n)
+        return plot2d(function, def_space, data, n, steps=steps)
     elif dim == 2:
         utils.vprint("Two dimensional function")
         if levels:
-            return plotLevels(function, def_space, data, n)
+            return plotLevels(function, def_space, data, n, steps=steps)
         else:
-            return plot3d(function, def_space, data, n)
+            return plot3d(function, def_space, data, n, steps=steps)
     else:
         utils.vprint("Three (or more) dimensional function")
-        return plotNd(function, def_space, data, n)
+        return plotNd(function, def_space, data, n, steps=steps)
 
 # ------------------------------- text display ------------------------------- #
+def color(x): # small code to color an output in the terminal
+    c = "\033[94m" # color$
+    e = "\033[0m" # endline$
+    return c + x + e
+
 def text_display(function, datas):
     # example output:
     # + --------- + ----- + ---- + ------- + ----- + --- +
@@ -189,11 +202,14 @@ def text_display(function, datas):
             'steps' : ['steps'] + [str(len(data)) for data in datas.values()],
     }
     indent = '   '
-
     maxs = {key : max(map(len, items)) \
             for (key, items)  in columns.items()}
     sep = indent + '+ ' + ' + '.join(['-' * maxs[c] for c in ordered_columns]) \
             + ' +\n' \
+    # ------------------------------------------------------------------------ #
+    # color the best algorithm
+    best_row = min(list(range(len(datas))),
+            key=lambda i: function(*list(datas.values())[i][-1]))
     # ------------------------------------------------------------------------ #
     rows = ['' for i in range(len(datas) + 1)]
     for i in range(len(datas) + 1):
@@ -201,6 +217,6 @@ def text_display(function, datas):
         rows[i] += ' | '.join(columns[c][i].ljust(maxs[c]) \
                 for c in ordered_columns)
         rows[i] += ' |\n'
-
+    rows[best_row + 1] = color(rows[best_row + 1])
     return sep + sep.join(rows) + sep[:-1] #stip the final \n
 
