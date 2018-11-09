@@ -68,15 +68,17 @@ def setup_parser():
     # definition space
     parser.add_argument("-d", "--def-space", metavar="def-sp",
             dest='def_space', type=str, help=textwrap.dedent("""\
-                    definition space : [[x₁-min, x₁-max],
-                                        [x₂-min, x₂-max],
-                                              ...       ,
-                                        [x_n-min, x_n-max]] (with n = dim(f))"""))
+                    definition space : [[x₁-min x₁-max],[x₂-min x₂-max],...,[x_n-min x_n-max]]
+                    (with n = dim(f))"""))
 
     # starting point
     parser.add_argument("-s", "--start", metavar="starting-point", dest='start',
             type=str, help=textwrap.dedent("""\
-                    Starting point : 'x_1 x_2 .. x_n' (with n = dim(f))"""))
+                    Starting point : 'x_1 x_2 .. x_n' (with n = dim(f))
+                    Please specify a starting point included in the definition
+                    space.
+                    In case of invalidity, falls back to default.
+                    In case od default's invalidity, falls back to random."""))
 
     # --------------------------- optionnal flags ---------------------------- #
     parser.add_argument("-v", "--verbosity", action="count", default=0,
@@ -86,7 +88,7 @@ def setup_parser():
             help="do not use graphics outputs")
 
     parser.add_argument("-r", "--random", action="store_true", dest="random",
-            help="Chooses a random starting point")
+            help="Chooses a random starting point. Overrides -s (manual starting point)")
 
     parser.add_argument("--levels", action="store_true", dest="levels",
             help="If dim = 2, plots the 2D levels curves instead of a 3D " \
@@ -110,23 +112,30 @@ def parse_def_space(def_space, args):
 
 # ------------------ test user starting point with a regex ------------------- #
 # also replaces the starting point in the def space if it's missplaced
-def parse_starting_point(x_0, args):
+# Expected behaviour :
+#   if 'random' flag is on, return a random point
+#   if 'start' is provided and valid, return it
+#   else if start is not valid / not provided, fall back to default
+#   if defaut is not valid, fall back to random
+def parse_starting_point(x_default, args):
     re_x0 = re_float + r'( ' + re_float + r'){' + str(dim - 1) + r'}'
     if args.start and re.match(re_x0, args.start):
         floats = re.findall(re_float, args.start)
         x_ = [float(f.replace(',', '.')) for f in floats]
-        if all([min_ < x_[i] < max_ for i, (min_, max_)
+        if all([min_ <= x_[i] <= max_ for i, (min_, max_)
             in enumerate(def_space)]):
-            x_0 = x_
+            return x_
         else:
             print("[arg missmatch] start-position is correct, but not in def" \
-                  "space")
+                  "space. Falling back to default.")
     elif args.start:
         print("[arg missmatch] start-position did not match the expected" \
-              "pattern")
-    if not all([min_ < x_0[i] < max_ for i, (min_, max_) in enumerate(def_space)]):
-        x_0 = random_starting_point(def_space)
-    return x_0
+              "pattern. Falling back to default.")
+    if not all([x_min <= x <= x_max for (x, (x_min, x_max)) in zip(x_default, def_space)])
+        print("[arg missmatch] default start-position is not in def space. " \
+              "Falling back to random.")
+        return random_starting_point(def_space)
+    return x_default
 
 # ---------------------------- arguments parsing ----------------------------- #
 if __name__ == '__main__':
@@ -146,8 +155,10 @@ if __name__ == '__main__':
     def_space = parse_def_space(function.def_space, args)
 
     # starting point
-    x_0 = random_starting_point(def_space) if args.random else function.default_start
-    x_0 = parse_starting_point(x_0, args)
+    if args.random :
+        x_0 = random_starting_point(def_space)
+    else:
+        x_0 = parse_starting_point(x_0, args)
 
     # algorithms
     algorithms = args.algorithms if args.algorithms is not None else ['batch']
