@@ -29,7 +29,7 @@ h = 10e-4 # Variation nécéssaire au calcul du gradient
 epsilon = 5 * 10e-5
 
 # -------------------------- Batch gradient descent -------------------------- #
-def batchGradientDescent(x_0, function, learningRate=0.01, maxIter=10e4):
+def batchGradientDescent(x_0, function, learningRate=0.01, maxIter=10e4, **kwargs):
     """ The gradient descent classic algorithm """
     # constantes
     dim = len(x_0)
@@ -56,7 +56,7 @@ def batchGradientDescent(x_0, function, learningRate=0.01, maxIter=10e4):
 
 # ------------------------ Momentum gradient descent ------------------------- #
 def momentumGradientDescent(x_0, function, gamma=0.9, learningRate=0.01,
-        maxIter=10e4):
+        maxIter=10e4, **kwargs):
     # constantes
     dim = len(x_0)
     currentX = np.array(x_0, dtype=np.float64)
@@ -85,7 +85,7 @@ def momentumGradientDescent(x_0, function, gamma=0.9, learningRate=0.01,
 
 # ------------------------ Nesterov gradient descent ------------------------- #
 def nesterovGradientDescent(x_0, function, gamma=0.9, learningRate=0.01,
-        maxIter=10e4):
+        maxIter=10e4, **kwargs):
     # constantes
     dim = len(x_0)
     currentX = np.array(x_0, dtype=np.float64)
@@ -115,7 +115,7 @@ def nesterovGradientDescent(x_0, function, gamma=0.9, learningRate=0.01,
 
 
 # ------------------------- Adagrad gradient descent ------------------------- #
-def adagradGradientDescent(x_0, function, learningRate=0.01, maxIter=10e4):
+def adagradGradientDescent(x_0, function, learningRate=0.01, maxIter=10e4, **kwargs):
     # constantes
     dim = len(x_0)
     currentX = np.array(x_0, dtype=np.float64)
@@ -148,7 +148,7 @@ def adagradGradientDescent(x_0, function, learningRate=0.01, maxIter=10e4):
     return np.array(listeX)
 
 # ------------------------ Adadelta gradient descent ------------------------- #
-def adadeltaGradientDescent(x_0, function, gamma=0.9, maxIter=10e4):
+def adadeltaGradientDescent(x_0, function, gamma=0.9, maxIter=10e4, **kwargs):
     # constantes
     dim = len(x_0)
     currentX = np.array(x_0, dtype=np.float64)
@@ -188,7 +188,7 @@ def adadeltaGradientDescent(x_0, function, gamma=0.9, maxIter=10e4):
 
 # ------------------------- RMSprop gradient descent ------------------------- #
 def RMSpropGradientDescent(x_0, function, gamma=0.9, learningRate=0.01,
-        maxIter=10e4):
+        maxIter=10e4, **kwargs):
     # constantes
     dim = len(x_0)
     currentX = np.array(x_0, dtype=np.float64)

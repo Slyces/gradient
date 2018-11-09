@@ -5,7 +5,6 @@ from display import display, text_display
 from algorithms import *
 import utils, functions
 
-# @TODO: ajouter des prints quand on force le start dans l'espace de definition
 # @TODO: ajouter learning rate en option
 # @TODO: ajouter des points intermédiaires
 #
@@ -20,6 +19,8 @@ functions = functions.Function.functions
 # @TODO: à généraliser avec plusieurs méthodes
 def random_starting_point(def_space: np.array):
     return [np.random.uniform(d[0], d[1], 1)[0] for d in def_space]
+
+# ─────────────────────────────────── test ─────────────────────────────────── #
 
 # ------------------------------- parser setup ------------------------------- #
 def setup_parser():
@@ -44,9 +45,10 @@ def setup_parser():
 
 
     # algorithms: list of implemented algorithms imported from algorithms.py
+    valid_choices = ['all'] + implemented
     parser.add_argument("-a", "--algorithm", metavar="algo", action='append',
             dest="algorithms", type=str,
-            choices=implemented + [str(i) for i in range(len(implemented))],
+            choices=valid_choices + [str(i) for i in range(len(valid_choices))],
             help=textwrap.dedent("""\
                     Uses the given algorithm to find a local minima.
                     Repeat the option to compare multiple algorithms.
@@ -55,8 +57,8 @@ def setup_parser():
                     You can provide the algorithm's number instead of its name.
                     If 'all' is supplied, every algorithm will be used.
                     If no algorithm is supplied, default will be [batch]\
-                    """).format('\n'.join([str(n) + '. ' + a for n,a in \
-                         enumerate(['all'] + implemented)])))
+                    """).format('\n'.join([str(n) + '. ' + a for (n, a) in \
+                         enumerate(valid_choices)])))
 
     # functions
     parser.add_argument("-f", "--function", metavar="f", dest='function',
@@ -79,6 +81,10 @@ def setup_parser():
                     space.
                     In case of invalidity, falls back to default.
                     In case od default's invalidity, falls back to random."""))
+
+    # learning rate
+    parser.add_argument("-l", "--LR", metavar="learning-rate", dest="lrate",
+            type=float, help="Learning rate of the descent algorithms. Default=0.01", default=1e-2)
 
     # --------------------------- optionnal flags ---------------------------- #
     parser.add_argument("-v", "--verbosity", action="count", default=0,
@@ -131,7 +137,8 @@ def parse_starting_point(x_default, args):
     elif args.start:
         print("[arg missmatch] start-position did not match the expected" \
               "pattern. Falling back to default.")
-    if not all([x_min <= x <= x_max for (x, (x_min, x_max)) in zip(x_default, def_space)])
+    if not all([x_min <= x <= x_max for (x, (x_min, x_max))\
+            in zip(x_default, def_space)]):
         print("[arg missmatch] default start-position is not in def space. " \
               "Falling back to random.")
         return random_starting_point(def_space)
@@ -158,13 +165,13 @@ if __name__ == '__main__':
     if args.random :
         x_0 = random_starting_point(def_space)
     else:
-        x_0 = parse_starting_point(x_0, args)
+        x_0 = parse_starting_point(function.default_start, args)
 
     # algorithms
     algorithms = args.algorithms if args.algorithms is not None else ['batch']
-    for (i, a) in enumerate(algorithms):
-        if a in [str(x) for x in range(len(implemented))]:
-            algorithms[i] = (['all'] + implemented)[int(a)]
+    for (i, alg) in enumerate(algorithms):
+        if alg in [str(x) for x in range(len(implemented))]:
+            algorithms[i] = (['all'] + implemented)[int(alg)]
     if 'all' in algorithms:
         algorithms = implemented
 
@@ -179,7 +186,8 @@ if __name__ == '__main__':
     datas = {}
     for descent_name in algorithms:
         descent = globals()[descent_name + "GradientDescent"]
-        datas[descent_name] = descent(x_0, function, maxIter=999)
+        datas[descent_name] = descent(x_0, function, maxIter=999,
+                learningRate=args.lrate)
 
     # ----------------------- display the text results ----------------------- #
     print(text_display(function, datas))
@@ -187,4 +195,3 @@ if __name__ == '__main__':
     # ----------------- displaying the function to optimize ------------------ #
     if not args.no_display:
         display(function, def_space, datas, 100, levels=args.levels)
-
