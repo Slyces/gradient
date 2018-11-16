@@ -31,20 +31,18 @@ class GradientDescent(object):
        # Initialisation des variables communes à toutes les descentes de gradient
        self.h = 0.0001 # Variation nécéssaire au calcul du gradient
 
-       self.x_0 = x_0 # Starting position
+       self.x_0 = np.array(x_0, dtype=np.float64) # Starting position
        self.dim = len(self.x_0) # Dimension of x_0
        self.function = function # function to minimize
        self.maxIter = maxIter # Maximum number of iteration
        self.tempsStart = time()
        self.maxTime = maxTime # Maximum time of iteration
-       variation = epsilon * 10e3 # Initialisation de la variation à v > ϵ
-
+       variation = np.array([epsilon * 1e3 for i in range(self.dim)])# Initialisation de la variation à v > ϵ
        currentX = np.array(self.x_0, dtype=np.float64)
        utils.vprint("Starting position :", currentX)
 
        self.add_point(np.copy(currentX))# On garde la valeur de x en mémoire
        self.variations.append(np.copy(variation))
-
        # --------------------- LANCEMENT DE LA DESCENTE --------------------- #
        t = 0
        while t < self.maxIter and (time() - self.tempsStart) < self.maxTime and \
@@ -73,7 +71,7 @@ class BatchGradientDescent(GradientDescent):
    def getVariation(self, x):
        return self.function.gradient(x, self.h)*self.learningRate
 
-# --------------- Batch Descent --------------- #  
+# --------------- Momentum Descent --------------- #  
 class MomentumGradientDescent(GradientDescent):
    def __init__(self, learningRate=1e-3, gamma=0.9):
        GradientDescent.__init__(self)
@@ -85,227 +83,95 @@ class MomentumGradientDescent(GradientDescent):
        return self.function.gradient(x, self.h) * self.learningRate \
                + self.gamma * self.variations[-1]
 
-# Momentum gradient descent
-def momentumGradientDescent(x_0, function, gamma=0.9, learningRate=1e-3, maxIter=10000):
-   # constantes
-   h = 0.0001 # Variation nécéssaire au calcul du gradient
-   dim = len(x_0)
-   currentX = np.array(x_0, dtype=np.float64)
+# --------------- Nesterov Descent --------------- #  
+class NesterovGradientDescent(GradientDescent):
+   def __init__(self, learningRate=1e-3, gamma=0.9):
+       GradientDescent.__init__(self)
 
-   utils.vprint("Starting position :", currentX)
-   print("momentum")
-   # Initialisation de la liste des valeurs trouvées
-   listeX = [np.copy(currentX)]
-   listeVariation = [np.array([0 for i in range(dim)])]
+       self.learningRate = learningRate
+       self.gamma = gamma
 
-   # @TODO : test de convergence ϵ
-   for i in range(maxIter):
-       variation = function.gradient(currentX, h) * learningRate + gamma*listeVariation[i]
-       currentX -= variation # Modification de X
-       listeX.append(np.copy(currentX)) # On garde la valeur de x en mémoire
-       listeVariation.append(np.copy(variation))
-
-       if i % 500 == 0:
-           utils.vprint("Itération {} : {}".format(i, currentX ))
-       if sum([0 if abs(k) < 0.0001 else 1 for k in variation]) == 0:
-           print("fin", i, currentX)
-           return np.array(listeX)
-   return np.array(listeX)
-
-# Batch gradient descent
-def batchGradientDescent(x_0, function, learningRate=1e-3, maxIter=10000):
-   """ The gradient descent classic algorithm """
-   # constantes
-   h = 0.0001 # Variation nécéssaire au calcul du gradient
-   dim = len(x_0)
-   currentX = np.array(x_0, dtype=np.float64)
-
-   utils.vprint("Starting position :", currentX)
-   print("batch")
-   # Initialisation de la liste des valeurs trouvées
-   listeX = [np.copy(currentX)]
-
-   # @TODO : test de convergence ϵ
-   for i in range(maxIter):
-       variation = function.gradient(currentX, h) * learningRate
-       currentX -= variation # Modification de X
-       listeX.append(np.copy(currentX)) # On garde la valeur de x en mémoire
-
-       if i % 500 == 0:
-           utils.vprint("Itération {} : {}".format(i, currentX ))
-       if sum([0 if abs(k) < 0.0001 else 1 for k in variation]) == 0:
-           print("fin", i, currentX)
-           return np.array(listeX)
-   print(currentX)
-   return np.array(listeX)
+   def getVariation(self, x):
+       return self.function.gradient(x - self.gamma * self.variations[-1],  self.h) * self.learningRate \
+               + self.gamma * self.variations[-1]
 
 
-# Nesterov gradient descent
-def nesterovGradientDescent(x_0, function, gamma=0.9, learningRate=0.01, maxIter=10000):
-   # constantes
-   h = 0.0001 # Variation nécéssaire au calcul du gradient
-   dim = len(x_0)
-   currentX = np.array(x_0, dtype=np.float64)
+# --------------- Adagrad Descent --------------- #  
+class AdagradGradientDescent(GradientDescent):
+   def __init__(self, learningRate=1e-3):
+       GradientDescent.__init__(self)
 
-   utils.vprint("Starting position :", currentX)
-   print("Nesterov")
-   # Initialisation de la liste des valeurs trouvées
-   listeX = [np.copy(currentX)]
-   listeVariation = [np.array([0 for i in range(dim)])]
+       self.learningRate = learningRate
+       self.squareGradient = 0.1
 
-   # @TODO : test de convergence ϵ
-   for i in range(maxIter):
-       variation = function.gradient(currentX-gamma*listeVariation[i], h) * learningRate + gamma*listeVariation[i]
-       currentX -= variation # Modification de X
-       listeX.append(np.copy(currentX)) # On garde la valeur de x en mémoire
-       listeVariation.append(np.copy(variation))
+   def getVariation(self, x):
+       if type(self.squareGradient) == float:
+           self.squareGradient = np.array([1e-8 for i in range(self.dim)])       
+       
+       gradient = self.function.gradient(x,  self.h)
+       self.squareGradient += gradient ** 2
+       return (gradient / np.sqrt(self.squareGradient))* self.learningRate
+   
 
-       if i % 500 == 0:
-           utils.vprint("Itération {} : {}".format(i, currentX ))
-       if sum([0 if abs(k) < 0.0001 else 1 for k in variation]) == 0:
-           print("fin", i, currentX)
-           return np.array(listeX)
+# --------------- Adadelta Descent --------------- #  
+class AdadeltaGradientDescent(GradientDescent):
+   def __init__(self, gamma=0.9):
+       GradientDescent.__init__(self)
 
-   return np.array(listeX)
+       self.gamma = gamma
+       self.squareGradient = 0.1
+       self.squareParameterVariation = 0.1
+       
+   def getVariation(self, x):
+       if type(self.squareGradient) == float:
+           self.squareGradient = np.array([1e-8 for i in range(self.dim)])
+           self.squareParameterVariation = np.array([1e-3 for i in range(self.dim)])
+           
+           
+       gradient = self.function.gradient(x,  self.h)
+       self.squareGradient = self.gamma * self.squareGradient + (1-self.gamma) * gradient **2
+       self.squareParameterVariation = self.gamma * self.squareParameterVariation + (1-self.gamma)* self.variations[-1]**2
+       return (np.sqrt(self.squareParameterVariation) / np.sqrt(self.squareGradient)) * gradient
 
+# --------------- RMSprop Descent --------------- #  
+class RMSpropGradientDescent(GradientDescent):
+   def __init__(self, learningRate=1e-3, gamma=0.9):
+       GradientDescent.__init__(self)
 
-# Adagrad gradient descent
-def adagradGradientDescent(x_0, function, learningRate=0.01, maxIter=10000):
-   # constantes
-   h = 0.0001 # Variation nécéssaire au calcul du gradient
-   dim = len(x_0)
-   currentX = np.array(x_0, dtype=np.float64)
-   smallValues = np.array([1e-8 for i in range(dim)])
+       self.gamma = gamma
+       self.learningRate = learningRate
+       self.squareGradient = 0.1
+       
+   def getVariation(self, x):
+       if type(self.squareGradient) == float:
+           self.squareGradient = np.array([1e-8 for i in range(self.dim)])
 
-   utils.vprint("Starting position :", currentX)
-   print("dadagrad")
-   # Initialisation de la liste des valeurs trouvées
-   listeX = [np.copy(currentX)]
+       gradient = self.function.gradient(x,  self.h)
+       self.squareGradient = self.gamma * self.squareGradient + (1-self.gamma) * gradient **2
 
-   # Initiliasation de Gt (somme des carrées des gradients trouvé jusqu'à lors pour chaque paramètre)
-   squareGradient = np.array([0.0 for i in range(dim)])
+       return gradient * self.learningRate / np.sqrt(self.squareGradient)
 
-   # @TODO : test de convergence ϵ
-   for i in range(maxIter):
+# --------------- Adam Descent --------------- #  
+class AdamGradientDescent(GradientDescent):
+   def __init__(self, learningRate=1e-3, beta1=0.9, beta2=0.999):
+       GradientDescent.__init__(self)
 
-       gradient = function.gradient(currentX, h)
-       squareGradient += gradient ** 2
-       variation = (gradient/ np.sqrt(squareGradient+smallValues))*learningRate
+       self.learningRate = learningRate
+       self.beta1 = beta1
+       self.beta2 = beta2
+       self.squareVariation = 0.1
+       self.simpleVariation = 0.1
+       
+   def getVariation(self, x):
+       if type(self.squareVariation) == float:
+           self.squareVariation = np.array([0 for i in range(self.dim)])
+           self.simpleVariation = np.array([0 for i in range(self.dim)])
+           
+       gradient = self.function.gradient(x,  self.h)
+       self.squareVariation = self.beta2*self.squareVariation + (1-self.beta2)*gradient**2
+       self.simpleVariation = self.beta1*self.simpleVariation + (1-self.beta1)*gradient
 
-       currentX -= variation # Modification de X
-       listeX.append(np.copy(currentX)) # On garde la valeur de x en mémoire
-       if i % 500 == 0:
-           utils.vprint("Itération {} : {}".format(i, currentX ))
-
-       if sum([0 if abs(k) < 0.0001 else 1 for k in variation]) == 0:
-           print("fin", i, currentX)
-           return np.array(listeX)
-   print(currentX)
-   return np.array(listeX)
-
-# Adadelta gradient descent
-def adadeltaGradientDescent(x_0, function, gamma=0.9, maxIter=10000):
-   # constantes
-   h = 0.0001 # Variation nécéssaire au calcul du gradient
-   dim = len(x_0)
-   currentX = np.array(x_0, dtype=np.float64)
-   smallValues = np.array([1e-8 for i in range(dim)])
-   utils.vprint("Starting position :", currentX)
-   print("adadelta")
-   # Initialisation de la liste des valeurs trouvées
-   listeX = [np.copy(currentX), np.copy(currentX)]
-
-   # Initialisation de E[g] et E[O]
-   squareGradient = np.array([0 for i in range(dim)])
-   squareParameterVariation = np.array([1e-3 for i in range(dim)])
-
-   # @TODO : test de convergence ϵ
-   for i in range(maxIter):
-
-       gradient = function.gradient(currentX, h)
-
-       squareGradient = gamma*squareGradient +(1-gamma)* gradient**2
-       squareParameterVariation = gamma*squareParameterVariation + (1-gamma)* (listeX[-1]-listeX[-2])**2
-
-       variation = (np.sqrt(squareParameterVariation)/ np.sqrt(squareGradient+smallValues))*gradient
-
-       currentX -= variation # Modification de X
-       listeX.append(np.copy(currentX)) # On garde la valeur de x en mémoire
-
-       if i % 500 == 0:
-           utils.vprint("Itération {} : {}".format(i, currentX ))
-       if sum([0 if abs(k) < 0.0001 else 1 for k in variation]) == 0:
-           print("fin", i, currentX)
-           return np.array(listeX)
-   print(currentX)
-   return np.array(listeX)
-
-# RMSprop gradient descent
-def RMSpropGradientDescent(x_0, function, gamma=0.9, learningRate=1e-3, maxIter=10000):
-   # constantes
-   h = 0.0001 # Variation nécéssaire au calcul du gradient
-   dim = len(x_0)
-   currentX = np.array(x_0, dtype=np.float64)
-   smallValues = np.array([1e-8 for i in range(dim)])
-   utils.vprint("Starting position :", currentX)
-   print("RMSprop")
-   # Initialisation de la liste des valeurs trouvées
-   listeX = [np.copy(currentX), np.copy(currentX)]
-
-   # Initialisation de E[g]
-   squareGradient = np.array([0 for i in range(dim)])
-
-   # @TODO : test de convergence ϵ
-   for i in range(maxIter):
-
-       gradient = function.gradient(currentX, h)
-
-       squareGradient = gamma*squareGradient +(1-gamma)* gradient**2
-
-       variation = (gradient*learningRate)/np.sqrt(squareGradient+smallValues)
-
-       currentX -= variation # Modification de X
-       listeX.append(np.copy(currentX)) # On garde la valeur de x en mémoire
-
-       if i % 500 == 0:
-           utils.vprint("Itération {} : {}".format(i, currentX ))
-   print(currentX)
-   return np.array(listeX)
-
-
-# Adam gradient descent
-# @TODO Comprendre les beta exposant t
-def adamGradientDescent(x_0, function, beta1=0.9, beta2=0.999, learningRate=0.01, maxIter=10000):
-   # constantes
-   h = 0.0001 # Variation nécéssaire au calcul du gradient
-   dim = len(x_0)
-   currentX = np.array(x_0, dtype=np.float64)
-   utils.vprint("Starting position :", currentX)
-   print("Adam")
-   # Initialisation de la liste des valeurs trouvées
-   listeX = [np.copy(currentX), np.copy(currentX)]
-
-   squareVariation = np.array([0 for i in range(dim)])
-   variations = np.array([0 for i in range(dim)])
-
-   # @TODO : test de convergence ϵ
-   for i in range(maxIter):
-
-       gradient = function.gradient(currentX, h)
-       squareVariation = beta1*squareVariation + (1-beta1)*gradient
-       variations = beta2*variations + (1-beta2)*gradient**2
-
-       variation = (squareVariation/ np.sqrt(variations)) * learningRate
-
-       currentX -= variation # Modification de X
-       listeX.append(np.copy(currentX)) # On garde la valeur de x en mémoire
-
-       if i % 500 == 0:
-           utils.vprint("Itération {} : {}".format(i, currentX ))
-       if sum([0 if abs(k) < 0.0001 else 1 for k in variation]) == 0:
-           print("fin", i, currentX)
-           return np.array(listeX)
-   return np.array(listeX)
+       return self.simpleVariation * self.learningRate / np.sqrt(self.squareVariation)
 
 """
 Lancement du programme
@@ -313,20 +179,19 @@ Lancement du programme
 if __name__ == '__main__':
    x = [1, 0.5]
    f = sin2d
-   # batchGradientDescent(x, f)
-   # momentumGradientDescent(x, f)
-   # nesterovGradientDescent(x, f)
-   # adagradGradientDescent(x, f)
-   # adadeltaGradientDescent(x, f)
-   # RMSpropGradientDescent(x, f)
-   # adamGradientDescent(x, f)
+
 
    batch = BatchGradientDescent()
    batch.descent(x, f)
    momentum = MomentumGradientDescent()
    momentum.descent(x, f)
-   print("")
-   batchGradientDescent(x, f)
-   print(batch.points[-1])
-   momentumGradientDescent(x, f)
-   print(momentum.points[-1])
+   nesterov = NesterovGradientDescent()
+   nesterov.descent(x, f)
+   adagrad = AdagradGradientDescent()
+   adagrad.descent(x, f)
+   adadelta = AdadeltaGradientDescent()
+   adadelta.descent(x, f)
+   RMSprop = RMSpropGradientDescent()
+   RMSprop.descent(x, f)
+   adam = AdamGradientDescent()
+   adam.descent(x, f)
