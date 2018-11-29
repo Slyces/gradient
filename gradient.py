@@ -110,7 +110,7 @@ def parse_def_space(def_space, args):
     if args.def_space and re.match(re_def_space, args.def_space):
         floats = re.findall(re_float, args.def_space)
         floats = [float(f.replace(',', '.')) for f in floats]
-        # the first re to match will be every dim's min_max
+        # the first re to match will be every dim's min_max
         def_space = [[floats[2 * i], floats[2 * i + 1]] for i in range(dim)]
     elif args.def_space:
         print("[arg missmatch] def_space did not match the expected pattern")
@@ -118,7 +118,7 @@ def parse_def_space(def_space, args):
     return def_space
 
 # ------------------ test user starting point with a regex ------------------- #
-# also replaces the starting point in the def space if it's missplaced
+# also replaces the starting point in the def space if it's missplaced
 # Expected behaviour :
 #   if 'random' flag is on, return a random point
 #   if 'start' is provided and valid, return it
@@ -148,6 +148,8 @@ def parse_starting_point(x_default, args):
 # ---------------------------- arguments parsing ----------------------------- #
 if __name__ == '__main__':
     parser = setup_parser()
+    # @TODO: Utiliser les gradients objets plutôt que fonction
+    # @TODO: 
 
     # -------------- regular expressions for arguments checking -------------- #
     re_float = r'(-?\d+[\.,]?\d*)'
@@ -155,7 +157,7 @@ if __name__ == '__main__':
     # --------------------- extraction of the arguments ---------------------- #
     args = parser.parse_args()
 
-    # function
+    # function
     function = functions[args.function]
     dim = len(function.def_space)
 
@@ -168,7 +170,7 @@ if __name__ == '__main__':
     else:
         x_0 = parse_starting_point(function.default_start, args)
 
-    # algorithms
+    # algorithms
     algorithms = args.algorithms if args.algorithms is not None else ['batch']
     for (i, alg) in enumerate(algorithms):
         if alg in [str(x) for x in range(len(implemented))]:

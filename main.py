@@ -3,181 +3,152 @@ import matplotlib.pyplot as plt
 from functions import *
 import utils
 from time import time
+from algorithms import *
+
+"""
+Import des données
+Retourne un dictionnaire
+"""
+def importDonnees(nom):
+    with open(nom, "r") as fichier:
+        dic = {}
+        entete = fichier.readline().split(" ; ")
+        dicNom = {}
+        for i in range(len(entete)):
+            valeur = entete[i]
+            val = valeur.split("_")
+            dic[val[1]] = {}
+            dic[val[1]]["Valeurs"] = []
+            dic[val[1]]["Points"] = []
+            
+            dicNom[i//2] = val[1]
+        
+        ligne = fichier.readline()
+        while ligne[0] != "P":
+            valeur = ligne.split(" ; ")
+            for i in range(len(valeur)//2):
+                dic[dicNom[i]]["Valeurs"].append(float(valeur[i*2+1]))
+                point = valeur[i*2].split(" ")
+                dic[dicNom[i]]["Points"].append(point)
+            
+            ligne = fichier.readline()
+        
+        ligne = fichier.readline()
+        valeur = ligne.split(" ; ")
+        for i in range(len(valeur)//2):
+            dic[dicNom[i]]["PointOptimal"] = valeur[i*2]
+            dic[dicNom[i]]["ValeurOptimale"] = valeur[i*2+1]
+        
+        ligne = fichier.readline()
+        ligne = fichier.readline()
+        valeur = ligne.split(" ; ")
+        for i in range(len(valeur)//2):
+            dic[dicNom[i]]["Temps"] = valeur[i*2]
+            dic[dicNom[i]]["Iteration"] = valeur[i*2+1]
+    
+    return dic
 
 
-# --------------- descent object wrapping stats of the descent --------------- #
-class GradientDescent(object):
 
-   """Wrapper class containing statistics about the descent"""
-   def __init__(self):
-       """Void init, the descent must be completed sequentially"""
-       self.points = [] # record every points of the descent
-       self.variations = [] # record every variations of the point
-
-   # ----------- getters for first and last point of the descent ------------ #
-   @property
-   def start(self):
-       return self.points[0]
-
-   @property
-   def stop(self):
-       return self.points[-1]
-
-   # --------------------- gradually adding statistics ---------------------- #
-   def add_point(self, p):
-       self.points.append(p)
-
-   def descent(self, x_0, function, maxIter=10000, maxTime=1e10, epsilon=1e-8):
-       # Initialisation des variables communes à toutes les descentes de gradient
-       self.h = 0.0001 # Variation nécéssaire au calcul du gradient
-
-       self.x_0 = np.array(x_0, dtype=np.float64) # Starting position
-       self.dim = len(self.x_0) # Dimension of x_0
-       self.function = function # function to minimize
-       self.maxIter = maxIter # Maximum number of iteration
-       self.tempsStart = time()
-       self.maxTime = maxTime # Maximum time of iteration
-       variation = np.array([epsilon * 1e3 for i in range(self.dim)])# Initialisation de la variation à v > ϵ
-       currentX = np.array(self.x_0, dtype=np.float64)
-       utils.vprint("Starting position :", currentX)
-
-       self.add_point(np.copy(currentX))# On garde la valeur de x en mémoire
-       self.variations.append(np.copy(variation))
-       # --------------------- LANCEMENT DE LA DESCENTE --------------------- #
-       t = 0
-       while t < self.maxIter and (time() - self.tempsStart) < self.maxTime and \
-               np.linalg.norm(variation) >= epsilon:
-           variation = self.getVariation(currentX)
-           currentX -= variation
-           self.add_point(np.copy(currentX))# On garde la valeur de x en mémoire
-           self.variations.append(np.copy(variation))
-           t += 1
-
-           if sum([0 if abs(k) < 0.0001 else 1 for k in variation]) == 0:
-                return self.points
-
-       return self.points
-
-   def getVariation(self, x):
-       return self.function.gradient(x, self.h)
-
-# --------------- Batch Descent --------------- #  
-class BatchGradientDescent(GradientDescent):
-   def __init__(self, learningRate=1e-3):
-       GradientDescent.__init__(self)
-
-       self.learningRate = learningRate
-
-   def getVariation(self, x):
-       return self.function.gradient(x, self.h)*self.learningRate
-
-# --------------- Momentum Descent --------------- #  
-class MomentumGradientDescent(GradientDescent):
-   def __init__(self, learningRate=1e-3, gamma=0.9):
-       GradientDescent.__init__(self)
-
-       self.learningRate = learningRate
-       self.gamma = gamma
-
-   def getVariation(self, x):
-       return self.function.gradient(x, self.h) * self.learningRate \
-               + self.gamma * self.variations[-1]
-
-# --------------- Nesterov Descent --------------- #  
-class NesterovGradientDescent(GradientDescent):
-   def __init__(self, learningRate=1e-3, gamma=0.9):
-       GradientDescent.__init__(self)
-
-       self.learningRate = learningRate
-       self.gamma = gamma
-
-   def getVariation(self, x):
-       return self.function.gradient(x - self.gamma * self.variations[-1],  self.h) * self.learningRate \
-               + self.gamma * self.variations[-1]
-
-
-# --------------- Adagrad Descent --------------- #  
-class AdagradGradientDescent(GradientDescent):
-   def __init__(self, learningRate=1e-3):
-       GradientDescent.__init__(self)
-
-       self.learningRate = learningRate
-       self.squareGradient = 0.1
-
-   def getVariation(self, x):
-       if type(self.squareGradient) == float:
-           self.squareGradient = np.array([1e-8 for i in range(self.dim)])       
+"""
+nom : nom du fichier ou sauvegarder les données
+gradient : L'algorithme de descente de gradient à utiliser
+parameters1 : Les parametres du gradient
+parameters2 : Les parametres de la descent
+""" 
+def creerDonnees(nom, gradients, parameters1, parameters2):
+    with open(nom, "w") as fichier:
+        # Ecriture dans le fichier
+        
+        m = max([len(gradient.points) for gradient in gradients]) # Nombre maximum d'itération
+        s=""
+        for gradient in gradients:
+            s += "Point_"+str(gradient)+" ; Valeur_"+str(gradient) + " ; "
+        s = s[:-3]+"\n"
+        fichier.write(s)
        
-       gradient = self.function.gradient(x,  self.h)
-       self.squareGradient += gradient ** 2
-       return (gradient / np.sqrt(self.squareGradient))* self.learningRate
+        
+        for i in range(m):
+            s=""
+            for gradient in gradients:
+                if i < len(gradient.points):
+                    pts = gradient.points[i]
+                    for v in pts:
+                        s+=str(v)+" "
+                    s+="; "
+                    s+= str(gradient.valeurs[i])
+                    s+=" ; "
+            s=s[:-3]+"\n"
+            
+            fichier.write(s)
+        
+        s=""
+        for gradient in gradients:
+            s += "PointOptimal_"+str(gradient)+" ; ValeurOptimale_"+str(gradient) + " ; "
+        s = s[:-3]+"\n"
+        print(s)
+        fichier.write(s)
    
+        s=""
+        for gradient in gradients:
+            s += str(gradient.points[-1])+" ; "+str(gradient.valeurs[-1])+" ; "
+        s = s[:-3]+"\n"
+        fichier.write(s)
 
-# --------------- Adadelta Descent --------------- #  
-class AdadeltaGradientDescent(GradientDescent):
-   def __init__(self, gamma=0.9):
-       GradientDescent.__init__(self)
+        s=""
+        for gradient in gradients:
+            s += "Temps_"+str(gradient)+" ; Nb iteration_"+str(gradient) + " ; "
+        s = s[:-3]+"\n"
+        fichier.write(s)
+        
+        s=""
+        for gradient in gradients:
+            s += str(gradient.tempsDescent)+" ; "+str(gradient.iteration)+" ; "
+        s = s[:-3]+"\n"
+        fichier.write(s)
+        
+"""
+nom : nom du fichier ou sauvegarder les données
+gradient : L'algorithme de descente de gradient à utiliser
+parameters1 : Les parametres du gradient
+parameters2 : Les parametres de la descent
+""" 
+def creerParameters(nom, gradients, parameters1, parameters2):
+    with open(nom, "w") as fichier:
+        for gradient in gradients:
+            fichier.write(str(gradient)+"\n")
+            fichier.write(str(parameters1)+"\n")
+            fichier.write(str(parameters2)+"\n\n")
 
-       self.gamma = gamma
-       self.squareGradient = 0.1
-       self.squareParameterVariation = 0.1
-       
-   def getVariation(self, x):
-       if type(self.squareGradient) == float:
-           self.squareGradient = np.array([1e-8 for i in range(self.dim)])
-           self.squareParameterVariation = np.array([1e-3 for i in range(self.dim)])
-           
-           
-       gradient = self.function.gradient(x,  self.h)
-       self.squareGradient = self.gamma * self.squareGradient + (1-self.gamma) * gradient **2
-       self.squareParameterVariation = self.gamma * self.squareParameterVariation + (1-self.gamma)* self.variations[-1]**2
-       return (np.sqrt(self.squareParameterVariation) / np.sqrt(self.squareGradient)) * gradient
-
-# --------------- RMSprop Descent --------------- #  
-class RMSpropGradientDescent(GradientDescent):
-   def __init__(self, learningRate=1e-3, gamma=0.9):
-       GradientDescent.__init__(self)
-
-       self.gamma = gamma
-       self.learningRate = learningRate
-       self.squareGradient = 0.1
-       
-   def getVariation(self, x):
-       if type(self.squareGradient) == float:
-           self.squareGradient = np.array([1e-8 for i in range(self.dim)])
-
-       gradient = self.function.gradient(x,  self.h)
-       self.squareGradient = self.gamma * self.squareGradient + (1-self.gamma) * gradient **2
-
-       return gradient * self.learningRate / np.sqrt(self.squareGradient)
-
-# --------------- Adam Descent --------------- #  
-class AdamGradientDescent(GradientDescent):
-   def __init__(self, learningRate=1e-3, beta1=0.9, beta2=0.999):
-       GradientDescent.__init__(self)
-
-       self.learningRate = learningRate
-       self.beta1 = beta1
-       self.beta2 = beta2
-       self.squareVariation = 0.1
-       self.simpleVariation = 0.1
-       
-   def getVariation(self, x):
-       if type(self.squareVariation) == float:
-           self.squareVariation = np.array([0 for i in range(self.dim)])
-           self.simpleVariation = np.array([0 for i in range(self.dim)])
-           
-       gradient = self.function.gradient(x,  self.h)
-       self.squareVariation = self.beta2*self.squareVariation + (1-self.beta2)*gradient**2
-       self.simpleVariation = self.beta1*self.simpleVariation + (1-self.beta1)*gradient
-
-       return self.simpleVariation * self.learningRate / np.sqrt(self.squareVariation)
+"""
+nom : nom du fichier ou sauvegarder les données
+gradient : L'algorithme de descente de gradient à utiliser
+parameters1 : Les parametres du gradient
+parameters2 : Les parametres de la descent
+""" 
+def creerDonneesLisible(nom, gradients,parameters1, parameters2):
+    with open(nom, "w") as fichier:
+        for gradient in gradients:
+            # Nom du gradient
+            fichier.write(str(gradient)+"\n")
+            # Point et valeur optimale
+            fichier.write("La descente de gradient c'est arrêtée au point "+str(gradient.points[-1])+" de valeur "+str(gradient.valeurs[-1])+"\n")
+            # Temps de calcul
+            fichier.write("Le temps de calcul est "+str(gradient.tempsDescent)+"\n")
+            # Nombre d'itération
+            fichier.write("Il y a eu "+str(gradient.iteration)+" iterations\n")
+            # Other useful data 
+            
+            fichier.write("\n")
+        
+        
+        
 
 """
 Lancement du programme
 """
 if __name__ == '__main__':
-   x = [1, 0.5]
+   x = [0.5, 0.5]
    f = sin2d
 
 
@@ -195,3 +166,14 @@ if __name__ == '__main__':
    RMSprop.descent(x, f)
    adam = AdamGradientDescent()
    adam.descent(x, f)
+   
+   parameters1 = []
+   parameters2 = [x, f]
+   
+   dos = "Donnees/"
+   
+   creerDonnees(dos+"Data", [batch, momentum, nesterov, adagrad, adadelta, RMSprop, adam], parameters1, parameters2)
+   creerParameters(dos+"Param", [batch, momentum, nesterov, adagrad, adadelta, RMSprop, adam], parameters1, parameters2)
+   creerDonneesLisible(dos+"Lisible", [batch, momentum, nesterov, adagrad, adadelta, RMSprop, adam], parameters1, parameters2)
+   
+   d = importDonnees(dos+"Data")
