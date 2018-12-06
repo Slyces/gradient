@@ -3,10 +3,11 @@
 import numpy as np, matplotlib, matplotlib.pyplot as plt, argparse, textwrap, re
 from display import display, text_display
 from algorithms import *
+from fichier import *
 import utils, functions
-
-# @TODO: ajouter des points intermédiaires
 #
+# TODO: ajouter des points intermédiaires #
+
 
 np.set_printoptions(precision=2)
 
@@ -58,7 +59,7 @@ def setup_parser():
                     If no algorithm is supplied, default will be [batch]\
                     """).format('\n'.join([str(n) + '. ' + a for (n, a) in \
                          enumerate(valid_choices)])))
-
+    print(valid_choices + [str(i) for i in range(len(valid_choices))])
     # functions
     parser.add_argument("-f", "--function", metavar="f", dest='function',
             type=str, default='square', choices=functions,
@@ -84,7 +85,50 @@ def setup_parser():
     # learning rate
     parser.add_argument("-l", "--LR", metavar="learning-rate", dest="lrate",
             type=float, help="Learning rate of the descent algorithms. Default=0.01", default=1e-2)
+    
+    # gamma
+    parser.add_argument("-gamma", "--gamma", metavar="gamma", dest="gamma",
+            type=float, help="Gamma of the descent algorithms. Default=0.8", default=0.8)
+    
+    # beta 1
+    parser.add_argument("-beta1", "--beta1", metavar="beta1", dest="beta1",
+            type=float, help="Beta 1 of the descent algorithms. Default=0.9", default=0.9)
+    
+    # beta 2
+    parser.add_argument("-beta2", "--beta2", metavar="beta2", dest="beta2",
+            type=float, help="Beta 2 of the descent algorithms. Default=0.999", default=0.999)
+    
+    # Create data
+    parser.add_argument("--createdata", dest='createdata',  action="store_true",
+    help=textwrap.dedent("""\
+                         file which contain every data of the gradient descent}
+            """) + default)
+    
+    # Create sum up
+    parser.add_argument("--createsumup", dest='createsumup',  action="store_true",
+    help=textwrap.dedent("""\
+                         file which contain a sum up of the gradient descent}
+            """) + default)
+    
+    # Create parameters
+    parser.add_argument("--createparameters", dest='createparameters',  action="store_true",
+    help=textwrap.dedent("""\
+                         file which contain the parameter need to restart the test}
+            """) + default)
+    
+    
+    # Iteration number
+    parser.add_argument("--iter", metavar="iter", dest='iter', type=int, default=10000,
+    help=textwrap.dedent("""\
+            Choose how many iteration the descent will do without converging}
+            """) + default)
 
+    # Maximum duration
+    parser.add_argument("--maxtime", metavar="maxtime", dest='maxtime', type=int, default=1e8,
+    help=textwrap.dedent("""\
+            Choose how many time the descent will do without converging}
+            """) + default)
+    
     # --------------------------- optionnal flags ---------------------------- #
     parser.add_argument("-v", "--verbosity", action="count", default=0,
                 help="incremental verbosity, can be repeated", dest="verbose")
@@ -178,23 +222,38 @@ if __name__ == '__main__':
     if 'all' in algorithms:
         algorithms = implemented
 
+    # Modification of algorithms name in order to match with their class
+    algorithms = [algo[0].upper()+algo[1:] for algo in algorithms]
+    
     # assertions on args
     assert args.function in functions.keys(), "choose a function from the list"
 
     utils.verbose = args.verbose
 
-    # gradient_descent = globals()[args.variant + "GradientDescent"]
 
     # ---------------------- gradient descent algorithm ---------------------- #
     datas = {}
     for descent_name in algorithms:
-        descent = globals()[descent_name + "GradientDescent"]
-        datas[descent_name] = descent(x_0, function, maxIter=999,
-                learningRate=args.lrate)
+        gradientClass = globals()[descent_name + "GradientDescent"]
+        gradient = gradientClass(learningRate= args.lrate, gamma = args.gamma, beta1=args.beta1, beta2=args.beta2)
+        gradient.descent(x_0, function, args.iter,args.maxtime, epsilon)
+        
+        if args.createsumup is not None:
+            creerDonneesLisible("donnees lisible", gradient)
+        if args.createparameters is not None:
+            creerParameters("parametre", gradient, (args.lrate, args.gamma, args.beta1, args.beta2), (x_0, function, args.iter, args.maxtime, epsilon))
+        if args.createdata is not None:
+            creerDonnees("donnees", gradient)
+        
+        datas[descent_name] = gradient.points
 
     # ----------------------- display the text results ----------------------- #
     print(text_display(function, datas))
 
+
+    
+        
+        
     # ----------------- displaying the function to optimize ------------------ #
     if not args.no_display:
         display(function, def_space, datas, 100, levels=args.levels, steps=args.steps)
