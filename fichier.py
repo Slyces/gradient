@@ -64,10 +64,10 @@ def creerDonnees(nom, gradient):
 
         fichier.write(s)
    
-        s= str(gradient.points[-1])+";"+str(gradient.valeurs[-1])
+        s= str(gradient.points[-1])+";"+str(gradient.valeurs[-1])+"\n"
         fichier.write(s)
 
-        s= "Temps;Nb iteration"
+        s= "Temps;Nb iteration\n"
         fichier.write(s)
         
         s= str(gradient.tempsDescent)+";"+str(gradient.iteration)
