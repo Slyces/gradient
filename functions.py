@@ -37,7 +37,7 @@ class Function(object):
                                       #                   function
 
     default_start = [] # default start  : np.array of size (dim)
-
+    name = "" # name of the function
     args = '∅'
     formula = '∅'
 
@@ -54,7 +54,7 @@ class Function(object):
 class square(Function):
     def_space = [[-10, 0]]
     default_start = [-8]
-
+    name="square"
     args = 'x'
     formula = '(x + 5)^2'
 
@@ -68,7 +68,7 @@ square = square()
 class sin2d(Function):
     def_space = [[-5, 5], [-5, 5]]
     default_start = [0.1, 1.5]
-
+    name="sin2d"
     args = 'x,y'
     formula = 'sin(\sqrt{x^2 + y^2})'
 
@@ -81,7 +81,7 @@ sin2d = sin2d()
 class ackley(Function):
     def_space = [[-5, 5], [-5, 5]]
     default_start = [4.5, 4.5]
-
+    name="ackley"
     args = 'x,y'
     formula = '-20 exp[-0.2\sqrt{0.5 (x^2 + y^2)}]' \
             ' - exp[0.5 (cos2\pi x + cos2\pi y)] + e + 20'

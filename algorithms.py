@@ -4,7 +4,9 @@ from time import time
 
 # --------------- descent object wrapping stats of the descent --------------- #
 class GradientDescent(object):
-
+    
+   nom = ""
+    
    """Wrapper class containing statistics about the descent"""
    def __init__(self, **kwargs):
        """Void init, the descent must be completed sequentially"""
@@ -41,7 +43,7 @@ class GradientDescent(object):
    def add_point(self, p):
        self.points.append(p)
 
-   def descent(self, x_0, function, maxIter=10000, maxTime=1e10, epsilon=1e-8):
+   def descent(self, x_0, function, maxIter=1000, maxTime=1e10, epsilon=1e-5):
        # Initialisation des variables communes à toutes les descentes de gradient
        self.h = 0.0001 # Variation nécéssaire au calcul du gradient
 
@@ -84,31 +86,39 @@ class GradientDescent(object):
 
 # --------------- Batch Descent --------------- #  
 class BatchGradientDescent(GradientDescent):
+    
+    
+   nom = "batch"
+   param = ["learningRate"]
+   
    def __init__(self, **kwargs):
        GradientDescent.__init__(self, **kwargs)
-       
-       self.nom = "batch"
+
        
    def getVariation(self, x):
        return self.function.gradient(x, self.h)*self.learningRate
 
 # --------------- Momentum Descent --------------- #  
 class MomentumGradientDescent(GradientDescent):
+    
+   nom = "momentum"
+   param = ["learningRate", "gamma"]
    def __init__(self, **kwargs):
        GradientDescent.__init__(self, **kwargs)
 
-       self.nom = "momentum"
    def getVariation(self, x):
        return self.function.gradient(x, self.h) * self.learningRate \
                + self.gamma * self.variations[-1]
 
 # --------------- Nesterov Descent --------------- #  
 class NesterovGradientDescent(GradientDescent):
+    
+   nom = "nesterov"
+   param = ["learningRate", "gamma"]    
    def __init__(self, **kwargs):
        GradientDescent.__init__(self, **kwargs)
 
-       self.nom = "nesterov"
-
+    
    def getVariation(self, x):
        return self.function.gradient(x - self.gamma * self.variations[-1],  self.h) * self.learningRate \
                + self.gamma * self.variations[-1]
@@ -116,10 +126,13 @@ class NesterovGradientDescent(GradientDescent):
 
 # --------------- Adagrad Descent --------------- #  
 class AdagradGradientDescent(GradientDescent):
+
+   nom = "adagrad"
+   param = ["learningRate"]
    def __init__(self, **kwargs):
        GradientDescent.__init__(self, **kwargs)
 
-       self.nom = "adagrad"
+
 
        self.squareGradient = 0.1
 
@@ -134,10 +147,12 @@ class AdagradGradientDescent(GradientDescent):
 
 # --------------- Adadelta Descent --------------- #  
 class AdadeltaGradientDescent(GradientDescent):
+
+   nom = "adadelta"
+   param = ["learningRate", "gamma"]
    def __init__(self, **kwargs):
        GradientDescent.__init__(self, **kwargs)
 
-       self.nom = "adadelta"
 
        self.squareGradient = 0.1
        self.squareParameterVariation = 0.1
@@ -155,10 +170,12 @@ class AdadeltaGradientDescent(GradientDescent):
 
 # --------------- RMSprop Descent --------------- #  
 class RmspropGradientDescent(GradientDescent):
+   
+   nom = "rmsprop"
+   param = ["learningRate", "gamma"]   
    def __init__(self, **kwargs):
        GradientDescent.__init__(self, **kwargs)
 
-       self.nom = "rmsprop"
 
        self.squareGradient = 0.1
        
@@ -173,10 +190,11 @@ class RmspropGradientDescent(GradientDescent):
 
 # --------------- Adam Descent --------------- #  
 class AdamGradientDescent(GradientDescent):
+
+   nom = "adam"
+   param = ["learningRate", "beta1", "beta2"]
    def __init__(self, **kwargs):
        GradientDescent.__init__(self, **kwargs)
-
-       self.nom = "adam"
 
        self.squareVariation = 0.1
        self.simpleVariation = 0.1
