@@ -13,6 +13,9 @@ def generationDeDonnees():
    
    dossier = "Donnees"
    epislon = 0.001 # la marge d'erreur
+   nbPoints = 10
+   
+   
    # Pour chaque fonction
    # Pour différent point
    # Pour différent algorithm
@@ -24,30 +27,27 @@ def generationDeDonnees():
    # Les valeurs des différents paramètre à étudier
    learningRates = [0.0001+0.0001*i**2 for i in range(50)]
    gammas =  [0.99-0.001*i**2 for i in range(20)]
-   beta1s = [0.99-0.001*i**2 for i in range(20)]
-   beta2s = [0.9999-0.0005*i**2 for i in range(20)]
+   beta1s = [0.80, 0.85, 0.9, 0.95, 0.99]
+   beta2s = [0.9, 0.95,0.999, 0.9999]
 
    
    for function in functions:
-      print("Generation de la fonction "+str(function.name))
+      print("Generation de la fonction "+function.name)
       if not os.path.exists(dossier+"/"+function.name):
          os.makedirs(dossier+"/"+function.name)
          
-      points = [[uniform(v[0],v[1]) for v in function.def_space] for i in range(10)]
+      points = [[uniform(v[0],v[1]) for v in function.def_space] for i in range(nbPoints)]
       
       for point in points:
+         print("Generation du point"+str(point))
          if not os.path.exists(dossier+"/"+function.name+"/"+str(point)):
             os.makedirs(dossier+"/"+function.name+"/"+str(point))
             
          for algorithm in algorithms:
+            print("Generation de l'algorithme"+algorithm.nom)
             if not os.path.exists(dossier+"/"+function.name+"/"+str(point)+"/"+algorithm.nom):
                os.makedirs(dossier+"/"+function.name+"/"+str(point)+"/"+algorithm.nom)
             
-            # Pour tout les parametres
-            learningRate = 0.001
-            gamma = 0.9
-            beta1=0.9
-            beta2=0.999
             
             # On regarde si ça vaut la peine d'étudier tout les parametres
             params = []
@@ -71,7 +71,7 @@ def generationDeDonnees():
             param1 = {}
             param2 = {}
             bestGradient = 0
-            # Pour toute les possibilité de paramêtre
+            # Pour toute les possibilités de paramêtre
             for learningRate in params[0]:
                for gamma in params[1]:
                   for beta1 in params[2]:
@@ -104,7 +104,7 @@ def generationDeDonnees():
 Lancement du programme
 """
 if __name__ == '__main__':
-   x = [0.5, 0.5]
+   generationDeDonnees()
    
    
 
