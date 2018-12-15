@@ -77,6 +77,9 @@ class sin2d(Function):
 
 sin2d = sin2d()
 
+"""
+Many Local Minima
+"""
 # ---------------------------- Ackley's function ----------------------------- #
 class ackley(Function):
     def_space = [[-5, 5], [-5, 5]]
@@ -89,4 +92,71 @@ class ackley(Function):
     def __call__(self, x, y):
         return -20 * np.exp(-0.2 * np.sqrt(0.5 * (x * x + y * y))) - np.exp(0.5 * (np.cos(2 * np.pi * x) \
                 + np.cos(2 * np.pi * y))) + np.exp(1) + 20
+                
 ackley = ackley()
+
+
+
+# ---------------------------- bukin's function ----------------------------- #
+class bukin(Function):
+    def_space = [[-15, -5], [-3,3]]
+    default_start = [-7, 0]
+    name="bukin"
+    args = 'x,y'
+    formula = '100*sqrt(abs(y-0.01x)) +0.01*abs(x+1)'
+
+    def __call__(self, x, y):
+        return 100*np.sqrt(abs(y-0.01*x**2)) + 0.01*abs(x+10)
+        
+bukin = bukin()
+
+
+# ---------------------------- crossintray's function----------------------------- 
+class crossintray(Function):
+    def_space = [[-10, 10], [-10,10]]
+    default_start = [-0, 0]
+    name="bukin"
+    args = 'x,y'
+    formula = ''
+
+    def __call__(self, x, y):
+        return -0.0001*(abs(np.sin(x)*np.sin(y)*np.exp(abs(100-np.sqrt(x**2+y**2)/np.pi))+1)**0.1
+        
+crossintray = crossintray()
+
+
+
+# ---------------------------- dropwave's function----------------------------- 
+class dropwave(Function):
+    def_space = [[-5.12,5.12], [-5.12,5.12]]
+    default_start = [-4, 3]
+    name="dropwave"
+    args = 'x,y'
+    formula = ''
+
+    def __call__(self, x, y):
+        return -(1+np.cos(12*np.sqrt(x**2+y**2)))/(0.5*(x**2+y**2)+2)
+        
+dropwave = dropwave()
+
+# ---------------------------- holdertable's function----------------------------- 
+class holdertable(Function):
+    def_space = [[-10, 10], [-10,10]]
+    default_start = [-4, 3]
+    name="holdertable"
+    args = 'x,y'
+    formula = ''
+
+    def __call__(self, x, y):
+        return -abs(np.sin(x)*np.cos(x)-np.exp(abs(1-np.sqrt(x**2+y**2)/np.pi)))
+        
+holdertable = holdertable()
+
+
+
+
+
+
+
+
+
