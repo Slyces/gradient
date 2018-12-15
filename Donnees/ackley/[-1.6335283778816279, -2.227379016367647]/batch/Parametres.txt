@@ -1,0 +1,3 @@
+batch
+{'learningRate': 0.2117, 'gamma': 0, 'beta1': 0, 'beta2': 0}
+{'x_0': [-1.6335283778816279, -2.227379016367647], 'function': <functions.ackley object at 0x000001D89D710B38>}

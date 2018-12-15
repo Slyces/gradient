@@ -1,0 +1,3 @@
+momentum
+{'learningRate': 0.1682, 'gamma': 0.629, 'beta1': 0, 'beta2': 0}
+{'x_0': [2.714723273418488, -1.366806240469134], 'function': <functions.sin2d object at 0x000001C46F410AC8>}

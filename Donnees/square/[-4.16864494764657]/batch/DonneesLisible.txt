@@ -1,0 +1,4 @@
+batch
+La descente de gradient c'est arrêtée au point [-4.98667459] de valeur 0.00017756667871375036
+Le temps de calcul est 0.03989291191101074
+Il y a eu 556 iterations

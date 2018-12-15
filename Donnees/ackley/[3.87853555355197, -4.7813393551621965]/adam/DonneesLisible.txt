@@ -1,0 +1,4 @@
+adam
+La descente de gradient c'est arrêtée au point [-0.00107667  0.00532667] de valeur 0.016157024041735468
+Le temps de calcul est 0.10072970390319824
+Il y a eu 1000 iterations
