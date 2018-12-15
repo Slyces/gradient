@@ -36,7 +36,7 @@ def setup_parser():
                 '''))
 
     # ------------------------- optionnal parameters ------------------------- #
-    # variants
+    # Variants
     parser.add_argument("--variant", metavar="variant", dest='variant', type=str,
                 default='batch', choices= ['batch', 'mini-batch', 'stochastic'],
     help=textwrap.dedent("""\
@@ -44,7 +44,7 @@ def setup_parser():
             """) + default)
 
 
-    # algorithms: list of implemented algorithms imported from algorithms.py
+    # Algorithms: list of implemented algorithms imported from algorithms.py
     valid_choices = ['all'] + implemented
     parser.add_argument("-a", "--algorithm", metavar="algo", action='append',
             dest="algorithms", type=str,
@@ -60,20 +60,22 @@ def setup_parser():
                     """).format('\n'.join([str(n) + '. ' + a for (n, a) in \
                          enumerate(valid_choices)])))
     print(valid_choices + [str(i) for i in range(len(valid_choices))])
-    # functions
+
+    # Functions
     parser.add_argument("-f", "--function", metavar="f", dest='function',
             type=str, default='square', choices=functions,
             help=textwrap.dedent("""\
                     choose the function f to optimize amongst {}
                     {}""".format(
                         '{' + ', '.join(functions) + '}', default)))
-    # definition space
+
+    # Definition space
     parser.add_argument("-d", "--def-space", metavar="def-sp",
             dest='def_space', type=str, help=textwrap.dedent("""\
                     definition space : [[x₁-min x₁-max],[x₂-min x₂-max],...,[x_n-min x_n-max]]
                     (with n = dim(f))"""))
 
-    # starting point
+    # Starting point
     parser.add_argument("-s", "--start", metavar="starting-point", dest='start',
             type=str, help=textwrap.dedent("""\
                     Starting point : 'x_1 x_2 .. x_n' (with n = dim(f))
@@ -82,41 +84,22 @@ def setup_parser():
                     In case of invalidity, falls back to default.
                     In case od default's invalidity, falls back to random."""))
 
-    # learning rate
+    # Learning rate
     parser.add_argument("-l", "--LR", metavar="learning-rate", dest="lrate",
             type=float, help="Learning rate of the descent algorithms. Default=0.01", default=1e-2)
-    
-    # gamma
+
+    # Gamma
     parser.add_argument("-gamma", "--gamma", metavar="gamma", dest="gamma",
             type=float, help="Gamma of the descent algorithms. Default=0.8", default=0.8)
-    
-    # beta 1
+
+    # Beta 1
     parser.add_argument("-beta1", "--beta1", metavar="beta1", dest="beta1",
             type=float, help="Beta 1 of the descent algorithms. Default=0.9", default=0.9)
-    
-    # beta 2
+
+    # Beta 2
     parser.add_argument("-beta2", "--beta2", metavar="beta2", dest="beta2",
             type=float, help="Beta 2 of the descent algorithms. Default=0.999", default=0.999)
-    
-    # Create data
-    parser.add_argument("--createdata", dest='createdata',  action="store_true",
-    help=textwrap.dedent("""\
-                         file which contain every data of the gradient descent}
-            """) + default)
-    
-    # Create sum up
-    parser.add_argument("--createsumup", dest='createsumup',  action="store_true",
-    help=textwrap.dedent("""\
-                         file which contain a sum up of the gradient descent}
-            """) + default)
-    
-    # Create parameters
-    parser.add_argument("--createparameters", dest='createparameters',  action="store_true",
-    help=textwrap.dedent("""\
-                         file which contain the parameter need to restart the test}
-            """) + default)
-    
-    
+
     # Iteration number
     parser.add_argument("--iter", metavar="iter", dest='iter', type=int, default=10000,
     help=textwrap.dedent("""\
@@ -126,24 +109,48 @@ def setup_parser():
     # Maximum duration
     parser.add_argument("--maxtime", metavar="maxtime", dest='maxtime', type=int, default=1e8,
     help=textwrap.dedent("""\
-            Choose how many time the descent will do without converging}
+            Choose how many time (seconds) the descent will do without converging}
             """) + default)
-    
+
     # --------------------------- optionnal flags ---------------------------- #
+    # Verbosity (display more or less debug informations)
     parser.add_argument("-v", "--verbosity", action="count", default=0,
                 help="incremental verbosity, can be repeated", dest="verbose")
 
+    # Turn on & off graphical interface
     parser.add_argument("--no-display", action="store_true", dest="no_display",
             help="do not use graphics outputs")
 
+    # Select starting point at random
     parser.add_argument("-r", "--random", action="store_true", dest="random",
             help="Chooses a random starting point. Overrides -s (manual starting point)")
 
+    # Turn on level plotting
     parser.add_argument("--levels", action="store_true", dest="levels",
             help="If dim = 2, plots the 2D levels curves instead of a 3D " \
                     "visualisation")
+
+    # Number of steps to simulate
     parser.add_argument("--steps", action="store_true", dest="steps",
             help="Show the steps of the decent (points on the path).")
+
+    # Save data
+    parser.add_argument("--save-data", dest='createdata',  action="store_true",
+    help=textwrap.dedent("""\
+                         file which contain every data of the gradient descent}
+            """))
+
+    # Save summary
+    parser.add_argument("--save-summary", dest='createsumup',  action="store_true",
+    help=textwrap.dedent("""\
+                         file which contain a sum up of the gradient descent}
+            """))
+
+    # Save parameters
+    parser.add_argument("--save-parameters", dest='createparameters', action="store_true",
+    help=textwrap.dedent("""\
+                         file which contain the parameter need to restart the test}
+            """))
 
     return parser
 
@@ -193,7 +200,6 @@ def parse_starting_point(x_default, args):
 if __name__ == '__main__':
     parser = setup_parser()
     # @TODO: Utiliser les gradients objets plutôt que fonction
-    # @TODO: 
 
     # -------------- regular expressions for arguments checking -------------- #
     re_float = r'(-?\d+[\.,]?\d*)'
@@ -224,7 +230,7 @@ if __name__ == '__main__':
 
     # Modification of algorithms name in order to match with their class
     algorithms = [algo[0].upper()+algo[1:] for algo in algorithms]
-    
+
     # assertions on args
     assert args.function in functions.keys(), "choose a function from the list"
 
@@ -237,23 +243,19 @@ if __name__ == '__main__':
         gradientClass = globals()[descent_name + "GradientDescent"]
         gradient = gradientClass(learningRate= args.lrate, gamma = args.gamma, beta1=args.beta1, beta2=args.beta2)
         gradient.descent(x_0, function, args.iter,args.maxtime, epsilon)
-        
+
         if args.createsumup is not None:
             creerDonneesLisible("donnees lisible", gradient)
         if args.createparameters is not None:
             creerParameters("parametre", gradient, (args.lrate, args.gamma, args.beta1, args.beta2), (x_0, function, args.iter, args.maxtime, epsilon))
         if args.createdata is not None:
             creerDonnees("donnees", gradient)
-        
+
         datas[descent_name] = gradient.points
 
     # ----------------------- display the text results ----------------------- #
     print(text_display(function, datas))
 
-
-    
-        
-        
     # ----------------- displaying the function to optimize ------------------ #
     if not args.no_display:
         display(function, def_space, datas, 100, levels=args.levels, steps=args.steps)
