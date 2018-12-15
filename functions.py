@@ -152,11 +152,69 @@ class holdertable(Function):
         
 holdertable = holdertable()
 
+"""
+Bowl-Shaped
+"""
+
+# ---------------------------- bohachevsky's function----------------------------- 
+class bohachevsky(Function):
+    def_space = [[-100, 100], [-100,100]]
+    default_start = [-75, 26]
+    name="bohachevsky"
+    args = 'x,y'
+    formula = ''
+
+    def __call__(self, x, y):
+        return x**2+2*y**2-0.3*np.cos(3*np.pi*x)-0.4*np.cos(4*np.pi*y)0.7
+        
+bohachevsky = bohachevsky()
 
 
 
+"""
+Plate-Shaped
+"""
+
+# ---------------------------- booth's function----------------------------- 
+class booth(Function):
+    def_space = [[-10, 10], [-10,10]]
+    default_start = [-7, 6]
+    name="booth"
+    args = 'x,y'
+    formula = ''
+
+    def __call__(self, x, y):
+        return (x+2*y-7)**2 + (2*x+y-5)**2
+        
+booth = booth()
 
 
+# ---------------------------- matyas's function----------------------------- 
+class matyas(Function):
+    def_space = [[-10, 10], [-10,10]]
+    default_start = [-7, 6]
+    name="matyas"
+    args = 'x,y'
+    formula = ''
+
+    def __call__(self, x, y):
+        return 0.26*(x**2+y**2)-0.48*x*y
+        
+matyas = matyas()
+
+
+# ---------------------------- threehumpcamel's function----------------------------- 
+class threehumpcamel(Function):
+    def_space = [[-5, 5], [-5, 5]]
+    default_start = [2,-2.5]
+    name="threehumpcamel"
+    args = 'x,y'
+    formula = ''
+
+    def __call__(self, x, y):
+        return 2*x**2-1.05*x**4+(1/6)*x**6+x*y+y**2
+        
+threehumpcamel = threehumpcamel()
 
 
 
