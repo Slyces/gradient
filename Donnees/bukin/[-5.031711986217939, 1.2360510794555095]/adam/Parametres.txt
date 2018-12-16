@@ -1,0 +1,3 @@
+adam
+{'learningRate': 0.0257, 'gamma': 0, 'beta1': 0.99, 'beta2': 0.9999}
+{'x_0': [-5.031711986217939, 1.2360510794555095], 'function': <functions.bukin object at 0x0000024C9D865080>}

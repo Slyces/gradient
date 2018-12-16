@@ -1,0 +1,3 @@
+rmsprop
+{'learningRate': 0.0017000000000000001, 'gamma': 0.9259999999999999, 'beta1': 0, 'beta2': 0}
+{'x_0': [-7.352462506968997, -1.4169908781819136], 'function': <functions.bukin object at 0x0000024C9D865080>}

@@ -115,12 +115,12 @@ bukin = bukin()
 class crossintray(Function):
     def_space = [[-10, 10], [-10,10]]
     default_start = [-0, 0]
-    name="bukin"
+    name="crossintray"
     args = 'x,y'
     formula = ''
 
     def __call__(self, x, y):
-        return -0.0001*(abs(np.sin(x)*np.sin(y)*np.exp(abs(100-np.sqrt(x**2+y**2)/np.pi))+1)**0.1
+        return -0.0001*(abs(np.sin(x)*np.sin(y)*np.exp(abs(100-np.sqrt(x**2+y**2)/np.pi))+1))**0.1
         
 crossintray = crossintray()
 
@@ -165,7 +165,7 @@ class bohachevsky(Function):
     formula = ''
 
     def __call__(self, x, y):
-        return x**2+2*y**2-0.3*np.cos(3*np.pi*x)-0.4*np.cos(4*np.pi*y)0.7
+        return x**2+2*y**2-0.3*np.cos(3*np.pi*x)-0.4*np.cos(4*np.pi*y)*0.7
         
 bohachevsky = bohachevsky()
 

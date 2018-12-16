@@ -1,0 +1,3 @@
+rmsprop
+{'learningRate': 0.001, 'gamma': 0.99, 'beta1': 0, 'beta2': 0}
+{'x_0': [0.5847212812945912, 3.5202844606929595], 'function': <functions.crossintray object at 0x0000024C9D8650F0>}
