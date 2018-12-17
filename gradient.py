@@ -3,8 +3,9 @@
 import numpy as np, matplotlib, matplotlib.pyplot as plt, argparse, textwrap, re
 from display import display, text_display
 from algorithms import *
-from fichier import *
+from files import *
 import utils, functions
+import os
 #
 # TODO: ajouter des points intermédiaires #
 
@@ -59,7 +60,6 @@ def setup_parser():
                     If no algorithm is supplied, default will be [batch]\
                     """).format('\n'.join([str(n) + '. ' + a for (n, a) in \
                          enumerate(valid_choices)])))
-    print(valid_choices + [str(i) for i in range(len(valid_choices))])
 
     # Functions
     parser.add_argument("-f", "--function", metavar="f", dest='function',
@@ -112,6 +112,34 @@ def setup_parser():
             Choose how many time (seconds) the descent will do without converging}
             """) + default)
 
+    # Save data
+    parser.add_argument("--save-data", dest='data_path',
+    default="",
+    help=textwrap.dedent("""\
+            file which contain every data of the gradient descent}
+            """))
+
+    # Save summary
+    parser.add_argument("--save-summary", dest='summary_path',
+    default="",
+    help=textwrap.dedent("""\
+            file which contain a sum up of the gradient descent}
+            """))
+
+    # Save parameters
+    parser.add_argument("--save-parameters", dest='parameters_path',
+    default="",
+    help=textwrap.dedent("""\
+            file which contain the parameter need to restart the test}
+            """))
+
+    # Save everything to a directory
+    parser.add_argument("--create-directory", dest='directory_path',
+    default="",
+    help=textwrap.dedent("""\
+            path to create a diretory containing parameters, raw data and a summary
+            """))
+
     # --------------------------- optionnal flags ---------------------------- #
     # Verbosity (display more or less debug informations)
     parser.add_argument("-v", "--verbosity", action="count", default=0,
@@ -130,27 +158,9 @@ def setup_parser():
             help="If dim = 2, plots the 2D levels curves instead of a 3D " \
                     "visualisation")
 
-    # Number of steps to simulate
+    # Show steps of the descent
     parser.add_argument("--steps", action="store_true", dest="steps",
             help="Show the steps of the decent (points on the path).")
-
-    # Save data
-    parser.add_argument("--save-data", dest='createdata',  action="store_true",
-    help=textwrap.dedent("""\
-                         file which contain every data of the gradient descent}
-            """))
-
-    # Save summary
-    parser.add_argument("--save-summary", dest='createsumup',  action="store_true",
-    help=textwrap.dedent("""\
-                         file which contain a sum up of the gradient descent}
-            """))
-
-    # Save parameters
-    parser.add_argument("--save-parameters", dest='createparameters', action="store_true",
-    help=textwrap.dedent("""\
-                         file which contain the parameter need to restart the test}
-            """))
 
     return parser
 
@@ -244,12 +254,20 @@ if __name__ == '__main__':
         gradient = gradientClass(learningRate= args.lrate, gamma = args.gamma, beta1=args.beta1, beta2=args.beta2)
         gradient.descent(x_0, function, args.iter,args.maxtime, epsilon)
 
-        if args.createsumup is not None:
-            creerDonneesLisible("donnees lisible", gradient)
-        if args.createparameters is not None:
-            creerParameters("parametre", gradient, (args.lrate, args.gamma, args.beta1, args.beta2), (x_0, function, args.iter, args.maxtime, epsilon))
-        if args.createdata is not None:
-            creerDonnees("donnees", gradient)
+        if args.directory_path:
+            if not os.path.isdir(args.directory_path):
+                os.mkdir(args.directory_path)
+            args.summary_path = os.path.join(args.directory_path, 'summary')
+            args.parameters_path = os.path.join(args.directory_path, 'parameters')
+            args.data_path = os.path.join(args.directory_path, 'data')
+        if args.summary_path:
+            writeSummary(args.summary_path, gradient)
+        if args.parameters_path:
+            writeParameters(args.parameters_path, gradient,
+                    (args.lrate, args.gamma, args.beta1, args.beta2),
+                    (x_0, function, args.iter, args.maxtime, epsilon))
+        if args.data_path:
+            writeData(args.data_path, gradient)
 
         datas[descent_name] = gradient.points
 

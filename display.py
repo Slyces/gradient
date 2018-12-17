@@ -208,8 +208,9 @@ def text_display(function, datas):
             + ' +\n' \
     # ------------------------------------------------------------------------ #
     # color the best algorithm
-    best_row = min(list(range(len(datas))),
-            key=lambda i: function(*list(datas.values())[i][-1]))
+    indexes = list(range(len(datas)))
+    values = list(datas.values())
+    best_row = min(indexes, key=lambda i: function(*values[i][-1]))
     # ------------------------------------------------------------------------ #
     rows = ['' for i in range(len(datas) + 1)]
     for i in range(len(datas) + 1):
@@ -218,5 +219,5 @@ def text_display(function, datas):
                 for c in ordered_columns)
         rows[i] += ' |\n'
     rows[best_row + 1] = color(rows[best_row + 1])
-    return sep + sep.join(rows) + sep[:-1] #stip the final \n
+    return sep + sep.join(rows) + sep[:-1] # strip the final \n
 
