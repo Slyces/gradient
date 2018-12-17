@@ -185,13 +185,13 @@ def color(x): # small code to color an output in the terminal
 
 def text_display(function, datas):
     # example output:
-    # + --------- + ----- + ---- + ------- + ----- + --- +
-    # | algorithm | start | stop | f(stop) | steps | min |
-    # + --------- + ----- + ---- + ------- + ----- + --- +
-    # | batch     | 0     | -5   |         |       | yes |
-    # + --------- + ----- + ---- + ------- + ----- + --- +
-    # | adagrad   | 0     | -5   |         |       |     |
-    # + --------- + ----- + ---- + ------- + ----- + --- +
+    # + --------- + ----- + ---- + ------- + ----- + ---- + --- +
+    # | algorithm | start | stop | f(stop) | steps | time | best |
+    # + --------- + ----- + ---- + ------- + ----- + --- + --- +
+    # | batch     | 0     | -5   |         |       | yes | yes |
+    # + --------- + ----- + ---- + ------- + ----- + --- + --- +
+    # | adagrad   | 0     | -5   |         |       |     |     |
+    # + --------- + ----- + ---- + ------- + ----- + --- + --- +
     ordered_columns = ['names', 'starts', 'stops', 'f_stops', 'steps']
     columns = {
             'names' : ['algorithms'] + list(datas.keys()),

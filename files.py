@@ -105,5 +105,3 @@ def writeSummary(file_name, gradient):
         # Nombre d'itération
         fichier.write("Il y a eu " + str(gradient.iteration) + " iterations\n")
         # Other useful data
-
-

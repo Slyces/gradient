@@ -24,7 +24,7 @@ class Function(object):
             # @TODO: mieux commenter
             # Création de la variation : [0 .. h .. 0] (valeur h en position k)
             delta = np.array([0 if k != j else h for k in range(dim)])
-            gradJ = (self.__call__(*(x + delta)) - self.__call__(*x)) / h
+            gradJ = (self(*(x + delta)) - self(*x)) / h
             gradient = np.append(gradient, [gradJ])
         return gradient
 
