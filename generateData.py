@@ -7,6 +7,11 @@ from algorithms import *
 from files import *
 from time import time
 
+
+
+
+
+
 # ──────────────────────────────────────────────────────────────────────────── #
 
 def generateData(nb_points, function_name):
@@ -41,7 +46,7 @@ def generateData(nb_points, function_name):
 
     for function in functions:
         print("generating function " + function.name)
-        function_directory = os.path.os.path.join(directory, function.name)
+        function_directory = .os.path.join(directory, function.name)
         if not os.path.exists(function_directory):
             os.makedirs(function_directory)
 
@@ -51,13 +56,13 @@ def generateData(nb_points, function_name):
         for point in points:
             str_point = ''.join(str(point).split(' '))
             print("generating point" + str_point)
-            point_directory = os.path.os.path.join(function_directory, str_point)
+            point_directory = os.path.join(function_directory, str_point)
             if not os.path.exists(point_directory):
                 os.makedirs(point_directory)
 
             for algorithm in algorithms:
                 print("generating algorithm " + algorithm.nom)
-                algorithm_directory = os.path.os.path.join(point_directory, algorithm.nom)
+                algorithm_directory = os.path.join(point_directory, algorithm.nom)
                 if not os.path.exists(algorithm_directory):
                     os.makedirs(algorithm_directory)
 
