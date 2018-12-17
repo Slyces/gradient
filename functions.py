@@ -73,7 +73,7 @@ class sin2d(Function):
     formula = 'sin(\sqrt{x^2 + y^2})'
 
     def __call__(self, x, y):
-        return np.sin(np.sqrt(np.power(x,2), np.power(y,2)))
+        return np.sin(np.sqrt(np.power(x,2)+ np.power(y,2)))
 
 sin2d = sin2d()
 
@@ -120,7 +120,7 @@ class crossintray(Function):
     formula = ''
 
     def __call__(self, x, y):
-        return -0.0001 * (np.power(abs(np.sin(x) * np.sin(y) * np.exp(abs(100 - np.sqrt(np.power(x,2)+np.power(y,2)) / np.pi)) + 1)), 0.1)
+        return -0.0001 * (np.power(abs(np.sin(x) * np.sin(y) * np.exp(abs(100 - np.sqrt(np.power(x,2)+np.power(y,2)) / np.pi)) + 1), 0.1))
         
 crossintray = crossintray()
 
@@ -165,7 +165,7 @@ class bohachevsky(Function):
     formula = ''
 
     def __call__(self, x, y):
-        return np.power(x,2) + 2*np.power(y,2) - 0.3 * np.cos(3*np.pi*x)-0.4*np.cos(4*np.pi*y) * 0.7
+        return np.power(x, 2) + 2*np.power(y, 2) - 0.3 * np.cos(3*np.pi*x)-0.4*np.cos(4*np.pi*y) * 0.7
         
 bohachevsky = bohachevsky()
 
@@ -184,7 +184,7 @@ class booth(Function):
     formula = ''
 
     def __call__(self, x, y):
-        return np.power((x + 2 * y - 7),2) + np.power(2 * x + y - 5,2)
+        return np.power((x + 2 * y - 7), 2) + np.power(2 * x + y - 5, 2)
         
 booth = booth()
 
@@ -198,7 +198,7 @@ class matyas(Function):
     formula = ''
 
     def __call__(self, x, y):
-        return 0.26 * (np.power(x,2) + np.power(y,2)) - 0.48 * x * y
+        return 0.26 * (np.power(x, 2) + np.power(y, 2)) - 0.48 * x * y
         
 matyas = matyas()
 
@@ -212,7 +212,7 @@ class threehumpcamel(Function):
     formula = ''
 
     def __call__(self, x, y):
-        return 2 * np.power(x,2) - 1.05 * np.power(x,4) + (1/6) * np.power(x,6) + x * y + np.power(y,2)
+        return 2 * np.power(x, 2) - 1.05 * np.power(x, 4) + (1/6) * np.power(x, 6) + x * y + np.power(y, 2)
         
 threehumpcamel = threehumpcamel()
 
@@ -228,7 +228,7 @@ class hessian(Function):
     formula = ''
 
     def __call__(self, x, y):
-        return np.max(np.power(x,2) - np.power(y,2), -10)
+        return np.max(np.power(x, 2) - np.power(y, 2), -10)
         
 hessian = hessian()
 
@@ -244,4 +244,18 @@ class beale(Function):
         return np.power(1.5 - x + x * y, 2) + np.power(2.25 - x + x * np.power(y, 2), 2) + np.power(2.625 - x + x * np.power(y, 3), 2)
         
 beale = beale()
+
+
+# -------------------- the 1D cube function : 𝑥^3 --------------------- #
+class cube(Function):
+    def_space = [[-10, 0]]
+    default_start = [-8]
+    name = "cube"
+    args = 'x'
+    formula = 'x^3'
+
+    def __call__(self, x):
+        return np.max(np.power(x,3), -10)
+
+cube = cube()
 

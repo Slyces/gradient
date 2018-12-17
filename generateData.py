@@ -46,7 +46,7 @@ def generateData(nb_points, function_name):
 
     for function in functions:
         print("generating function " + function.name)
-        function_directory = .os.path.join(directory, function.name)
+        function_directory = os.path.join(directory, function.name)
         if not os.path.exists(function_directory):
             os.makedirs(function_directory)
 
