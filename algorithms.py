@@ -76,7 +76,7 @@ class BatchGradientDescent(GradientDescent):
 
 
    nom = "batch"
-   params = ["learningRate"]
+   param = ["learningRate"]
 
    def __init__(self, **kwargs):
        GradientDescent.__init__(self, **kwargs)
@@ -89,7 +89,7 @@ class BatchGradientDescent(GradientDescent):
 class MomentumGradientDescent(GradientDescent):
 
    nom = "momentum"
-   params = ["learningRate", "gamma"]
+   param = ["learningRate", "gamma"]
    def __init__(self, **kwargs):
        GradientDescent.__init__(self, **kwargs)
 
@@ -101,7 +101,7 @@ class MomentumGradientDescent(GradientDescent):
 class NesterovGradientDescent(GradientDescent):
 
    nom = "nesterov"
-   params = ["learningRate", "gamma"]
+   param = ["learningRate", "gamma"]
    def __init__(self, **kwargs):
        GradientDescent.__init__(self, **kwargs)
 
@@ -115,7 +115,7 @@ class NesterovGradientDescent(GradientDescent):
 class AdagradGradientDescent(GradientDescent):
 
    nom = "adagrad"
-   params = ["learningRate"]
+   param = ["learningRate"]
    def __init__(self, **kwargs):
        GradientDescent.__init__(self, **kwargs)
 
@@ -136,7 +136,7 @@ class AdagradGradientDescent(GradientDescent):
 class AdadeltaGradientDescent(GradientDescent):
 
    nom = "adadelta"
-   params = ["learningRate", "gamma"]
+   param = ["learningRate", "gamma"]
    def __init__(self, **kwargs):
        GradientDescent.__init__(self, **kwargs)
 
@@ -159,7 +159,7 @@ class AdadeltaGradientDescent(GradientDescent):
 class RmspropGradientDescent(GradientDescent):
 
    nom = "rmsprop"
-   params = ["learningRate", "gamma"]
+   param = ["learningRate", "gamma"]
    def __init__(self, **kwargs):
        GradientDescent.__init__(self, **kwargs)
 
@@ -179,7 +179,7 @@ class RmspropGradientDescent(GradientDescent):
 class AdamGradientDescent(GradientDescent):
 
    nom = "adam"
-   params = ["learningRate", "beta1", "beta2"]
+   param = ["learningRate", "beta1", "beta2"]
    def __init__(self, **kwargs):
        GradientDescent.__init__(self, **kwargs)
 

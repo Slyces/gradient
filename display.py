@@ -183,16 +183,31 @@ def color(x): # small code to color an output in the terminal
     e = "\033[0m" # endline$
     return c + x + e
 
-def text_display(function, datas):
+def better_descent(f, data1, data2):
+    threshold = 10e-2
+    v1, v2 = f(*data1[-1]), f(*data2[-1])
+    n1, n2 = len(data1), len(data2)
+    return v2 - v1 > threshold or (abs(v1 - v2) < 0.1 * threshold and n1 < n2)
+
+def text_display(function, datas, times):
     # example output:
-    # + --------- + ----- + ---- + ------- + ----- + ---- + --- +
+    # + --------- + ----- + ---- + ------- + ----- + ---- + ---- +
     # | algorithm | start | stop | f(stop) | steps | time | best |
-    # + --------- + ----- + ---- + ------- + ----- + --- + --- +
-    # | batch     | 0     | -5   |         |       | yes | yes |
-    # + --------- + ----- + ---- + ------- + ----- + --- + --- +
-    # | adagrad   | 0     | -5   |         |       |     |     |
-    # + --------- + ----- + ---- + ------- + ----- + --- + --- +
-    ordered_columns = ['names', 'starts', 'stops', 'f_stops', 'steps']
+    # + --------- + ----- + ---- + ------- + ----- + ---- + ---- +
+    # | batch     | 0     | -5   |         |       | 0.17 | yes  |
+    # + --------- + ----- + ---- + ------- + ----- + ---- + ---- +
+    # | adagrad   | 0     | -5   |         |       | 1.54 |      |
+    # + --------- + ----- + ---- + ------- + ----- + ---- + ---- +
+    # ------------------------------------------------------------------------ #
+    # color the best algorithm
+    indexes = list(range(len(datas)))
+    values = list(datas.values())
+    best_row = min(indexes, key=lambda i: function(*values[i][-1]))
+    # ------------------------------------------------------------------------ #
+    ordered_columns = ['names', 'starts', 'stops', 'f_stops', 'steps', 'time', 'rank']
+    ranked_algorithms = list(datas.keys())
+    sorted(ranked_algorithms, key=lambda key1, key2:
+            better_descent(function, datas[key1].values(), datas[key2].values()))
     columns = {
             'names' : ['algorithms'] + list(datas.keys()),
             'starts' : ['start'] + [str(data[0])[1:-1] for data in datas.values()],
@@ -200,17 +215,14 @@ def text_display(function, datas):
             'f_stops' : ['f(stop)'] + [str(function(*data[-1]))
                 for data in datas.values()],
             'steps' : ['steps'] + [str(len(data)) for data in datas.values()],
+            'time' : ['time (ms)'] + ['{:.8}'.format(t * 1000) for t in times.values()],
+            'rank' : ['rank'] + [ ranked_algorithms.find(key) + 1 for key in datas.keys()]
     }
     indent = '   '
     maxs = {key : max(map(len, items)) \
             for (key, items)  in columns.items()}
     sep = indent + '+ ' + ' + '.join(['-' * maxs[c] for c in ordered_columns]) \
-            + ' +\n' \
-    # ------------------------------------------------------------------------ #
-    # color the best algorithm
-    indexes = list(range(len(datas)))
-    values = list(datas.values())
-    best_row = min(indexes, key=lambda i: function(*values[i][-1]))
+            + ' +\n'
     # ------------------------------------------------------------------------ #
     rows = ['' for i in range(len(datas) + 1)]
     for i in range(len(datas) + 1):

@@ -249,6 +249,7 @@ if __name__ == '__main__':
 
     # ---------------------- gradient descent algorithm ---------------------- #
     datas = {}
+    times = {}
     for descent_name in algorithms:
         gradientClass = globals()[descent_name + "GradientDescent"]
         gradient = gradientClass(learningRate= args.lrate, gamma = args.gamma, beta1=args.beta1, beta2=args.beta2)
@@ -270,9 +271,10 @@ if __name__ == '__main__':
             writeData(args.data_path, gradient)
 
         datas[descent_name] = gradient.points
+        times[descent_name] = gradient.tempsDescent
 
     # ----------------------- display the text results ----------------------- #
-    print(text_display(function, datas))
+    print(text_display(function, datas, times))
 
     # ----------------- displaying the function to optimize ------------------ #
     if not args.no_display:
