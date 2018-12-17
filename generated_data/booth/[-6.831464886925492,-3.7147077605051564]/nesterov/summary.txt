@@ -1,0 +1,4 @@
+generated_data/booth/[-6.831464886925492,-3.7147077605051564]/nesterov/summary.txt
+La descente de gradient c'est arrêtée au point [0.9880852  3.01185915] de valeur 0.0002826141831868937
+Le temps de calcul est 0.001009225845336914
+Il y a eu 25 iterations

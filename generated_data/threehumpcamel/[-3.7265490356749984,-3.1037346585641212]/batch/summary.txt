@@ -1,0 +1,4 @@
+generated_data/threehumpcamel/[-3.7265490356749984,-3.1037346585641212]/batch/summary.txt
+La descente de gradient c'est arrêtée au point [ 0.00513836 -0.01253668] de valeur 0.00014555519669969845
+Le temps de calcul est 0.02406787872314453
+Il y a eu 643 iterations

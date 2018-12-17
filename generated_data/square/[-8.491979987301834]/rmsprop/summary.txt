@@ -1,0 +1,4 @@
+generated_data/square/[-8.491979987301834]/rmsprop/summary.txt
+La descente de gradient c'est arrêtée au point [-5.00006338] de valeur 4.0171110836795176e-09
+Le temps de calcul est 0.00010848045349121094
+Il y a eu 3 iterations

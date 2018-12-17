@@ -1,0 +1,3 @@
+generated_data/sin2d/[1.1699304518490825,-3.306928942856419]/momentum/parameters.txt
+{'gamma': 0.629, 'beta2': 0, 'beta1': 0, 'learningRate': 0.17}
+{'x_0': [1.1699304518490825, -3.306928942856419], 'function': <functions.sin2d object at 0x7f3a0ab4ee80>}

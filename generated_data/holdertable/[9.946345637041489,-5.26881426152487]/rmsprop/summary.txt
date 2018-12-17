@@ -1,0 +1,4 @@
+generated_data/holdertable/[9.946345637041489,-5.26881426152487]/rmsprop/summary.txt
+La descente de gradient c'est arrêtée au point [ 816.69634415 -812.01881096] de valeur -5.946330049988356e+158
+Le temps de calcul est 0.002393960952758789
+Il y a eu 36 iterations

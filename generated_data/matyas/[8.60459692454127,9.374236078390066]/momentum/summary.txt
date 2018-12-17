@@ -1,0 +1,4 @@
+generated_data/matyas/[8.60459692454127,9.374236078390066]/momentum/summary.txt
+La descente de gradient c'est arrêtée au point [-0.08682744 -0.08188535] de valeur 0.00029074609417348513
+Le temps de calcul est 0.036566972732543945
+Il y a eu 1000 iterations

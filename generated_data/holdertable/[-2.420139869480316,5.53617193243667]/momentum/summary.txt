@@ -1,0 +1,4 @@
+generated_data/holdertable/[-2.420139869480316,5.53617193243667]/momentum/summary.txt
+La descente de gradient c'est arrêtée au point [nan nan] de valeur nan
+Le temps de calcul est 0.009905099868774414
+Il y a eu 156 iterations

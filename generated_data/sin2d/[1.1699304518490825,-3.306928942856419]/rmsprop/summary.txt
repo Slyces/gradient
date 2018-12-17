@@ -1,0 +1,4 @@
+generated_data/sin2d/[1.1699304518490825,-3.306928942856419]/rmsprop/summary.txt
+La descente de gradient c'est arrêtée au point [ 2.08091749 -4.18726741] de valeur -0.9993319503238463
+Le temps de calcul est 0.049561500549316406
+Il y a eu 1000 iterations

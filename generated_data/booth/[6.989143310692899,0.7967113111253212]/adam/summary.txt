@@ -1,0 +1,4 @@
+generated_data/booth/[6.989143310692899,0.7967113111253212]/adam/summary.txt
+La descente de gradient c'est arrêtée au point [0.99521738 3.00203055] de valeur 5.729229913099431e-05
+Le temps de calcul est 0.0030112266540527344
+Il y a eu 64 iterations

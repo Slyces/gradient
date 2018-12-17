@@ -1,0 +1,4 @@
+generated_data/sin2d/[-4.286572855394964,-1.5017402912074482]/nesterov/summary.txt
+La descente de gradient c'est arrêtée au point [-4.3660023  -1.69874791] de valeur -0.9996205353399656
+Le temps de calcul est 0.006238222122192383
+Il y a eu 120 iterations
