@@ -1,0 +1,4 @@
+generated_data/holdertable/[7.458918968090874,-7.1758079146215925]/nesterov/summary.txt
+La descente de gradient c'est arrêtée au point [nan nan] de valeur nan
+Le temps de calcul est 0.004644155502319336
+Il y a eu 71 iterations

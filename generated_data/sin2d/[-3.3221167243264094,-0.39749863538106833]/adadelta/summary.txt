@@ -1,0 +1,4 @@
+generated_data/sin2d/[-3.3221167243264094,-0.39749863538106833]/adadelta/summary.txt
+La descente de gradient c'est arrêtée au point [-4.33232813 -1.85412014] de valeur -0.9999999997308539
+Le temps de calcul est 0.0007483959197998047
+Il y a eu 11 iterations

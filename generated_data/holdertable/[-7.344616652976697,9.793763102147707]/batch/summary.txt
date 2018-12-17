@@ -1,0 +1,4 @@
+generated_data/holdertable/[-7.344616652976697,9.793763102147707]/batch/summary.txt
+La descente de gradient c'est arrêtée au point [nan nan] de valeur nan
+Le temps de calcul est 0.03319811820983887
+Il y a eu 568 iterations

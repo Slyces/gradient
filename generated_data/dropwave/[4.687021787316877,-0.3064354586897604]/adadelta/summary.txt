@@ -1,0 +1,4 @@
+generated_data/dropwave/[4.687021787316877,-0.3064354586897604]/adadelta/summary.txt
+La descente de gradient c'est arrêtée au point [ 4.68652698e+00 -4.99999998e-05] de valeur -0.15038234003000245
+Le temps de calcul est 0.056851863861083984
+Il y a eu 1000 iterations

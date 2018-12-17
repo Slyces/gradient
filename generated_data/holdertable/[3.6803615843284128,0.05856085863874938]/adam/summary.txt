@@ -1,0 +1,4 @@
+generated_data/holdertable/[3.6803615843284128,0.05856085863874938]/adam/summary.txt
+La descente de gradient c'est arrêtée au point [-836.11964     839.85856225] de valeur -2.47737318656988e+163
+Le temps de calcul est 0.001371622085571289
+Il y a eu 20 iterations

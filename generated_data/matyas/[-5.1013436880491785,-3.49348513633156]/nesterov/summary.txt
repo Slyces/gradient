@@ -1,0 +1,4 @@
+generated_data/matyas/[-5.1013436880491785,-3.49348513633156]/nesterov/summary.txt
+La descente de gradient c'est arrêtée au point [0.00179277 0.00179265] de valeur 1.2855170071762055e-07
+Le temps de calcul est 0.0011906623840332031
+Il y a eu 33 iterations

@@ -1,0 +1,4 @@
+generated_data/bohachevsky/[14.069478358925465,37.94322680536865]/adam/summary.txt
+La descente de gradient c'est arrêtée au point [0.00076717 0.00430191] de valeur -0.5795455188790063
+Le temps de calcul est 0.009082555770874023
+Il y a eu 162 iterations

@@ -1,0 +1,3 @@
+generated_data/holdertable/[0.9409687048156297,8.031926041184114]/nesterov/parameters.txt
+{'beta1': 0, 'beta2': 0, 'learningRate': 0.001, 'gamma': 0.99}
+{'x_0': [0.9409687048156297, 8.031926041184114], 'function': <functions.holdertable object at 0x7fd3bf37b6a0>}

@@ -1,0 +1,3 @@
+generated_data/threehumpcamel/[-1.244619400187752,-0.11396269355670441]/adagrad/parameters.txt
+{'learningRate': 0.785, 'beta2': 0, 'gamma': 0, 'beta1': 0}
+{'function': <functions.threehumpcamel object at 0x7f4b65ae47b8>, 'x_0': [-1.244619400187752, -0.11396269355670441]}

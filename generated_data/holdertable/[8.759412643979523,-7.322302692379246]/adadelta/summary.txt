@@ -1,0 +1,4 @@
+generated_data/holdertable/[8.759412643979523,-7.322302692379246]/adadelta/summary.txt
+La descente de gradient c'est arrêtée au point [ 1106.84078818 -1084.10267831] de valeur -5.537091507963023e+213
+Le temps de calcul est 0.0023031234741210938
+Il y a eu 33 iterations

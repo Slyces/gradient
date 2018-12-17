@@ -1,0 +1,4 @@
+generated_data/threehumpcamel/[4.277110582478752,3.98642890835864]/nesterov/summary.txt
+La descente de gradient c'est arrêtée au point [-0.01684917  0.0283794 ] de valeur 0.0008949253398328478
+Le temps de calcul est 0.037127017974853516
+Il y a eu 895 iterations

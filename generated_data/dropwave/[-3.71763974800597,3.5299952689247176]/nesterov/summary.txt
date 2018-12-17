@@ -1,0 +1,4 @@
+generated_data/dropwave/[-3.71763974800597,3.5299952689247176]/nesterov/summary.txt
+La descente de gradient c'est arrêtée au point [-3.81048759  3.58435866] de valeur -0.12742374045403757
+Le temps de calcul est 0.0006272792816162109
+Il y a eu 12 iterations
