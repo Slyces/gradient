@@ -9,7 +9,7 @@ from time import time
 
 # ──────────────────────────────────────────────────────────────────────────── #
 
-def generateData(nb_points):
+def generateData(nb_points, function_name):
 
     directory = "generated_data"
     epsilon = 0.001 # la marge d'erreur
@@ -20,7 +20,7 @@ def generateData(nb_points):
     #     Pour chaque algorithm
     #       Pour chaque configuration de paramètres
 
-    functions = [crossintray]
+    functions = [globals()[function_name]]
     algorithms = [
             BatchGradientDescent,
             MomentumGradientDescent,
@@ -112,11 +112,12 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('nb_points', type=int, default=10, help='an integer for the accumulator')
+    parser.add_argument('--nb_points', dest='nb_points', type=int, default=10)
+    parser.add_argument('--function', dest='function', type=str)
 
     args = parser.parse_args()
 
-    generateData(args.nb_points)
+    generateData(args.nb_points, args.function)
 
 
 
