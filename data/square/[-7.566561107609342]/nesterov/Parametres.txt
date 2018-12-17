@@ -1,0 +1,3 @@
+nesterov
+{'learningRate': 0.2305, 'gamma': 0.6659999999999999, 'beta1': 0, 'beta2': 0}
+{'x_0': [-7.566561107609342], 'function': <functions.square object at 0x000001D89D2D99E8>}

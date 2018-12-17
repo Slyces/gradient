@@ -1,0 +1,3 @@
+momentum
+{'learningRate': 0.0002, 'gamma': 0.99, 'beta1': 0, 'beta2': 0}
+{'x_0': [-0.9958626804572273, -2.355969861547563], 'function': <functions.ackley object at 0x000001C46F410F98>}

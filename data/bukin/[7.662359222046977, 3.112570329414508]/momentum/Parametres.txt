@@ -1,0 +1,3 @@
+momentum
+{'learningRate': 0.12260000000000001, 'gamma': 0.965, 'beta1': 0, 'beta2': 0}
+{'x_0': [7.662359222046977, 3.112570329414508], 'function': <functions.crossintray object at 0x0000024C9D8650F0>}

@@ -1,0 +1,4 @@
+nesterov
+La descente de gradient c'est arrêtée au point [-10.20800251   1.04229714] de valeur 1.6268406509037894
+Le temps de calcul est 0.044881343841552734
+Il y a eu 408 iterations

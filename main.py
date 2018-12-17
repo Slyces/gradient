@@ -21,7 +21,7 @@ def generationDeDonnees():
    # Pour différent algorithm
    # Pour différent paramètre
    
-   functions = [sin2d, square, ackley]
+   functions = [crossintray]
    algorithms = [BatchGradientDescent, MomentumGradientDescent, NesterovGradientDescent, AdagradGradientDescent, AdadeltaGradientDescent, RmspropGradientDescent, AdamGradientDescent]
    
    # Les valeurs des différents paramètre à étudier

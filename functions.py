@@ -77,6 +77,9 @@ class sin2d(Function):
 
 sin2d = sin2d()
 
+"""
+Many Local Minima
+"""
 # ---------------------------- Ackley's function ----------------------------- #
 class ackley(Function):
     def_space = [[-5, 5], [-5, 5]]
@@ -89,4 +92,129 @@ class ackley(Function):
     def __call__(self, x, y):
         return -20 * np.exp(-0.2 * np.sqrt(0.5 * (x * x + y * y))) - np.exp(0.5 * (np.cos(2 * np.pi * x) \
                 + np.cos(2 * np.pi * y))) + np.exp(1) + 20
+                
 ackley = ackley()
+
+
+
+# ---------------------------- bukin's function ----------------------------- #
+class bukin(Function):
+    def_space = [[-15, -5], [-3,3]]
+    default_start = [-7, 0]
+    name="bukin"
+    args = 'x,y'
+    formula = '100*sqrt(abs(y-0.01x)) +0.01*abs(x+1)'
+
+    def __call__(self, x, y):
+        return 100*np.sqrt(abs(y-0.01*x**2)) + 0.01*abs(x+10)
+        
+bukin = bukin()
+
+
+# ---------------------------- crossintray's function----------------------------- 
+class crossintray(Function):
+    def_space = [[-10, 10], [-10,10]]
+    default_start = [-0, 0]
+    name="crossintray"
+    args = 'x,y'
+    formula = ''
+
+    def __call__(self, x, y):
+        return -0.0001*(abs(np.sin(x)*np.sin(y)*np.exp(abs(100-np.sqrt(x**2+y**2)/np.pi))+1))**0.1
+        
+crossintray = crossintray()
+
+
+
+# ---------------------------- dropwave's function----------------------------- 
+class dropwave(Function):
+    def_space = [[-5.12,5.12], [-5.12,5.12]]
+    default_start = [-4, 3]
+    name="dropwave"
+    args = 'x,y'
+    formula = ''
+
+    def __call__(self, x, y):
+        return -(1+np.cos(12*np.sqrt(x**2+y**2)))/(0.5*(x**2+y**2)+2)
+        
+dropwave = dropwave()
+
+# ---------------------------- holdertable's function----------------------------- 
+class holdertable(Function):
+    def_space = [[-10, 10], [-10,10]]
+    default_start = [-4, 3]
+    name="holdertable"
+    args = 'x,y'
+    formula = ''
+
+    def __call__(self, x, y):
+        return -abs(np.sin(x)*np.cos(x)-np.exp(abs(1-np.sqrt(x**2+y**2)/np.pi)))
+        
+holdertable = holdertable()
+
+"""
+Bowl-Shaped
+"""
+
+# ---------------------------- bohachevsky's function----------------------------- 
+class bohachevsky(Function):
+    def_space = [[-100, 100], [-100,100]]
+    default_start = [-75, 26]
+    name="bohachevsky"
+    args = 'x,y'
+    formula = ''
+
+    def __call__(self, x, y):
+        return x**2+2*y**2-0.3*np.cos(3*np.pi*x)-0.4*np.cos(4*np.pi*y)*0.7
+        
+bohachevsky = bohachevsky()
+
+
+
+"""
+Plate-Shaped
+"""
+
+# ---------------------------- booth's function----------------------------- 
+class booth(Function):
+    def_space = [[-10, 10], [-10,10]]
+    default_start = [-7, 6]
+    name="booth"
+    args = 'x,y'
+    formula = ''
+
+    def __call__(self, x, y):
+        return (x+2*y-7)**2 + (2*x+y-5)**2
+        
+booth = booth()
+
+
+# ---------------------------- matyas's function----------------------------- 
+class matyas(Function):
+    def_space = [[-10, 10], [-10,10]]
+    default_start = [-7, 6]
+    name="matyas"
+    args = 'x,y'
+    formula = ''
+
+    def __call__(self, x, y):
+        return 0.26*(x**2+y**2)-0.48*x*y
+        
+matyas = matyas()
+
+
+# ---------------------------- threehumpcamel's function----------------------------- 
+class threehumpcamel(Function):
+    def_space = [[-5, 5], [-5, 5]]
+    default_start = [2,-2.5]
+    name="threehumpcamel"
+    args = 'x,y'
+    formula = ''
+
+    def __call__(self, x, y):
+        return 2*x**2-1.05*x**4+(1/6)*x**6+x*y+y**2
+        
+threehumpcamel = threehumpcamel()
+
+
+

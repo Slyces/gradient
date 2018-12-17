@@ -1,0 +1,3 @@
+adagrad
+{'learningRate': 0.0197, 'gamma': 0, 'beta1': 0, 'beta2': 0}
+{'x_0': [0.28113383473333275, -1.8663193927176893], 'function': <functions.ackley object at 0x000001C46F410F98>}
