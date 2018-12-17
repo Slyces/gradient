@@ -54,12 +54,12 @@ class Function(object):
 class square(Function):
     def_space = [[-10, 0]]
     default_start = [-8]
-    name="square"
+    name = "square"
     args = 'x'
     formula = '(x + 5)^2'
 
     def __call__(self, x):
-        return (x + 5) * (x + 5)
+        return np.power(x+5,2)
 
 square = square()
 
@@ -68,12 +68,12 @@ square = square()
 class sin2d(Function):
     def_space = [[-5, 5], [-5, 5]]
     default_start = [0.1, 1.5]
-    name="sin2d"
+    name = "sin2d"
     args = 'x,y'
     formula = 'sin(\sqrt{x^2 + y^2})'
 
     def __call__(self, x, y):
-        return np.sin(np.sqrt(x * x + y * y))
+        return np.sin(np.sqrt(np.power(x,2)+ np.power(y,2)))
 
 sin2d = sin2d()
 
@@ -84,13 +84,13 @@ Many Local Minima
 class ackley(Function):
     def_space = [[-5, 5], [-5, 5]]
     default_start = [4.5, 4.5]
-    name="ackley"
+    name = "ackley"
     args = 'x,y'
     formula = '-20 exp[-0.2\sqrt{0.5 (x^2 + y^2)}]' \
             ' - exp[0.5 (cos2\pi x + cos2\pi y)] + e + 20'
 
     def __call__(self, x, y):
-        return -20 * np.exp(-0.2 * np.sqrt(0.5 * (x * x + y * y))) - np.exp(0.5 * (np.cos(2 * np.pi * x) \
+        return -20 * np.exp(-0.2 * np.sqrt(0.5 * (np.power(x,2) + np.power(y,2)))) - np.exp(0.5 * (np.cos(2 * np.pi * x) \
                 + np.cos(2 * np.pi * y))) + np.exp(1) + 20
                 
 ackley = ackley()
@@ -99,28 +99,28 @@ ackley = ackley()
 
 # ---------------------------- bukin's function ----------------------------- #
 class bukin(Function):
-    def_space = [[-15, -5], [-3,3]]
+    def_space = [[-15, -5], [-3, 3]]
     default_start = [-7, 0]
-    name="bukin"
+    name = "bukin"
     args = 'x,y'
     formula = '100*sqrt(abs(y-0.01x)) +0.01*abs(x+1)'
 
     def __call__(self, x, y):
-        return 100*np.sqrt(abs(y-0.01*x**2)) + 0.01*abs(x+10)
+        return 100 * np.sqrt(abs(y - 0.01 * np.power(x,2))) + 0.01 * abs(x + 10)
         
 bukin = bukin()
 
 
 # ---------------------------- crossintray's function----------------------------- 
 class crossintray(Function):
-    def_space = [[-10, 10], [-10,10]]
+    def_space = [[-10, 10], [-10, 10]]
     default_start = [-0, 0]
-    name="crossintray"
+    name = "crossintray"
     args = 'x,y'
     formula = ''
 
     def __call__(self, x, y):
-        return -0.0001*(abs(np.sin(x)*np.sin(y)*np.exp(abs(100-np.sqrt(x**2+y**2)/np.pi))+1))**0.1
+        return -0.0001 * (np.power(abs(np.sin(x) * np.sin(y) * np.exp(abs(100 - np.sqrt(np.power(x,2)+np.power(y,2)) / np.pi)) + 1), 0.1))
         
 crossintray = crossintray()
 
@@ -128,27 +128,27 @@ crossintray = crossintray()
 
 # ---------------------------- dropwave's function----------------------------- 
 class dropwave(Function):
-    def_space = [[-5.12,5.12], [-5.12,5.12]]
+    def_space = [[-5.12, 5.12], [-5.12, 5.12]]
     default_start = [-4, 3]
-    name="dropwave"
+    name = "dropwave"
     args = 'x,y'
     formula = ''
 
     def __call__(self, x, y):
-        return -(1+np.cos(12*np.sqrt(x**2+y**2)))/(0.5*(x**2+y**2)+2)
+        return - (1 + np.cos(12 * np.sqrt(np.power(x,2) + np.power(y,2)))) / (0.5 * (np.power(x,2) + np.power(y,2)) + 2)
         
 dropwave = dropwave()
 
 # ---------------------------- holdertable's function----------------------------- 
 class holdertable(Function):
-    def_space = [[-10, 10], [-10,10]]
+    def_space = [[-10, 10], [-10, 10]]
     default_start = [-4, 3]
-    name="holdertable"
+    name = "holdertable"
     args = 'x,y'
     formula = ''
 
     def __call__(self, x, y):
-        return -abs(np.sin(x)*np.cos(x)-np.exp(abs(1-np.sqrt(x**2+y**2)/np.pi)))
+        return - abs(np.sin(x) * np.cos(x) - np.exp(abs(1 - np.sqrt(np.power(x,2) + np.power(y,2)) / np.pi)))
         
 holdertable = holdertable()
 
@@ -158,14 +158,14 @@ Bowl-Shaped
 
 # ---------------------------- bohachevsky's function----------------------------- 
 class bohachevsky(Function):
-    def_space = [[-100, 100], [-100,100]]
+    def_space = [[-100, 100], [-100, 100]]
     default_start = [-75, 26]
-    name="bohachevsky"
+    name = "bohachevsky"
     args = 'x,y'
     formula = ''
 
     def __call__(self, x, y):
-        return x**2+2*y**2-0.3*np.cos(3*np.pi*x)-0.4*np.cos(4*np.pi*y)*0.7
+        return np.power(x, 2) + 2*np.power(y, 2) - 0.3 * np.cos(3*np.pi*x)-0.4*np.cos(4*np.pi*y) * 0.7
         
 bohachevsky = bohachevsky()
 
@@ -177,28 +177,28 @@ Plate-Shaped
 
 # ---------------------------- booth's function----------------------------- 
 class booth(Function):
-    def_space = [[-10, 10], [-10,10]]
+    def_space = [[-10, 10], [-10, 10]]
     default_start = [-7, 6]
-    name="booth"
+    name = "booth"
     args = 'x,y'
     formula = ''
 
     def __call__(self, x, y):
-        return (x+2*y-7)**2 + (2*x+y-5)**2
+        return np.power((x + 2 * y - 7), 2) + np.power(2 * x + y - 5, 2)
         
 booth = booth()
 
 
 # ---------------------------- matyas's function----------------------------- 
 class matyas(Function):
-    def_space = [[-10, 10], [-10,10]]
+    def_space = [[-10, 10], [-10, 10]]
     default_start = [-7, 6]
-    name="matyas"
+    name = "matyas"
     args = 'x,y'
     formula = ''
 
     def __call__(self, x, y):
-        return 0.26*(x**2+y**2)-0.48*x*y
+        return 0.26 * (np.power(x, 2) + np.power(y, 2)) - 0.48 * x * y
         
 matyas = matyas()
 
@@ -206,15 +206,56 @@ matyas = matyas()
 # ---------------------------- threehumpcamel's function----------------------------- 
 class threehumpcamel(Function):
     def_space = [[-5, 5], [-5, 5]]
-    default_start = [2,-2.5]
-    name="threehumpcamel"
+    default_start = [2, -2.5]
+    name = "threehumpcamel"
     args = 'x,y'
     formula = ''
 
     def __call__(self, x, y):
-        return 2*x**2-1.05*x**4+(1/6)*x**6+x*y+y**2
+        return 2 * np.power(x, 2) - 1.05 * np.power(x, 4) + (1/6) * np.power(x, 6) + x * y + np.power(y, 2)
         
 threehumpcamel = threehumpcamel()
 
+"""
+Saddle point
+"""
+# ---------------------------- hessian's function----------------------------- 
+class hessian(Function):
+    def_space = [[-5, 5], [-5, 5]]
+    default_start = [2, -2.5]
+    name = "hessian"
+    args = 'x,y'
+    formula = ''
 
+    def __call__(self, x, y):
+        return np.max(np.power(x, 2) - np.power(y, 2), -10)
+        
+hessian = hessian()
+
+# ---------------------------- beale's function----------------------------- 
+class beale(Function):
+    def_space = [[-2, 2], [-2, 2]]
+    default_start = [0, -0.5]
+    name = "beale"
+    args = 'x,y'
+    formula = ''
+
+    def __call__(self, x, y):
+        return np.power(1.5 - x + x * y, 2) + np.power(2.25 - x + x * np.power(y, 2), 2) + np.power(2.625 - x + x * np.power(y, 3), 2)
+        
+beale = beale()
+
+
+# -------------------- the 1D cube function : 𝑥^3 --------------------- #
+class cube(Function):
+    def_space = [[-10, 0]]
+    default_start = [-8]
+    name = "cube"
+    args = 'x'
+    formula = 'x^3'
+
+    def __call__(self, x):
+        return np.max(np.power(x,3), -10)
+
+cube = cube()
 

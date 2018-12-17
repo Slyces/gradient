@@ -1,0 +1,4 @@
+generated_data/booth/[-5.291943673091342,2.1239818935282813]/momentum/summary.txt
+La descente de gradient c'est arrêtée au point [0.99852047 2.99230232] de valeur 0.0003983280172573255
+Le temps de calcul est 0.015094280242919922
+Il y a eu 374 iterations

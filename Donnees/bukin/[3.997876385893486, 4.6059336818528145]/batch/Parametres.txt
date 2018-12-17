@@ -1,0 +1,3 @@
+batch
+{'learningRate': 0.0122, 'gamma': 0, 'beta1': 0, 'beta2': 0}
+{'x_0': [3.997876385893486, 4.6059336818528145], 'function': <functions.crossintray object at 0x0000024C9D8650F0>}

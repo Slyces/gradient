@@ -1,0 +1,4 @@
+generated_data/matyas/[-5.620377961079206,6.995679102027786]/adadelta/summary.txt
+La descente de gradient c'est arrêtée au point [0.07578578 0.07581568] de valeur 0.00022983024910276607
+Le temps de calcul est 0.04373335838317871
+Il y a eu 1000 iterations

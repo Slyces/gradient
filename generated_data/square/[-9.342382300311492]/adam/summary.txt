@@ -1,0 +1,4 @@
+generated_data/square/[-9.342382300311492]/adam/summary.txt
+La descente de gradient c'est arrêtée au point [-4.98516339] de valeur 0.00022012493711005322
+Le temps de calcul est 0.0029900074005126953
+Il y a eu 53 iterations

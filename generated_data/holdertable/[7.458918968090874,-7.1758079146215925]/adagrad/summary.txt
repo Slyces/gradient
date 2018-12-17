@@ -1,0 +1,4 @@
+generated_data/holdertable/[7.458918968090874,-7.1758079146215925]/adagrad/summary.txt
+La descente de gradient c'est arrêtée au point [ 795.18545516 -795.02866751] de valeur -1.0235147450005065e+155
+Le temps de calcul est 0.02259206771850586
+Il y a eu 371 iterations

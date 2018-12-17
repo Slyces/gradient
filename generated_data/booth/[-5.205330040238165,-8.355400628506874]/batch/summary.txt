@@ -1,0 +1,4 @@
+generated_data/booth/[-5.205330040238165,-8.355400628506874]/batch/summary.txt
+La descente de gradient c'est arrêtée au point [1.00980511 2.99013934] de valeur 0.00019338517320971027
+Le temps de calcul est 0.021730899810791016
+Il y a eu 554 iterations
