@@ -212,9 +212,23 @@ class threehumpcamel(Function):
     formula = ''
 
     def __call__(self, x, y):
-        return 2*x**2-1.05*x**4+(1/6)*x**6+x*y+y**2
+        return 2*x*x-1.05*x*x*x*x+(1/6)*x*x*x*x*x*x+x*y+y*y
         
 threehumpcamel = threehumpcamel()
 
+"""
+Saddle point
+"""
+# ---------------------------- hessian's function----------------------------- 
+class hessian(Function):
+    def_space = [[-5, 5], [-5, 5]]
+    default_start = [2,-2.5]
+    name="hessian"
+    args = 'x,y'
+    formula = ''
 
+    def __call__(self, x, y):
+        return x*x-y*y
+        
+hessian = hessian()
 
