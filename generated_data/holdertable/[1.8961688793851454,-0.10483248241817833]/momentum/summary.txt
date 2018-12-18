@@ -1,4 +1,0 @@
-generated_data/holdertable/[1.8961688793851454,-0.10483248241817833]/momentum/summary.txt
-La descente de gradient c'est arrêtée au point [2.12799504e+00 5.01287558e-04] de valeur -1.8295882848387488
-Le temps de calcul est 0.0014870166778564453
-Il y a eu 25 iterations

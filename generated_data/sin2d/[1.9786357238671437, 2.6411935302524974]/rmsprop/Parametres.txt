@@ -1,3 +1,0 @@
-rmsprop
-{'learningRate': 0.0785, 'gamma': 0.989, 'beta1': 0, 'beta2': 0}
-{'x_0': [1.9786357238671437, 2.6411935302524974], 'function': <functions.sin2d object at 0x000001C46F410AC8>}

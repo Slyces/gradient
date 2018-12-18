@@ -1,4 +1,0 @@
-generated_data/threehumpcamel/[2.055433582972591,-3.4202195980790884]/adagrad/summary.txt
-La descente de gradient c'est arrêtée au point [ 1.31048152e-05 -6.23977627e-05] de valeur 3.419242003302613e-09
-Le temps de calcul est 0.0006034374237060547
-Il y a eu 14 iterations

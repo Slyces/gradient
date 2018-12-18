@@ -1,4 +1,0 @@
-momentum
-La descente de gradient c'est arrêtée au point [ 3.47043114 -3.15306978] de valeur -0.9997240417037706
-Le temps de calcul est 0.0009982585906982422
-Il y a eu 18 iterations

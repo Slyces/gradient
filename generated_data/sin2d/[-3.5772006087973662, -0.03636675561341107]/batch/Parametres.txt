@@ -1,3 +1,0 @@
-batch
-{'learningRate': 0.0037, 'gamma': 0, 'beta1': 0, 'beta2': 0}
-{'x_0': [-3.5772006087973662, -0.03636675561341107], 'function': <functions.sin2d object at 0x000001C46F410AC8>}

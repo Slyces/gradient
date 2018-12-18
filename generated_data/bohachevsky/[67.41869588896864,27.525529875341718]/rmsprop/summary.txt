@@ -1,4 +1,0 @@
-generated_data/bohachevsky/[67.41869588896864,27.525529875341718]/rmsprop/summary.txt
-La descente de gradient c'est arrêtée au point [-0.00617717  0.01077676] de valeur -0.5766576408815155
-Le temps de calcul est 0.05450272560119629
-Il y a eu 1000 iterations

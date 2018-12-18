@@ -1,3 +1,0 @@
-generated_data/sin2d/[-2.6124102846385524,-1.179123715940178]/batch/parameters.txt
-{'beta1': 0, 'beta2': 0, 'gamma': 0, 'learningRate': 0.005}
-{'function': <functions.sin2d object at 0x7fe60046e5f8>, 'x_0': [-2.6124102846385524, -1.179123715940178]}

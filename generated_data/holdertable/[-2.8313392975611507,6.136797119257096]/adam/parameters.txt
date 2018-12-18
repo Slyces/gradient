@@ -1,3 +1,0 @@
-generated_data/holdertable/[-2.8313392975611507,6.136797119257096]/adam/parameters.txt
-{'beta2': 0.9999, 'beta1': 0.8, 'learningRate': 2.305, 'gamma': 0}
-{'x_0': [-2.8313392975611507, 6.136797119257096], 'function': <functions.holdertable object at 0x7f6b2e7ad6a0>}

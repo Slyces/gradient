@@ -1,4 +1,0 @@
-generated_data/sin2d/[4.4963800300660886,3.6504448705649786]/adam/summary.txt
-La descente de gradient c'est arrêtée au point [3.74801527 2.83807444] de valeur -0.9999385925201855
-Le temps de calcul est 0.0021104812622070312
-Il y a eu 42 iterations

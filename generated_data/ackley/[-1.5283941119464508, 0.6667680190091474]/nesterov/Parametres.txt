@@ -1,3 +1,0 @@
-nesterov
-{'learningRate': 0.0002, 'gamma': 0.981, 'beta1': 0, 'beta2': 0}
-{'x_0': [-1.5283941119464508, 0.6667680190091474], 'function': <functions.ackley object at 0x000001D89D710B38>}

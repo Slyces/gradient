@@ -1,4 +1,0 @@
-generated_data/bohachevsky/[-99.4868213764423,-88.35572502545821]/momentum/summary.txt
-La descente de gradient c'est arrêtée au point [-0.00270834  0.00105219] de valeur -0.5798682480191446
-Le temps de calcul est 0.010577678680419922
-Il y a eu 215 iterations

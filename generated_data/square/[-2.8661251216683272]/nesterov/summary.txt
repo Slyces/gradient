@@ -1,4 +1,0 @@
-generated_data/square/[-2.8661251216683272]/nesterov/summary.txt
-La descente de gradient c'est arrêtée au point [-5.01196496] de valeur 0.0001431602151428387
-Le temps de calcul est 0.00047326087951660156
-Il y a eu 17 iterations

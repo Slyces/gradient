@@ -1,4 +1,0 @@
-generated_data/threehumpcamel/[-0.06832211657724319,-4.624255240367635]/adadelta/summary.txt
-La descente de gradient c'est arrêtée au point [ 1.74760994 -0.87498565] de valeur 0.29863985556734407
-Le temps de calcul est 0.004923582077026367
-Il y a eu 100 iterations

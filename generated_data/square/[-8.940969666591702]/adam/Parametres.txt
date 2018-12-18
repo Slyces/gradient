@@ -1,3 +1,0 @@
-adam
-{'learningRate': 0.0362, 'gamma': 0, 'beta1': 0.8, 'beta2': 0.999}
-{'x_0': [-8.940969666591702], 'function': <functions.square object at 0x000001D89D2D99E8>}

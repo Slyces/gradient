@@ -1,4 +1,0 @@
-generated_data/bohachevsky/[-40.70537476370253,-99.73316914624992]/nesterov/summary.txt
-La descente de gradient c'est arrêtée au point [-7.79191114e-05 -7.79824457e-05] de valeur -0.5799997664271241
-Le temps de calcul est 0.003560304641723633
-Il y a eu 69 iterations
