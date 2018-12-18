@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 # --------------------------------- imports ---------------------------------- #
 from algorithms import *
-
+from display import text_display
+# ---------------------------------------------------------------------------- #
 
 """
 Import des données
@@ -94,14 +95,8 @@ gradient : name of the gradient descent algorithm will be used
 gradient_param : parameters of the gradient
 descent_param : parameters of the descent
 """
-def writeSummary(file_name, gradient):
-    with open(file_name, "w") as fichier:
-        # Nom du gradient
-        fichier.write(file_name + "\n")
-        # Point et valeur optimale
-        fichier.write("La descente de gradient c'est arrêtée au point " + str(gradient.points[-1]) + " de valeur " + str(gradient.valeurs[-1]) + "\n")
-        # Temps de calcul
-        fichier.write("Le temps de calcul est " + str(gradient.tempsDescent) + "\n")
-        # Nombre d'itération
-        fichier.write("Il y a eu " + str(gradient.iteration) + " iterations\n")
-        # Other useful data
+def writeSummary(file_name, gradient, function):
+    with open(file_name, "w") as sum_file:
+        sum_file.write(text_display(function,
+            {gradient.nom : gradient.points},
+            {gradient.nom : gradient.tempsDescent}))

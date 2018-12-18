@@ -1,3 +1,0 @@
-adam
-{'learningRate': 0.1937, 'gamma': 0, 'beta1': 0.9, 'beta2': 0.9999}
-{'x_0': [6.687484955852511, 1.3624657410024792], 'function': <functions.crossintray object at 0x0000024C9D8650F0>}

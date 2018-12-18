@@ -255,6 +255,9 @@ if __name__ == '__main__':
         gradient = gradientClass(learningRate= args.lrate, gamma = args.gamma, beta1=args.beta1, beta2=args.beta2)
         gradient.descent(x_0, function, args.iter,args.maxtime, epsilon)
 
+        datas[descent_name] = np.array(gradient.points)
+        times[descent_name] = gradient.tempsDescent
+        # -------------------------- writing files --------------------------- #
         if args.directory_path:
             if not os.path.isdir(args.directory_path):
                 os.mkdir(args.directory_path)
@@ -262,16 +265,14 @@ if __name__ == '__main__':
             args.parameters_path = os.path.join(args.directory_path, 'parameters')
             args.data_path = os.path.join(args.directory_path, 'data')
         if args.summary_path:
-            writeSummary(args.summary_path, gradient)
+            writeSummary(args.summary_path, gradient, function)
         if args.parameters_path:
             writeParameters(args.parameters_path, gradient,
                     (args.lrate, args.gamma, args.beta1, args.beta2),
                     (x_0, function, args.iter, args.maxtime, epsilon))
         if args.data_path:
             writeData(args.data_path, gradient)
-
-        datas[descent_name] = gradient.points
-        times[descent_name] = gradient.tempsDescent
+        # -------------------------------------------------------------------- #
 
     # ----------------------- display the text results ----------------------- #
     print(text_display(function, datas, times))

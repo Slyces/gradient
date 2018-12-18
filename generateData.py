@@ -108,7 +108,7 @@ def generateData(nb_points, function_name):
                 writeData(os.path.join(algorithm_directory, "raw_data.txt"), bestGradient)
                 writeParameters(os.path.join(algorithm_directory, "parameters.txt"),
                         bestGradient, gradient_parameter, descent_parameter)
-                writeSummary(os.path.join(algorithm_directory, "summary.txt"), bestGradient)
+                writeSummary(os.path.join(algorithm_directory, "summary.txt"), bestGradient, function)
 
 """
 Lancement du programme
