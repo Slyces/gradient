@@ -1,3 +1,0 @@
-momentum
-{'learningRate': 0.0002, 'gamma': 0.765, 'beta1': 0, 'beta2': 0}
-{'x_0': [-7.083023207538011, -2.0132200902337507], 'function': <functions.bukin object at 0x0000024C9D865080>}

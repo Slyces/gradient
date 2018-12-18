@@ -1,3 +1,0 @@
-generated_data/holdertable/[2.367223126483095,-7.111581531490476]/adadelta/parameters.txt
-{'gamma': 0.989, 'beta1': 0, 'beta2': 0, 'learningRate': 0.001}
-{'function': <functions.holdertable object at 0x7f6abcc98dd8>, 'x_0': [2.367223126483095, -7.111581531490476]}

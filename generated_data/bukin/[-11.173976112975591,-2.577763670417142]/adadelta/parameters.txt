@@ -1,3 +1,0 @@
-generated_data/bukin/[-11.173976112975591,-2.577763670417142]/adadelta/parameters.txt
-{'beta1': 0, 'learningRate': 0.001, 'gamma': 0.6659999999999999, 'beta2': 0}
-{'x_0': [-11.173976112975591, -2.577763670417142], 'function': <functions.bukin object at 0x7faf8e18ee10>}

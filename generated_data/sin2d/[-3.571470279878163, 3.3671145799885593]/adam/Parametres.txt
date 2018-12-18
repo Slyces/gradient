@@ -1,3 +1,0 @@
-adam
-{'learningRate': 0.006500000000000001, 'gamma': 0, 'beta1': 0.8, 'beta2': 0.95}
-{'x_0': [-3.571470279878163, 3.3671145799885593], 'function': <functions.sin2d object at 0x000001C46F410AC8>}

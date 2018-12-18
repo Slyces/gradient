@@ -1,3 +1,0 @@
-generated_data/booth/[-6.686432758012735,-7.23966469316299]/batch/parameters.txt
-{'gamma': 0, 'beta1': 0, 'learningRate': 0.005, 'beta2': 0}
-{'function': <functions.booth object at 0x7f17512dbf60>, 'x_0': [-6.686432758012735, -7.23966469316299]}

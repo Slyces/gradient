@@ -1,3 +1,0 @@
-generated_data/matyas/[-2.6862036307044024,8.457225139680446]/adam/parameters.txt
-{'learningRate': 0.14500000000000002, 'gamma': 0, 'beta1': 0.8, 'beta2': 0.9999}
-{'x_0': [-2.6862036307044024, 8.457225139680446], 'function': <functions.matyas object at 0x7f9145fc9f28>}

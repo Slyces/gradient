@@ -1,3 +1,0 @@
-generated_data/booth/[-8.713020520482495,-3.3055711547044364]/adagrad/parameters.txt
-{'gamma': 0, 'beta1': 0, 'learningRate': 2.402, 'beta2': 0}
-{'function': <functions.booth object at 0x7f17512dbf60>, 'x_0': [-8.713020520482495, -3.3055711547044364]}

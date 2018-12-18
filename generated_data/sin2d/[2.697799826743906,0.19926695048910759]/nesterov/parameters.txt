@@ -1,3 +1,0 @@
-generated_data/sin2d/[2.697799826743906,0.19926695048910759]/nesterov/parameters.txt
-{'gamma': 0.89, 'beta1': 0, 'beta2': 0, 'learningRate': 0.037000000000000005}
-{'function': <functions.sin2d object at 0x7f8b8418acf8>, 'x_0': [2.697799826743906, 0.19926695048910759]}

@@ -1,3 +1,0 @@
-generated_data/ackley/[4.603567340396532,0.028958275428934144]/batch/parameters.txt
-{'learningRate': 0.14500000000000002, 'beta2': 0, 'beta1': 0, 'gamma': 0}
-{'function': <functions.ackley object at 0x7f3199f38da0>, 'x_0': [4.603567340396532, 0.028958275428934144]}

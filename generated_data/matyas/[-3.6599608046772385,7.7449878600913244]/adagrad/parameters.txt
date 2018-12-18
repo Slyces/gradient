@@ -1,3 +1,0 @@
-generated_data/matyas/[-3.6599608046772385,7.7449878600913244]/adagrad/parameters.txt
-{'beta2': 0, 'beta1': 0, 'learningRate': 0.901, 'gamma': 0}
-{'x_0': [-3.6599608046772385, 7.7449878600913244], 'function': <functions.matyas object at 0x7f78c1016ef0>}

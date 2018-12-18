@@ -1,3 +1,0 @@
-generated_data/bukin/[-12.505398460233298,0.35215785191557814]/adagrad/parameters.txt
-{'beta2': 0, 'gamma': 0, 'learningRate': 0.017, 'beta1': 0}
-{'function': <functions.bukin object at 0x7fef90f81e48>, 'x_0': [-12.505398460233298, 0.35215785191557814]}

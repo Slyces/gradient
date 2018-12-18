@@ -1,3 +1,0 @@
-generated_data/bohachevsky/[-38.2927473312004,-44.72048175613574]/rmsprop/parameters.txt
-{'beta1': 0, 'beta2': 0, 'gamma': 0.629, 'learningRate': 0.362}
-{'function': <functions.bohachevsky object at 0x7fcb3b959e80>, 'x_0': [-38.2927473312004, -44.72048175613574]}

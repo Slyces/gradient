@@ -1,3 +1,0 @@
-generated_data/holdertable/[-6.079538931948609,-1.2811237456161866]/rmsprop/parameters.txt
-{'beta1': 0, 'gamma': 0.99, 'learningRate': 2.026, 'beta2': 0}
-{'x_0': [-6.079538931948609, -1.2811237456161866], 'function': <functions.holdertable object at 0x7f4cd5768dd8>}

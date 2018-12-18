@@ -1,3 +1,0 @@
-generated_data/bohachevsky/[0.8697200484904783,55.998490097357376]/batch/parameters.txt
-{'beta1': 0, 'beta2': 0, 'gamma': 0, 'learningRate': 0.197}
-{'function': <functions.bohachevsky object at 0x7fc1a6dfce48>, 'x_0': [0.8697200484904783, 55.998490097357376]}

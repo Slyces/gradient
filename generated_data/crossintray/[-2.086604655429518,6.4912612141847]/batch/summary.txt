@@ -1,4 +1,0 @@
-generated_data/crossintray/[-2.086604655429518,6.4912612141847]/batch/summary.txt
-La descente de gradient c'est arrêtée au point [-1.54015923  7.52084391] de valeur -1.7153098653865735
-Le temps de calcul est 0.05546879768371582
-Il y a eu 948 iterations

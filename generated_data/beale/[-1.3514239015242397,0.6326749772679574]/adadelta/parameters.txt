@@ -1,3 +1,0 @@
-generated_data/beale/[-1.3514239015242397,0.6326749772679574]/adadelta/parameters.txt
-{'beta1': 0, 'gamma': 0.941, 'beta2': 0, 'learningRate': 0.001}
-{'x_0': [-1.3514239015242397, 0.6326749772679574], 'function': <functions.beale object at 0x7fe7b38ba048>}

@@ -1,3 +1,0 @@
-generated_data/booth/[0.315539165709124,-6.667037380862146]/nesterov/parameters.txt
-{'beta1': 0, 'gamma': 0.629, 'beta2': 0, 'learningRate': 0.05}
-{'function': <functions.booth object at 0x7f9c54fd5ef0>, 'x_0': [0.315539165709124, -6.667037380862146]}

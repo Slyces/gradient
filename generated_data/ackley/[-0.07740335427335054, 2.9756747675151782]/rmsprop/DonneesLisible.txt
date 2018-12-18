@@ -1,4 +1,0 @@
-rmsprop
-La descente de gradient c'est arrêtée au point [-0.03932876 -0.03932876] de valeur 0.2380286201456201
-Le temps de calcul est 0.14461207389831543
-Il y a eu 1000 iterations

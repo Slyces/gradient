@@ -1,3 +1,0 @@
-generated_data/matyas/[2.465287744181971,-0.8778392992147239]/adadelta/parameters.txt
-{'gamma': 0.99, 'beta2': 0, 'learningRate': 0.001, 'beta1': 0}
-{'function': <functions.matyas object at 0x7fd342ba4f60>, 'x_0': [2.465287744181971, -0.8778392992147239]}

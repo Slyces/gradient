@@ -1,3 +1,0 @@
-adadelta
-{'learningRate': 0.0001, 'gamma': 0.986, 'beta1': 0, 'beta2': 0}
-{'x_0': [-2.780859815890916, 4.433549016477244], 'function': <functions.ackley object at 0x000001C46F410F98>}

@@ -1,3 +1,0 @@
-generated_data/booth/[-0.27717880523000815,8.120203321572323]/adadelta/parameters.txt
-{'gamma': 0.99, 'beta1': 0, 'learningRate': 0.001, 'beta2': 0}
-{'x_0': [-0.27717880523000815, 8.120203321572323], 'function': <functions.booth object at 0x7ff9fb634e80>}

@@ -1,3 +1,0 @@
-generated_data/square/[-5.292102751482926]/nesterov/parameters.txt
-{'gamma': 0.765, 'beta2': 0, 'beta1': 0, 'learningRate': 0.485}
-{'x_0': [-5.292102751482926], 'function': <functions.square object at 0x7f814a43bcc0>}

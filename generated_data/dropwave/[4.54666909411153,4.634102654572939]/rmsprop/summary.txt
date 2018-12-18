@@ -1,4 +1,0 @@
-generated_data/dropwave/[4.54666909411153,4.634102654572939]/rmsprop/summary.txt
-La descente de gradient c'est arrêtée au point [3.83301091e-05 5.18087755e-01] de valeur -0.9360917796860503
-Le temps de calcul est 0.053861379623413086
-Il y a eu 1000 iterations

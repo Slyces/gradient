@@ -1,3 +1,0 @@
-generated_data/sin2d/[0.40526496282453195,0.3486663573764872]/adadelta/parameters.txt
-{'beta1': 0, 'gamma': 0.9259999999999999, 'learningRate': 0.001, 'beta2': 0}
-{'x_0': [0.40526496282453195, 0.3486663573764872], 'function': <functions.sin2d object at 0x7f68ef74bc88>}

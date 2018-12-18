@@ -1,3 +1,0 @@
-generated_data/sin2d/[-2.352714908625728,-1.8932002860949426]/rmsprop/parameters.txt
-{'learningRate': 0.082, 'beta1': 0, 'beta2': 0, 'gamma': 0.99}
-{'x_0': [-2.352714908625728, -1.8932002860949426], 'function': <functions.sin2d object at 0x7f329eb6ccf8>}

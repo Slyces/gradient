@@ -1,3 +1,0 @@
-generated_data/matyas/[-4.39481851824824,-9.512208268873666]/momentum/parameters.txt
-{'beta1': 0, 'gamma': 0.99, 'learningRate': 0.001, 'beta2': 0}
-{'function': <functions.matyas object at 0x7efda30e0ef0>, 'x_0': [-4.39481851824824, -9.512208268873666]}

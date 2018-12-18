@@ -1,3 +1,0 @@
-generated_data/crossintray/[2.413531058770406,4.758735054723209]/adadelta/parameters.txt
-{'beta2': 0, 'beta1': 0, 'gamma': 0.99, 'learningRate': 0.001}
-{'x_0': [2.413531058770406, 4.758735054723209], 'function': <functions.crossintray object at 0x7f9c4e215dd8>}

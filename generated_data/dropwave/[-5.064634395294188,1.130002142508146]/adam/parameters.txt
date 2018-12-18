@@ -1,3 +1,0 @@
-generated_data/dropwave/[-5.064634395294188,1.130002142508146]/adam/parameters.txt
-{'gamma': 0, 'beta2': 0.999, 'learningRate': 0.122, 'beta1': 0.85}
-{'x_0': [-5.064634395294188, 1.130002142508146], 'function': <functions.dropwave object at 0x7f481e134e10>}

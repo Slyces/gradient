@@ -1,3 +1,0 @@
-generated_data/crossintray/[-1.4406799476714465,1.067896885205407]/nesterov/parameters.txt
-{'beta1': 0, 'learningRate': 2.305, 'beta2': 0, 'gamma': 0.629}
-{'function': <functions.crossintray object at 0x7f3c4dd00d68>, 'x_0': [-1.4406799476714465, 1.067896885205407]}

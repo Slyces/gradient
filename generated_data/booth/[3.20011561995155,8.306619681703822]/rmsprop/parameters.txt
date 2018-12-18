@@ -1,3 +1,0 @@
-generated_data/booth/[3.20011561995155,8.306619681703822]/rmsprop/parameters.txt
-{'beta2': 0, 'learningRate': 0.010000000000000002, 'beta1': 0, 'gamma': 0.99}
-{'function': <functions.booth object at 0x7f97379e0c18>, 'x_0': [3.20011561995155, 8.306619681703822]}

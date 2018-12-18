@@ -1,3 +1,0 @@
-generated_data/bukin/[-5.878432016603751,-2.8738037822311395]/adam/parameters.txt
-{'beta2': 0.95, 'gamma': 0, 'learningRate': 0.017, 'beta1': 0.99}
-{'function': <functions.bukin object at 0x7fef90f81e48>, 'x_0': [-5.878432016603751, -2.8738037822311395]}

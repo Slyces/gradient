@@ -1,3 +1,0 @@
-generated_data/bohachevsky/[-2.2574810079328813,11.447030495550464]/nesterov/parameters.txt
-{'beta1': 0, 'gamma': 0.954, 'learningRate': 0.001, 'beta2': 0}
-{'x_0': [-2.2574810079328813, 11.447030495550464], 'function': <functions.bohachevsky object at 0x7ff123865f28>}

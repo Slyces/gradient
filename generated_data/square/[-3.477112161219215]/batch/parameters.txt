@@ -1,3 +1,0 @@
-generated_data/square/[-3.477112161219215]/batch/parameters.txt
-{'gamma': 0, 'beta2': 0, 'beta1': 0, 'learningRate': 0.002}
-{'function': <functions.square object at 0x7f160d4e9d30>, 'x_0': [-3.477112161219215]}

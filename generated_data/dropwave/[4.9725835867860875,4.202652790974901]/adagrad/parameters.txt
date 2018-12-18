@@ -1,3 +1,0 @@
-generated_data/dropwave/[4.9725835867860875,4.202652790974901]/adagrad/parameters.txt
-{'learningRate': 0.73, 'beta2': 0, 'gamma': 0, 'beta1': 0}
-{'function': <functions.dropwave object at 0x7f4ee5177e10>, 'x_0': [4.9725835867860875, 4.202652790974901]}

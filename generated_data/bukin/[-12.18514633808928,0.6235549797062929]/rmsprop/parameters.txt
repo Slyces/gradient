@@ -1,3 +1,0 @@
-generated_data/bukin/[-12.18514633808928,0.6235549797062929]/rmsprop/parameters.txt
-{'gamma': 0.99, 'beta1': 0, 'beta2': 0, 'learningRate': 0.001}
-{'x_0': [-12.18514633808928, 0.6235549797062929], 'function': <functions.bukin object at 0x7fe4684c2da0>}

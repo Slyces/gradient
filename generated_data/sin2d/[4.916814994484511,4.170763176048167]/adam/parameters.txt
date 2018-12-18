@@ -1,3 +1,0 @@
-generated_data/sin2d/[4.916814994484511,4.170763176048167]/adam/parameters.txt
-{'learningRate': 0.037000000000000005, 'beta1': 0.8, 'gamma': 0, 'beta2': 0.95}
-{'x_0': [4.916814994484511, 4.170763176048167], 'function': <functions.sin2d object at 0x7fc695eaac50>}

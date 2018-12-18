@@ -1,3 +1,0 @@
-generated_data/crossintray/[-0.09763359078801948,-4.193488873328713]/adam/parameters.txt
-{'learningRate': 1.765, 'beta2': 0.9, 'gamma': 0, 'beta1': 0.99}
-{'x_0': [-0.09763359078801948, -4.193488873328713], 'function': <functions.crossintray object at 0x7fbfc22bcda0>}

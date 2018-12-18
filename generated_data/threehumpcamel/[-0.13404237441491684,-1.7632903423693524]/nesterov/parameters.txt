@@ -1,3 +1,0 @@
-generated_data/threehumpcamel/[-0.13404237441491684,-1.7632903423693524]/nesterov/parameters.txt
-{'learningRate': 0.226, 'beta2': 0, 'beta1': 0, 'gamma': 0.734}
-{'x_0': [-0.13404237441491684, -1.7632903423693524], 'function': <functions.threehumpcamel object at 0x7f548b1c4ef0>}

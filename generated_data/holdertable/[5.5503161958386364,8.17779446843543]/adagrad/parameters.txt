@@ -1,3 +1,0 @@
-generated_data/holdertable/[5.5503161958386364,8.17779446843543]/adagrad/parameters.txt
-{'gamma': 0, 'beta2': 0, 'beta1': 0, 'learningRate': 1.8499999999999999}
-{'x_0': [5.5503161958386364, 8.17779446843543], 'function': <functions.holdertable object at 0x7fab20d53588>}

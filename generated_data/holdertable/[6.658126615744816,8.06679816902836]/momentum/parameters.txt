@@ -1,3 +1,0 @@
-generated_data/holdertable/[6.658126615744816,8.06679816902836]/momentum/parameters.txt
-{'beta2': 0, 'beta1': 0, 'gamma': 0.99, 'learningRate': 0.001}
-{'function': <functions.holdertable object at 0x7f2d0f844e80>, 'x_0': [6.658126615744816, 8.06679816902836]}

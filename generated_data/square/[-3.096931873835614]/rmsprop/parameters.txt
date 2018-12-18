@@ -1,3 +1,0 @@
-generated_data/square/[-3.096931873835614]/rmsprop/parameters.txt
-{'learningRate': 0.002, 'beta1': 0, 'beta2': 0, 'gamma': 0.941}
-{'x_0': [-3.096931873835614], 'function': <functions.square object at 0x7f46ae6b3cf8>}

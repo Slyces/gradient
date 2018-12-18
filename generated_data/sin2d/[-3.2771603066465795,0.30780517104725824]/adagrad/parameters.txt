@@ -1,3 +1,0 @@
-generated_data/sin2d/[-3.2771603066465795,0.30780517104725824]/adagrad/parameters.txt
-{'gamma': 0, 'beta1': 0, 'beta2': 0, 'learningRate': 0.037000000000000005}
-{'x_0': [-3.2771603066465795, 0.30780517104725824], 'function': <functions.sin2d object at 0x7fb2f9522cc0>}

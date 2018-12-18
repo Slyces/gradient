@@ -1,3 +1,0 @@
-generated_data/dropwave/[-2.31615833757932,-2.4431737696517497]/adadelta/parameters.txt
-{'gamma': 0.965, 'learningRate': 0.001, 'beta1': 0, 'beta2': 0}
-{'x_0': [-2.31615833757932, -2.4431737696517497], 'function': <functions.dropwave object at 0x7fb8cc077e80>}

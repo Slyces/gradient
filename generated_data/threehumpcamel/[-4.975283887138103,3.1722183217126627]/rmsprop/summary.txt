@@ -1,4 +1,0 @@
-generated_data/threehumpcamel/[-4.975283887138103,3.1722183217126627]/rmsprop/summary.txt
-La descente de gradient c'est arrêtée au point [-7.02991251e-05  1.07830747e-05] de valeur 9.242167932695463e-09
-Le temps de calcul est 0.008696317672729492
-Il y a eu 203 iterations

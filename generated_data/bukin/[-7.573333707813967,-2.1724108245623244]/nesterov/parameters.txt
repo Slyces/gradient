@@ -1,3 +1,0 @@
-generated_data/bukin/[-7.573333707813967,-2.1724108245623244]/nesterov/parameters.txt
-{'beta2': 0, 'beta1': 0, 'gamma': 0.981, 'learningRate': 0.001}
-{'x_0': [-7.573333707813967, -2.1724108245623244], 'function': <functions.bukin object at 0x7fc9c4e14e48>}

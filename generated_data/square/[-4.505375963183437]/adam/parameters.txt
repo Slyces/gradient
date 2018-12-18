@@ -1,3 +1,0 @@
-generated_data/square/[-4.505375963183437]/adam/parameters.txt
-{'learningRate': 0.002, 'beta2': 0.9999, 'beta1': 0.8, 'gamma': 0}
-{'x_0': [-4.505375963183437], 'function': <functions.square object at 0x7f968069bd30>}

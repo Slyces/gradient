@@ -1,4 +1,0 @@
-generated_data/bohachevsky/[-40.70537476370253,-99.73316914624992]/adadelta/summary.txt
-La descente de gradient c'est arrêtée au point [-1.22254477 -3.98386696] de valeur 32.81195290153354
-Le temps de calcul est 0.05686664581298828
-Il y a eu 1000 iterations

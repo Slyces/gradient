@@ -1,3 +1,0 @@
-generated_data/bohachevsky/[40.13634295093058,-49.65728874198365]/momentum/parameters.txt
-{'beta2': 0, 'beta1': 0, 'gamma': 0.629, 'learningRate': 0.05}
-{'x_0': [40.13634295093058, -49.65728874198365], 'function': <functions.bohachevsky object at 0x7fa9c020fe48>}

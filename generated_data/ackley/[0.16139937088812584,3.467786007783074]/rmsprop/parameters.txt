@@ -1,3 +1,0 @@
-generated_data/ackley/[0.16139937088812584,3.467786007783074]/rmsprop/parameters.txt
-{'beta2': 0, 'gamma': 0.7010000000000001, 'beta1': 0, 'learningRate': 0.362}
-{'function': <functions.ackley object at 0x7fea95b37d30>, 'x_0': [0.16139937088812584, 3.467786007783074]}

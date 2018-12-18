@@ -1,3 +1,0 @@
-generated_data/bohachevsky/[64.08737499909068,23.011748782556296]/adam/parameters.txt
-{'beta1': 0.95, 'beta2': 0.999, 'gamma': 0, 'learningRate': 0.29}
-{'function': <functions.bohachevsky object at 0x7fcb3b959e80>, 'x_0': [64.08737499909068, 23.011748782556296]}

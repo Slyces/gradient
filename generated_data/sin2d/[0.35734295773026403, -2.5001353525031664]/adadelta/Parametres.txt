@@ -1,3 +1,0 @@
-adadelta
-{'learningRate': 0.0001, 'gamma': 0.99, 'beta1': 0, 'beta2': 0}
-{'x_0': [0.35734295773026403, -2.5001353525031664], 'function': <functions.sin2d object at 0x000001C46F410AC8>}
