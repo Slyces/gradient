@@ -1,4 +1,0 @@
-generated_data/holdertable/[5.618368712508335,-0.9424225668192641]/batch/summary.txt
-La descente de gradient c'est arrêtée au point [ 6.07757176 -3.77815848] de valeur -3.7889360776688332
-Le temps de calcul est 0.05839085578918457
-Il y a eu 1000 iterations

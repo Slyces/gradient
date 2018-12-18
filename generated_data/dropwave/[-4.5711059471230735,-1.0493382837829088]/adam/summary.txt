@@ -1,4 +1,0 @@
-generated_data/dropwave/[-4.5711059471230735,-1.0493382837829088]/adam/summary.txt
-La descente de gradient c'est arrêtée au point [0.31522433 0.41485036] de valeur -0.9362231039826026
-Le temps de calcul est 0.055893659591674805
-Il y a eu 1000 iterations

@@ -1,3 +1,0 @@
-generated_data/threehumpcamel/[4.339077737803425,1.9984371365325417]/rmsprop/parameters.txt
-{'gamma': 0.89, 'beta2': 0, 'learningRate': 1.765, 'beta1': 0}
-{'function': <functions.threehumpcamel object at 0x7fb60d3607f0>, 'x_0': [4.339077737803425, 1.9984371365325417]}

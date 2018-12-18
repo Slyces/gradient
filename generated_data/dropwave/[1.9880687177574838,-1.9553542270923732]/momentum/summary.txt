@@ -1,4 +1,0 @@
-generated_data/dropwave/[1.9880687177574838,-1.9553542270923732]/momentum/summary.txt
-La descente de gradient c'est arrêtée au point [-0.0022137 -2.0868279] de valeur -0.4777775477202867
-Le temps de calcul est 0.044029951095581055
-Il y a eu 878 iterations

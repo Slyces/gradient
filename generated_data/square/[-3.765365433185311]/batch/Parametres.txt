@@ -1,3 +1,0 @@
-batch
-{'learningRate': 0.0026, 'gamma': 0, 'beta1': 0, 'beta2': 0}
-{'x_0': [-3.765365433185311], 'function': <functions.square object at 0x000001C46F03B668>}

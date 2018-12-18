@@ -1,4 +1,0 @@
-generated_data/sin2d/[3.9485841164883126,-0.01787044710940222]/momentum/summary.txt
-La descente de gradient c'est arrêtée au point [ 4.75051458 -0.09667089] de valeur -0.9992353364279719
-Le temps de calcul est 0.001928091049194336
-Il y a eu 44 iterations

@@ -1,3 +1,0 @@
-adadelta
-{'learningRate': 0.0001, 'gamma': 0.846, 'beta1': 0, 'beta2': 0}
-{'x_0': [-12.10333961456325, 2.8248650457010704], 'function': <functions.bukin object at 0x0000024C9D865080>}

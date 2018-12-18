@@ -1,3 +1,0 @@
-generated_data/bohachevsky/[-40.70537476370253,-99.73316914624992]/adadelta/parameters.txt
-{'beta2': 0, 'beta1': 0, 'learningRate': 0.001, 'gamma': 0.99}
-{'x_0': [-40.70537476370253, -99.73316914624992], 'function': <functions.bohachevsky object at 0x7fdb95c1f748>}

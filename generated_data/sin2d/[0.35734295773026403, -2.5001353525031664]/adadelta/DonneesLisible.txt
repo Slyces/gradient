@@ -1,4 +1,0 @@
-adadelta
-La descente de gradient c'est arrêtée au point [ 2.50454276 -3.99170148] de valeur -0.9999999997865386
-Le temps de calcul est 0.0009968280792236328
-Il y a eu 11 iterations

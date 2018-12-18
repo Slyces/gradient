@@ -1,4 +1,0 @@
-generated_data/matyas/[7.858928235152678,9.332026366666252]/batch/summary.txt
-La descente de gradient c'est arrêtée au point [0.14938734 0.14938734] de valeur 0.0008926631370475956
-Le temps de calcul est 0.03317523002624512
-Il y a eu 1000 iterations

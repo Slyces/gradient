@@ -1,4 +1,0 @@
-generated_data/matyas/[-2.5017233928407183,7.748186474525504]/rmsprop/summary.txt
-La descente de gradient c'est arrêtée au point [4.92050226e-05 5.08615938e-05] de valeur 1.0081933425242736e-10
-Le temps de calcul est 0.003912448883056641
-Il y a eu 101 iterations

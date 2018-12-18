@@ -1,3 +1,0 @@
-adagrad
-{'learningRate': 0.2402, 'gamma': 0, 'beta1': 0, 'beta2': 0}
-{'x_0': [-4.53581214255234, 4.763444754218456], 'function': <functions.sin2d object at 0x000001D89D710BA8>}

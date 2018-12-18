@@ -1,4 +1,0 @@
-generated_data/booth/[3.20011561995155,8.306619681703822]/rmsprop/summary.txt
-La descente de gradient c'est arrêtée au point [0.98687382 3.01374447] de valeur 0.00036273628139631554
-Le temps de calcul est 0.044783830642700195
-Il y a eu 1000 iterations

@@ -1,4 +1,0 @@
-generated_data/threehumpcamel/[-1.4675455958121706,1.0029613252041658]/momentum/summary.txt
-La descente de gradient c'est arrêtée au point [-5.61109999e-05 -1.71470398e-04] de valeur 4.5320361687934296e-08
-Le temps de calcul est 0.0016133785247802734
-Il y a eu 41 iterations

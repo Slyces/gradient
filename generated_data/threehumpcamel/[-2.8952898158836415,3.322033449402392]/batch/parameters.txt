@@ -1,3 +1,0 @@
-generated_data/threehumpcamel/[-2.8952898158836415,3.322033449402392]/batch/parameters.txt
-{'gamma': 0, 'beta2': 0, 'learningRate': 0.05, 'beta1': 0}
-{'function': <functions.threehumpcamel object at 0x7fb60d3607f0>, 'x_0': [-2.8952898158836415, 3.322033449402392]}

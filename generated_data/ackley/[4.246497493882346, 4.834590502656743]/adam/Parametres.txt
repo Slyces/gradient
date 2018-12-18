@@ -1,3 +1,0 @@
-adam
-{'learningRate': 0.0442, 'gamma': 0, 'beta1': 0.9, 'beta2': 0.9999}
-{'x_0': [4.246497493882346, 4.834590502656743], 'function': <functions.ackley object at 0x000001C46F410F98>}

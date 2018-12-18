@@ -1,4 +1,0 @@
-generated_data/square/[-5.908925297607507]/batch/summary.txt
-La descente de gradient c'est arrêtée au point [-5.02490365] de valeur 0.0006201918580793192
-Le temps de calcul est 0.02184438705444336
-Il y a eu 898 iterations

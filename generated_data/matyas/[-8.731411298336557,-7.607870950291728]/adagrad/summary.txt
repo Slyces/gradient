@@ -1,4 +1,0 @@
-generated_data/matyas/[-8.731411298336557,-7.607870950291728]/adagrad/summary.txt
-La descente de gradient c'est arrêtée au point [-0.12241607 -0.1157929 ] de valeur 0.0005784016921163348
-Le temps de calcul est 0.0369415283203125
-Il y a eu 1000 iterations
