@@ -5,8 +5,33 @@ Created on Tue Dec 18 15:41:48 2018
 
 @author: 3415104
 """
-def isclose(a, b, rel_tol=1e-09, abs_tol=0.0):
+def isclose(a, b, rel_tol=1e-02, abs_tol=0.0):
     return abs(a-b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
 
-def bestGradient(gradient_dictionnary):
+def isFar(a, b, rel_tol=1e-02, abs_tol=0.0):
+    return abs(a-b) >= max(rel_tol * max(abs(a), abs(b)), abs_tol)
+
+def bestGradient(gradient_dictionnary, threshold=1e-02, epsilon=1e-02):
+    best_gradient = None
+    value_best_gradient = {}
+    for gradient, values in gradient_dictionnary.items():
+        
+        # If the gradient test is the first one
+        if best_gradient is None:
+            best_gradient = gradient
+            value_best_gradient = values["valeur_optimale"]
+            
+        # If the gradient test is better in term of values
+        elif values["valeur_optimale"] -  value_best_gradient < 0 and isFar(values["valeur_optimale"], value_best_gradient, threshold):
+            best_gradient = gradient
+            value_best_gradient = values["valeur_optimale"]
+        
+        # If the gradient test is close to the best and the number of iteration is inferior
+        elif isClose(values["valeur_optimale"], value_best_gradient, epsilon) and (values["nb_iteration"] - value_best_gradient["nb_iteration"]) < 0:
+            best_gradient = gradient
+            value_best_gradient = values["valeur_optimale"]
+        
+    return best_gradient, value_best_gradient
+
+
     
