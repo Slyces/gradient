@@ -1,0 +1,14 @@
+square
+sin2d
+ackley
+bukin
+crossintray
+dropwave
+holdertable
+bohachevsky
+booth
+matyas
+threehumpcamel
+hessian
+beale
+cube

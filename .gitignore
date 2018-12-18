@@ -3,6 +3,7 @@ tags
 *.swp
 [Ss]ession.vim
 .undodir/*
+generated_data/*
 
 # python files
 __pycache__*
