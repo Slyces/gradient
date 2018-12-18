@@ -1,0 +1,3 @@
+generated_data/dropwave/[0.1525726720439744,-1.7697518777436643]/nesterov/parameters.txt
+{'learningRate': 0.017, 'beta1': 0, 'gamma': 0.629, 'beta2': 0}
+{'x_0': [0.1525726720439744, -1.7697518777436643], 'function': <functions.dropwave object at 0x7f5dbba74da0>}

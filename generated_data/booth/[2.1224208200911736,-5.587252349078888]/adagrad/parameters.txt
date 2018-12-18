@@ -1,0 +1,3 @@
+generated_data/booth/[2.1224208200911736,-5.587252349078888]/adagrad/parameters.txt
+{'beta1': 0, 'learningRate': 0.53, 'gamma': 0, 'beta2': 0}
+{'function': <functions.booth object at 0x7f9828445ef0>, 'x_0': [2.1224208200911736, -5.587252349078888]}

@@ -1,0 +1,3 @@
+generated_data/ackley/[0.15048429558781162,0.20280198598794996]/adagrad/parameters.txt
+{'beta2': 0, 'gamma': 0, 'beta1': 0, 'learningRate': 0.005}
+{'function': <functions.ackley object at 0x7ff9546ecd30>, 'x_0': [0.15048429558781162, 0.20280198598794996]}

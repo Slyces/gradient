@@ -1,0 +1,3 @@
+generated_data/crossintray/[5.254813101092591,-9.84329246066833]/adagrad/parameters.txt
+{'gamma': 0, 'beta1': 0, 'learningRate': 2.402, 'beta2': 0}
+{'x_0': [5.254813101092591, -9.84329246066833], 'function': <functions.crossintray object at 0x7f0022b71da0>}

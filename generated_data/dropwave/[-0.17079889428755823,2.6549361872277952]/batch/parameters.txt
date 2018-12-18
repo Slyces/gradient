@@ -1,0 +1,3 @@
+generated_data/dropwave/[-0.17079889428755823,2.6549361872277952]/batch/parameters.txt
+{'beta2': 0, 'gamma': 0, 'beta1': 0, 'learningRate': 0.001}
+{'function': <functions.dropwave object at 0x7f01f1cfde48>, 'x_0': [-0.17079889428755823, 2.6549361872277952]}

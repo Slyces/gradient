@@ -1,0 +1,3 @@
+generated_data/dropwave/[-3.0812892420441633,3.5843673630607347]/rmsprop/parameters.txt
+{'beta1': 0, 'learningRate': 0.362, 'beta2': 0, 'gamma': 0.794}
+{'function': <functions.dropwave object at 0x7fe4fd772da0>, 'x_0': [-3.0812892420441633, 3.5843673630607347]}

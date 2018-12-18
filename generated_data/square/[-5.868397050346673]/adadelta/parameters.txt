@@ -1,0 +1,3 @@
+generated_data/square/[-5.868397050346673]/adadelta/parameters.txt
+{'learningRate': 0.001, 'beta1': 0, 'beta2': 0, 'gamma': 0.99}
+{'x_0': [-5.868397050346673], 'function': <functions.square object at 0x7f46ae6b3cf8>}

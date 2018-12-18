@@ -1,0 +1,3 @@
+generated_data/ackley/[-3.0761711338472972,-1.8421515487359175]/momentum/parameters.txt
+{'beta2': 0, 'gamma': 0.6659999999999999, 'beta1': 0, 'learningRate': 0.122}
+{'function': <functions.ackley object at 0x7fea95b37d30>, 'x_0': [-3.0761711338472972, -1.8421515487359175]}

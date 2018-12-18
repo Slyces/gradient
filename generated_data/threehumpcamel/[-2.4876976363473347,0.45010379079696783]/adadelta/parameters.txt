@@ -1,0 +1,3 @@
+generated_data/threehumpcamel/[-2.4876976363473347,0.45010379079696783]/adadelta/parameters.txt
+{'learningRate': 0.001, 'beta1': 0, 'gamma': 0.99, 'beta2': 0}
+{'function': <functions.threehumpcamel object at 0x7f600425df60>, 'x_0': [-2.4876976363473347, 0.45010379079696783]}

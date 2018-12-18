@@ -1,0 +1,3 @@
+generated_data/matyas/[6.567266613394484,-0.8760624571437425]/batch/parameters.txt
+{'learningRate': 0.082, 'gamma': 0, 'beta1': 0, 'beta2': 0}
+{'x_0': [6.567266613394484, -0.8760624571437425], 'function': <functions.matyas object at 0x7f9145fc9f28>}

@@ -1,0 +1,3 @@
+generated_data/ackley/[2.6207286093359015,2.351945932956939]/adadelta/parameters.txt
+{'learningRate': 0.001, 'beta1': 0, 'gamma': 0.989, 'beta2': 0}
+{'function': <functions.ackley object at 0x7f55e8bf5d30>, 'x_0': [2.6207286093359015, 2.351945932956939]}

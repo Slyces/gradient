@@ -1,0 +1,3 @@
+generated_data/matyas/[7.800808167739568,-6.794764349616105]/rmsprop/parameters.txt
+{'beta2': 0, 'gamma': 0.965, 'beta1': 0, 'learningRate': 1.297}
+{'x_0': [7.800808167739568, -6.794764349616105], 'function': <functions.matyas object at 0x7fdf11ffef98>}

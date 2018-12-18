@@ -1,0 +1,3 @@
+generated_data/crossintray/[8.060215976032453,2.282591948088637]/rmsprop/parameters.txt
+{'beta1': 0, 'beta2': 0, 'learningRate': 1.1569999999999998, 'gamma': 0.821}
+{'x_0': [8.060215976032453, 2.282591948088637], 'function': <functions.crossintray object at 0x7f951175dda0>}

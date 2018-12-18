@@ -1,0 +1,3 @@
+generated_data/ackley/[4.386105415453898,-3.6899948123392834]/nesterov/parameters.txt
+{'beta2': 0, 'gamma': 0.734, 'beta1': 0, 'learningRate': 0.082}
+{'function': <functions.ackley object at 0x7ff9546ecd30>, 'x_0': [4.386105415453898, -3.6899948123392834]}

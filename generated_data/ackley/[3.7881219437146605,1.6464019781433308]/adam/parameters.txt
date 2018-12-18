@@ -1,0 +1,3 @@
+generated_data/ackley/[3.7881219437146605,1.6464019781433308]/adam/parameters.txt
+{'beta2': 0.9999, 'gamma': 0, 'beta1': 0.85, 'learningRate': 0.05}
+{'function': <functions.ackley object at 0x7fd7bdb10d68>, 'x_0': [3.7881219437146605, 1.6464019781433308]}

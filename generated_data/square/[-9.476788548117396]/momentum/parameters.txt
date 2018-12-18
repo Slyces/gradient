@@ -1,0 +1,3 @@
+generated_data/square/[-9.476788548117396]/momentum/parameters.txt
+{'learningRate': 0.677, 'gamma': 0.629, 'beta2': 0, 'beta1': 0}
+{'x_0': [-9.476788548117396], 'function': <functions.square object at 0x7fe59146fd30>}

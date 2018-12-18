@@ -1,0 +1,3 @@
+generated_data/booth/[1.9610657394883475,-0.8148373653139291]/momentum/parameters.txt
+{'beta1': 0, 'gamma': 0.9259999999999999, 'learningRate': 0.005, 'beta2': 0}
+{'function': <functions.booth object at 0x7f39cb1dcf60>, 'x_0': [1.9610657394883475, -0.8148373653139291]}

@@ -1,0 +1,3 @@
+generated_data/bukin/[-13.860535997951311,2.8136511573299696]/batch/parameters.txt
+{'beta1': 0, 'learningRate': 0.001, 'gamma': 0, 'beta2': 0}
+{'x_0': [-13.860535997951311, 2.8136511573299696], 'function': <functions.bukin object at 0x7faf8e18ee10>}

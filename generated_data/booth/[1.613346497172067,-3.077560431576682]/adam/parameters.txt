@@ -1,0 +1,3 @@
+generated_data/booth/[1.613346497172067,-3.077560431576682]/adam/parameters.txt
+{'beta1': 0.95, 'gamma': 0, 'learningRate': 0.226, 'beta2': 0.9999}
+{'function': <functions.booth object at 0x7f39cb1dcf60>, 'x_0': [1.613346497172067, -3.077560431576682]}

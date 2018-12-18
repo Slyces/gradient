@@ -1,0 +1,3 @@
+generated_data/beale/[-1.1291803150787216,1.679267235595601]/rmsprop/parameters.txt
+{'beta1': 0, 'gamma': 0.794, 'beta2': 0, 'learningRate': 2.402}
+{'x_0': [-1.1291803150787216, 1.679267235595601], 'function': <functions.beale object at 0x7fe7b38ba048>}

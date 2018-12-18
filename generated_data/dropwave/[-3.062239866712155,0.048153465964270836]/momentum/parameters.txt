@@ -1,0 +1,3 @@
+generated_data/dropwave/[-3.062239866712155,0.048153465964270836]/momentum/parameters.txt
+{'gamma': 0.7010000000000001, 'learningRate': 0.002, 'beta1': 0, 'beta2': 0}
+{'x_0': [-3.062239866712155, 0.048153465964270836], 'function': <functions.dropwave object at 0x7fb8cc077e80>}

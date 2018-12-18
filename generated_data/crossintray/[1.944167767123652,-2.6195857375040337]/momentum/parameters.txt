@@ -1,0 +1,3 @@
+generated_data/crossintray/[1.944167767123652,-2.6195857375040337]/momentum/parameters.txt
+{'gamma': 0.981, 'beta1': 0, 'beta2': 0, 'learningRate': 0.002}
+{'function': <functions.crossintray object at 0x7f02a1d97e10>, 'x_0': [1.944167767123652, -2.6195857375040337]}

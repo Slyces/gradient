@@ -1,0 +1,3 @@
+generated_data/holdertable/[5.770176719554103,-7.756126665522068]/adam/parameters.txt
+{'learningRate': 2.305, 'beta2': 0.9999, 'gamma': 0, 'beta1': 0.8}
+{'x_0': [5.770176719554103, -7.756126665522068], 'function': <functions.holdertable object at 0x7f6c7fb57da0>}

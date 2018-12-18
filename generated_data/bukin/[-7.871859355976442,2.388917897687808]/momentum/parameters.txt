@@ -1,0 +1,3 @@
+generated_data/bukin/[-7.871859355976442,2.388917897687808]/momentum/parameters.txt
+{'beta2': 0, 'gamma': 0.6659999999999999, 'learningRate': 1.601, 'beta1': 0}
+{'function': <functions.bukin object at 0x7fef90f81e48>, 'x_0': [-7.871859355976442, 2.388917897687808]}

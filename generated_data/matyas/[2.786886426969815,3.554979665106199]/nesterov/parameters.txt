@@ -1,0 +1,3 @@
+generated_data/matyas/[2.786886426969815,3.554979665106199]/nesterov/parameters.txt
+{'gamma': 0.765, 'beta2': 0, 'learningRate': 0.677, 'beta1': 0}
+{'x_0': [2.786886426969815, 3.554979665106199], 'function': <functions.matyas object at 0x7f9473744ef0>}

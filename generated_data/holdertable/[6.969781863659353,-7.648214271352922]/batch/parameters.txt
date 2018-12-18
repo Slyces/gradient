@@ -1,0 +1,3 @@
+generated_data/holdertable/[6.969781863659353,-7.648214271352922]/batch/parameters.txt
+{'beta1': 0, 'gamma': 0, 'learningRate': 0.001, 'beta2': 0}
+{'x_0': [6.969781863659353, -7.648214271352922], 'function': <functions.holdertable object at 0x7f4cd5768dd8>}

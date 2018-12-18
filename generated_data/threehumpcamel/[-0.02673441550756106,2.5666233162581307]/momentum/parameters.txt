@@ -1,0 +1,3 @@
+generated_data/threehumpcamel/[-0.02673441550756106,2.5666233162581307]/momentum/parameters.txt
+{'learningRate': 0.001, 'beta1': 0, 'gamma': 0.954, 'beta2': 0}
+{'function': <functions.threehumpcamel object at 0x7f600425df60>, 'x_0': [-0.02673441550756106, 2.5666233162581307]}

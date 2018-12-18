@@ -1,0 +1,3 @@
+generated_data/square/[-8.163916215987504]/adagrad/parameters.txt
+{'beta2': 0, 'learningRate': 0.122, 'gamma': 0, 'beta1': 0}
+{'x_0': [-8.163916215987504], 'function': <functions.square object at 0x7f380f549d30>}
