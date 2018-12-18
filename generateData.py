@@ -14,7 +14,7 @@ from time import time
 
 # ──────────────────────────────────────────────────────────────────────────── #
 
-def generateData(nb_points, function_name):
+def generateData(nb_points, function_name, short=True):
 
     directory = "generated_data"
     epsilon = 0.001 # la marge d'erreur
@@ -103,12 +103,15 @@ def generateData(nb_points, function_name):
                                             }
                                     descent_parameter = {"x_0":point, "function":function}
                                     bestGradient = gradient
-
-                # Génération des données
-                writeData(os.path.join(algorithm_directory, "raw_data.txt"), bestGradient)
-                writeParameters(os.path.join(algorithm_directory, "parameters.txt"),
-                        bestGradient, gradient_parameter, descent_parameter)
-                writeSummary(os.path.join(algorithm_directory, "summary.txt"), bestGradient, function)
+                
+                if not short:
+                    # Génération des données
+                    writeData(os.path.join(algorithm_directory, "raw_data.txt"), bestGradient)
+                    writeParameters(os.path.join(algorithm_directory, "parameters.txt"),
+                            bestGradient, gradient_parameter, descent_parameter)
+                    writeSummary(os.path.join(algorithm_directory, "summary.txt"), bestGradient, function)
+                else:
+                    writeShortData(os.path.join(algorithm_directory, "short_raw_data.txt"), bestGradient)
 
 """
 Lancement du programme
@@ -118,11 +121,12 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--nb_points', dest='nb_points', type=int, default=10)
-    parser.add_argument('--function', dest='function', type=str)
+    parser.add_argument('--function', dest='function', type=str)    
+    parser.add_argument("--short", action="store_true")
 
     args = parser.parse_args()
 
-    generateData(args.nb_points, args.function)
+    generateData(args.nb_points, args.function, args.short)
 
 
 

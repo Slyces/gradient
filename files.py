@@ -5,35 +5,6 @@ from algorithms import *
 from display import text_display
 # ---------------------------------------------------------------------------- #
 
-"""
-Import des données
-Retourne le gradient associé
-"""
-def readData(file_name):
-    with open(file_name, "r") as data_file:
-        gradient = GradientDescent()
-        header = data_file.readline()
-
-        line = data_file.readline()
-        while line[0] != "P":
-            pts, valeur = line.split(";")
-
-            gradient.valeurs.append(float(valeur))
-            point = pts.split(" ")
-            gradient.points.append(float(point))
-
-            line = data_file.readline()
-
-        line = data_file.readline() # optimal points and value
-
-        line = data_file.readline()
-        line = data_file.readline()
-        time, iter = line.split(";")
-        gradient.tempsDescent = float(time)
-
-    return dic
-
-
 
 """
 file_name : path to the file where the data will be saved
@@ -100,3 +71,20 @@ def writeSummary(file_name, gradient, function):
         sum_file.write(text_display(function,
             {gradient.nom : gradient.points},
             {gradient.nom : gradient.tempsDescent}))
+        
+
+def writeShortData(file_name, gradient):
+    with open(file_name, "w") as file:
+        s = ""
+        for v in gradient.points[-1]:
+            s += str(v) + " "
+        s+="\n"
+        file.write(s)
+        file.write(str(gradient.valeurs[-1])+"\n")
+        file.write(str(gradient.tempsDescent)+"\n")
+        file.write(str(gradient.iteration))
+        
+        
+        
+        
+        

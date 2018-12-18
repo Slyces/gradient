@@ -120,7 +120,7 @@ class crossintray(Function):
     formula = ''
 
     def __call__(self, x, y):
-        return -0.0001 * (np.power(abs(np.sin(x) * np.sin(y) * np.exp(abs(100 - np.sqrt(np.power(x,2)+np.power(y,2)) / np.pi)) + 1), 0.1))
+        return -0.0001 * np.power(abs(np.sin(x) * np.sin(y) * np.exp(abs(100 - np.sqrt(np.power(x,2)+np.power(y,2)) / np.pi)) + 1), 0.1)
         
 crossintray = crossintray()
 
