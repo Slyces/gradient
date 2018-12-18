@@ -103,7 +103,7 @@ def generateData(nb_points, function_name, short=True):
                                             }
                                     descent_parameter = {"x_0":point, "function":function}
                                     bestGradient = gradient
-                
+
                 if not short:
                     # Génération des données
                     writeData(os.path.join(algorithm_directory, "raw_data.txt"), bestGradient)
@@ -121,7 +121,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--nb_points', dest='nb_points', type=int, default=10)
-    parser.add_argument('--function', dest='function', type=str)    
+    parser.add_argument('--function', dest='function', type=str)
     parser.add_argument("--short", action="store_true")
 
     args = parser.parse_args()
