@@ -228,7 +228,12 @@ class hessian(Function):
     formula = ''
 
     def __call__(self, x, y):
-        return np.max(np.power(x, 2) - np.power(y, 2), -10)
+        f = np.power(x, 2) - np.power(y, 2)
+        if f < -10:
+            return f
+        else:
+            return -10
+
         
 hessian = hessian()
 
@@ -255,7 +260,10 @@ class cube(Function):
     formula = 'x^3'
 
     def __call__(self, x):
-        return np.max(np.power(x,3), -10)
-
+        x3 = np.power(x,3)
+        if x3 < -10:
+            return x3
+        else:
+            return -10
 cube = cube()
 

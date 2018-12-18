@@ -1,3 +1,0 @@
-generated_data/crossintray/[1.437964203039801,-5.8016646025166345]/batch/parameters.txt
-{'learningRate': 0.017, 'gamma': 0, 'beta1': 0, 'beta2': 0}
-{'x_0': [1.437964203039801, -5.8016646025166345], 'function': <functions.crossintray object at 0x7efce9e0ebe0>}
