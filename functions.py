@@ -185,7 +185,7 @@ class booth(Function):
 
     def __call__(self, x, y):
         return np.power((x + 2 * y - 7), 2) + np.power(2 * x + y - 5, 2)
-        
+
 booth = booth()
 
 
@@ -199,7 +199,7 @@ class matyas(Function):
 
     def __call__(self, x, y):
         return 0.26 * (np.power(x, 2) + np.power(y, 2)) - 0.48 * x * y
-        
+
 matyas = matyas()
 
 
@@ -213,7 +213,7 @@ class threehumpcamel(Function):
 
     def __call__(self, x, y):
         return 2 * np.power(x, 2) - 1.05 * np.power(x, 4) + (1/6) * np.power(x, 6) + x * y + np.power(y, 2)
-        
+
 threehumpcamel = threehumpcamel()
 
 """
@@ -229,7 +229,7 @@ class hessian(Function):
 
     def __call__(self, x, y):
         return np.max(np.power(x, 2) - np.power(y, 2), -10)
-        
+
 hessian = hessian()
 
 # ---------------------------- beale's function----------------------------- 
@@ -242,7 +242,7 @@ class beale(Function):
 
     def __call__(self, x, y):
         return np.power(1.5 - x + x * y, 2) + np.power(2.25 - x + x * np.power(y, 2), 2) + np.power(2.625 - x + x * np.power(y, 3), 2)
-        
+
 beale = beale()
 
 

@@ -13,7 +13,8 @@ import os
 np.set_printoptions(precision=2)
 
 # list of implemented functions
-functions = functions.Function.functions
+functions_list = functions.Function.functions
+print(functions_list)
 
 # @TODO: homogénéiser les noms de variables --> someVar plutôt que some_var
 
@@ -63,11 +64,11 @@ def setup_parser():
 
     # Functions
     parser.add_argument("-f", "--function", metavar="f", dest='function',
-            type=str, default='square', choices=functions,
+            type=str, default='square', choices=functions_list,
             help=textwrap.dedent("""\
                     choose the function f to optimize amongst {}
                     {}""".format(
-                        '{' + ', '.join(functions) + '}', default)))
+                        '{' + ', '.join(functions_list) + '}', default)))
 
     # Definition space
     parser.add_argument("-d", "--def-space", metavar="def-sp",
@@ -218,7 +219,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # function
-    function = functions[args.function]
+    function = functions_list[args.function]
     dim = len(function.def_space)
 
     # definition space
@@ -242,7 +243,7 @@ if __name__ == '__main__':
     algorithms = [algo[0].upper()+algo[1:] for algo in algorithms]
 
     # assertions on args
-    assert args.function in functions.keys(), "choose a function from the list"
+    assert args.function in functions_list.keys(), "choose a function from the list"
 
     utils.verbose = args.verbose
 
