@@ -50,7 +50,7 @@ def generateData(nb_points, function_name, short=True):
         if not os.path.exists(function_directory):
             os.makedirs(function_directory)
 
-        points = [[random.uniform(v[0], v[1]) for v in function.def_space]
+        points = [[np.float(random.uniform(v[0], v[1])) for v in function.def_space]
                 for i in range(nbPoints)]
 
         for point in points:
