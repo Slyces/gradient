@@ -267,16 +267,16 @@ cube = cube()
 
 
 # -------------------- momentum --------------------- #
-class momentum(Function):
+class p42m(Function):
     def_space = [[-3, 3]]
     default_start = [-3]
-    name = "momentum"
+    name = "p42m"
     args = 'x'
-    formula = 'x^4 - x^2 + x'
+    formula = 'x^4 - 3 * x^2 + x'
 
     def __call__(self, x):
-        return np.power(x, 4) - 3*np.power(x, 2) + x
-momentum = momentum()
+        return  np.power(x, 4) - 4*np.power(x, 2) + x
+p42m = p42m()
 
 
 
