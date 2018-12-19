@@ -265,3 +265,20 @@ class cube(Function):
             return -10
 cube = cube()
 
+
+# -------------------- momentum --------------------- #
+class momentum(Function):
+    def_space = [[-3, 3]]
+    default_start = [-3]
+    name = "momentum"
+    args = 'x'
+    formula = 'x^4 - x^2 + x'
+
+    def __call__(self, x):
+        return np.power(x, 4) - 3*np.power(x, 2) + x
+momentum = momentum()
+
+
+
+
+

@@ -60,3 +60,15 @@ def dis(list_points, list_descents, threshold=1e-02, epsilon=1e-02):
     plt.show()
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
