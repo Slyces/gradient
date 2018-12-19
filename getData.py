@@ -42,7 +42,6 @@ def getDataFromRawData(directory):
                                 
                                 
                                     data = fichier.readlines()[-4:]
-                                    print(data, algorithm_directory)
                                     gradient_dictionnary[algorithm]["temps"] = data[-1].split(";")[0]
                                     gradient_dictionnary[algorithm]["nb_iteration"] = data[-1].split(";")[1]
                                     gradient_dictionnary[algorithm]["point_optimal"] = data[1].split(";")[0]
@@ -88,7 +87,6 @@ def getDataFromShortRawData(directory):
                             with open(os.path.join(algorithm_directory, "short_raw_data.txt"), "r",  encoding="ISO-8859-1") as file:
 
                                 data = file.readlines()
-                                print(data[0].split(" ")[:-1])
                                 gradient_dictionnary[algorithm]["temps"] = np.float(data[2])
                                 gradient_dictionnary[algorithm]["nb_iteration"] = np.int(data[3])
                                 gradient_dictionnary[algorithm]["point_optimal"] = [np.float(v) for v in data[0].split(" ")[:-1]]
