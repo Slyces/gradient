@@ -92,10 +92,8 @@ class ackley(Function):
     def __call__(self, x, y):
         return -20 * np.exp(-0.2 * np.sqrt(0.5 * (np.power(x,2) + np.power(y,2)))) - np.exp(0.5 * (np.cos(2 * np.pi * x) \
                 + np.cos(2 * np.pi * y))) + np.exp(1) + 20
-                
+
 ackley = ackley()
-
-
 
 # ---------------------------- bukin's function ----------------------------- #
 class bukin(Function):
@@ -103,11 +101,11 @@ class bukin(Function):
     default_start = [-7, 0]
     name = "bukin"
     args = 'x,y'
-    formula = '100*sqrt(abs(y-0.01x)) +0.01*abs(x+1)'
+    formula = '100 * sqrt(abs(y - 0.01 * x)) + 0.01 * abs(x + 10)'
 
     def __call__(self, x, y):
         return 100 * np.sqrt(abs(y - 0.01 * np.power(x,2))) + 0.01 * abs(x + 10)
-        
+
 bukin = bukin()
 
 
@@ -121,7 +119,7 @@ class crossintray(Function):
 
     def __call__(self, x, y):
         return -0.0001 * np.power(abs(np.sin(x) * np.sin(y) * np.exp(abs(100 - np.sqrt(np.power(x,2)+np.power(y,2)) / np.pi)) + 1), 0.1)
-        
+
 crossintray = crossintray()
 
 
@@ -136,7 +134,7 @@ class dropwave(Function):
 
     def __call__(self, x, y):
         return - (1 + np.cos(12 * np.sqrt(np.power(x,2) + np.power(y,2)))) / (0.5 * (np.power(x,2) + np.power(y,2)) + 2)
-        
+
 dropwave = dropwave()
 
 # ---------------------------- holdertable's function----------------------------- 
@@ -148,8 +146,8 @@ class holdertable(Function):
     formula = ''
 
     def __call__(self, x, y):
-        return - abs(np.sin(x) * np.cos(x) - np.exp(abs(1 - np.sqrt(np.power(x,2) + np.power(y,2)) / np.pi)))
-        
+        return - abs(np.sin(x) * np.cos(y) * np.exp(abs(1 - np.sqrt(np.power(x,2) + np.power(y,2)) / np.pi)))
+
 holdertable = holdertable()
 
 """
@@ -237,8 +235,8 @@ hessian = hessian()
 
 # ---------------------------- beale's function----------------------------- 
 class beale(Function):
-    def_space = [[-2, 2], [-2, 2]]
-    default_start = [0, -0.5]
+    def_space = [[-4, 5], [-4, 5]]
+    default_start = [0.01, -0.5]
     name = "beale"
     args = 'x,y'
     formula = ''
@@ -251,18 +249,19 @@ beale = beale()
 
 # -------------------- the 1D cube function : 𝑥^3 --------------------- #
 class cube(Function):
-    def_space = [[-10, 0]]
-    default_start = [-8]
+    def_space = [[-5, 5]]
+    default_start = [1]
     name = "cube"
     args = 'x'
     formula = 'x^3'
 
     def __call__(self, x):
+        min_threshold = -30.0
         x3 = np.power(x,3)
-        if x3 > -10.0:
+        if x3 > min_threshold:
             return x3
         else:
-            return -10.0
+            return min_threshold
 cube = cube()
 
 
