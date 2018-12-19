@@ -222,17 +222,17 @@ Saddle point
 # ---------------------------- hessian's function----------------------------- 
 class hessian(Function):
     def_space = [[-5, 5], [-5, 5]]
-    default_start = [2, -2.5]
+    default_start = [0,0]
     name = "hessian"
     args = 'x,y'
     formula = ''
 
     def __call__(self, x, y):
         f = np.power(x, 2) - np.power(y, 2)
-        if f < -10:
+        if f > -10.0:
             return f
         else:
-            return -10
+            return -10.0
 hessian = hessian()
 
 # ---------------------------- beale's function----------------------------- 
@@ -259,10 +259,10 @@ class cube(Function):
 
     def __call__(self, x):
         x3 = np.power(x,3)
-        if x3 < -10:
+        if x3 > -10.0:
             return x3
         else:
-            return -10
+            return -10.0
 cube = cube()
 
 
