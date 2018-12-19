@@ -4,6 +4,8 @@ tags
 [Ss]ession.vim
 .undodir/*
 generated_data/*
+short_data/*
+local_data/*
 
 # python files
 __pycache__*

@@ -183,12 +183,6 @@ def color(x): # small code to color an output in the terminal
     e = "\033[0m" # endline$
     return c + x + e
 
-def better_descent(f, data1, data2):
-    threshold = 10e-2
-    v1, v2 = f(*data1[-1]), f(*data2[-1])
-    n1, n2 = len(data1), len(data2)
-    return v2 - v1 > threshold or (abs(v1 - v2) < 0.01 * threshold and n1 < n2)
-
 def text_display(function, datas, times):
     # example output:
     # + --------- + ----- + ---- + ------- + ----- + ---- + ---- +
@@ -203,7 +197,9 @@ def text_display(function, datas, times):
     # ------------------------------------------------------------------------ #
     # sort by rank
     ranked = list(datas.keys())
-    best = lambda k, l: better_descent(function, datas[k], datas[l])
+    v = lambda grad_key: datas[grad_key][-1]
+    it = lambda grad_key: len(datas[grad_key])
+    best = lambda k, l: better_descent(v(k), it(k), v(l), it(l))
     for i in range(len(ranked)):
         for j in range(i, len(ranked)):
             if not best(ranked[i], ranked[j]):

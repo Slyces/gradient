@@ -6,12 +6,7 @@ from functions import *
 from algorithms import *
 from files import *
 from time import time
-
-
-
-
-
-
+from utils import better_descent
 # ──────────────────────────────────────────────────────────────────────────── #
 
 def generateData(nb_points, function_name, short=True):
@@ -91,9 +86,10 @@ def generateData(nb_points, function_name, short=True):
                                 # Si il converge vers un bien meilleur valeur
                                 # Si il converge au même endroit mais qu'il le fait plus vite
                                 current_value = gradient.valeurs[-1]
-                                if bestGradient is None or\
-                                        bestGradient.valeurs[-1] - gradient.valeurs[-1] > epsilon \
-                                        or (abs(gradient.valeurs[-1] - bestGradient.valeurs[-1]) < epsilon * 0.1 and gradient.iteration < bestGradient.iteration):
+                                v = lambda g: g.valeurs[-1] # shortcut to get the convergence value
+                                it = lambda g: g.iteration # shortcut to get the number of iterations
+                                if bestGradient is None or \
+                                        better_descent(v(gradient), it(gradient), v(bestGradient), it(bestGradient)):
                                     # Préparer les paramêtres pour les conserver
                                     gradient_parameter = {
                                             "learningRate": learningRate,

@@ -14,7 +14,6 @@ np.set_printoptions(precision=2)
 
 # list of implemented functions
 functions_list = functions.Function.functions
-print(functions_list)
 
 # @TODO: homogénéiser les noms de variables --> someVar plutôt que some_var
 
