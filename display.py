@@ -197,9 +197,9 @@ def text_display(function, datas, times):
     # ------------------------------------------------------------------------ #
     # sort by rank
     ranked = list(datas.keys())
-    v = lambda grad_key: datas[grad_key][-1]
+    v = lambda grad_key: function(*datas[grad_key][-1])
     it = lambda grad_key: len(datas[grad_key])
-    best = lambda k, l: better_descent(v(k), it(k), v(l), it(l))
+    best = lambda k, l: utils.better_descent(v(k), it(k), v(l), it(l))
     for i in range(len(ranked)):
         for j in range(i, len(ranked)):
             if not best(ranked[i], ranked[j]):
