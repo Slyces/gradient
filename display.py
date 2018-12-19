@@ -22,7 +22,6 @@ def discretise_space(def_space, n = 100):
         one_dim_axis.append(np.linspace(start, stop, n))
     return np.meshgrid(*one_dim_axis)
 
-
 # --------- compute the function's values over the discretized space --------- #
 def compute_over_grid(function, n, *grid):
     # assume equally long mesh of length n
@@ -104,6 +103,8 @@ def plot3d(function, def_space, datas, n=40, steps=False):
                     color=color, s=12)
 
     # ----------------------- appearance and plotting ------------------------ #
+    ax.set_xlim(*def_space[0])
+    ax.set_ylim(*def_space[1])
     ax.set_zlim(np.min(Z) - 0.5, np.max(Z) + 0.5)
     ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
     ax.set(ylabel='${}$'.format(str(function)),
