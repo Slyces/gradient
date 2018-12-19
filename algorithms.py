@@ -15,7 +15,7 @@ class GradientDescent(object):
        self.valeurs = [] # record every value of the fonction
 
        for key, value in kwargs.items():
-           setattr(self, key, value)
+           setattr(self, key, np.float64(value))
 
    # ----------- getters for first and last point of the descent ------------ #
    @property

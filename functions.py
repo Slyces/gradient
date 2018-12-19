@@ -129,7 +129,7 @@ crossintray = crossintray()
 # ---------------------------- dropwave's function----------------------------- 
 class dropwave(Function):
     def_space = [[-5.12, 5.12], [-5.12, 5.12]]
-    default_start = [-4, 3]
+    default_start = [-2, 3]
     name = "dropwave"
     args = 'x,y'
     formula = ''

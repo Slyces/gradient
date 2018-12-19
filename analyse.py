@@ -26,13 +26,8 @@ def bestGradient(gradient_dictionnary, threshold=1e-02, epsilon=1e-02):
             best_gradient = gradient
             best_gradient_information = values
 
-        # If the gradient test is better in term of values
-        elif isFarLower(values["valeur_optimale"], best_gradient_information["valeur_optimale"], threshold):
-            best_gradient = gradient
-            best_gradient_information = values
-
-        # If the gradient test is close to the best and the number of iteration is inferior
-        elif isClose(values["valeur_optimale"], best_gradient_information["valeur_optimale"], epsilon) and values["nb_iteration"] < best_gradient_information["nb_iteration"]:
+        # If the gradient test is better
+        elif better_descent(values["valeur_optimale"], best_gradient_information["valeur_optimale"], values["nb_iteration"], best_gradient_information["nb_iteration"]):
             best_gradient = gradient
             best_gradient_information = values
 
@@ -54,6 +49,7 @@ def dis(list_points, list_descents, threshold=1e-02, epsilon=1e-02):
         color = next(colors)
         plt.scatter([v[0] for v in points_best_gradient[implemented[i]]], [v[1] for v in points_best_gradient[implemented[i]]], c=color)
     plt.show()
+
 def best(directory):
     if not os.path.exists(directory):
         print("Directory doesn't exist")
