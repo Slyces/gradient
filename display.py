@@ -6,6 +6,10 @@ from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter, AutoLocator
 from mpl_toolkits.mplot3d import Axes3D
 
+methods = "batch momentum nesterov adagrad adadelta rmsprop adam".split()
+colors = cm.rainbow(np.linspace(0, 1, len(methods)))
+colors_dict = dict(zip(methods, colors))
+
 # --------------------- discretize the definition space ---------------------- #
 def discretise_space(def_space, n = 100):
     """
@@ -52,9 +56,9 @@ def plot2d(function, def_space, datas, n=40, steps=False):
 
 
     # ------------------- plot the descent and end points -------------------- #
-    colors = iter(cm.rainbow(np.linspace(0, 1, len(datas))))
     for name, data in datas.items():
-        color = next(colors)
+        color = colors_dict[name.lower()]
+        # color = next(colors)
         end = data[-1]
         ax.plot(data, [function(*v) for v in data], linewidth=1, color=color,
                 label=name)
@@ -89,11 +93,11 @@ def plot3d(function, def_space, datas, n=40, steps=False):
     ax.scatter(start_x, start_y, function(start_x, start_y), label='start')
 
     # ------------------- plot the descent and end points -------------------- #
-    colors = iter(cm.rainbow(np.linspace(0, 1, len(datas))))
 
     # ------------ plots distinctly start and stop of the descent ------------ #
     for name, data in datas.items():
-        color = next(colors)
+        color = colors_dict[name.lower()]
+        # color = next(colors)
         (stop_x, stop_y) = data[-1]
         ax.scatter(stop_x, stop_y, function(stop_x, stop_y), color=color)
         ax.plot(data[:,0], data[:,1], [function(*v) for v in data], color=color,
@@ -138,11 +142,10 @@ def plotLevels(function, def_space, datas, n=40, steps=False):
     ax.scatter(*start, label='start')
 
     # ------------------- plot the descent and end points -------------------- #
-    colors = iter(cm.rainbow(np.linspace(0, 1, len(datas))))
 
     # ------------ plots distinctly start and stop of the descent ------------ #
     for name, data in datas.items():
-        color = next(colors)
+        color = colors_dict[name.lower()]
         end = data[-1]
         e = ax.scatter(*end, color=color)
         d = ax.plot([x for (x,y) in data], [y for (x,y) in data], linewidth=1,

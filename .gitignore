@@ -6,6 +6,7 @@ tags
 generated_data/*
 local_data/*
 short_data*
+all_data*
 
 # python files
 __pycache__*

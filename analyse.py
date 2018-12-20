@@ -50,10 +50,13 @@ def dis(list_points, list_descents, threshold=1e-02, epsilon=1e-02):
     plt.show()
 
 def best(directory):
+    keywithmaxval = lambda x: max(list(x), key= lambda x: x[1])[0]
     if not os.path.exists(directory):
         print("Directory doesn't exist")
         return
     gradient_function = {}
+    gradients = "adadelta momentum batch nesterov adagrad adam rmsprop".split()
+    print(" &" + " & ".join(gradients) + r"\\")
     for function in os.listdir(directory):
         # Si il s'agit bien d'un dossier
         function_directory = os.path.join(directory, function)
@@ -63,6 +66,12 @@ def best(directory):
 
             if g[1]:
                 best_gradient = bestGradientForPoint(g[1])
-
+                sum_p = sum(map(lambda x: x[1], best_gradient.items()))
+                print(" & ".join([function] + [("{:.2%}".format(best_gradient[key] / sum_p)) for key in gradients]) + r"\\")
                 gradient_function[function] = keywithmaxval(best_gradient)
+
     return gradient_function
+
+if __name__ == '__main__':
+    dirname = 'all_data'
+    best(dirname)

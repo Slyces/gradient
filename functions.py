@@ -266,16 +266,16 @@ cube = cube()
 
 
 # -------------------- momentum --------------------- #
-class p42m(Function):
+class doubleminimum(Function):
     def_space = [[-3, 3]]
     default_start = [-3]
-    name = "p42m"
+    name = "double\_minimum"
     args = 'x'
-    formula = 'x^4 - 3 * x^2 + x'
+    formula = 'x^4 - 3 x^2 + x'
 
     def __call__(self, x):
         return  np.power(x, 4) - 4*np.power(x, 2) + x
-p42m = p42m()
+doubleminimum = doubleminimum()
 
 
 
