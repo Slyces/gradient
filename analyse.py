@@ -27,7 +27,7 @@ def bestGradient(gradient_dictionnary, threshold=1e-02, epsilon=1e-02):
             best_gradient_information = values
 
         # If the gradient test is better
-        elif better_descent(values["valeur_optimale"], best_gradient_information["valeur_optimale"], values["nb_iteration"], best_gradient_information["nb_iteration"]):
+        elif better_descent(values["valeur_optimale"], values["nb_iteration"],best_gradient_information["valeur_optimale"], best_gradient_information["nb_iteration"]):
             best_gradient = gradient
             best_gradient_information = values
 

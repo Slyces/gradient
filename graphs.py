@@ -15,43 +15,36 @@ import analyse
 directory = 'short_data'
 
 def function_graph(f_name):
-    data = getDataFromShortRawData(join(directory, f_name))
+    points, descents = getDataFromShortRawData(join(directory, f_name))
     function = Function.functions[f_name]
     def_space = function.def_space
     assert len(def_space) == 2
+    # ------------------------------------------------------------------------ #
+    points = np.array(points)
     # ---------------------- create the figure and axes ---------------------- #
     fig, ax = plt.subplots()
 
-    # -- discretize the definition space and compute the function's images --- #
-    X, Y = 
-    Z = compute_over_grid(function, n, X, Y)
+    gradients_names = list(descents[0].keys())
 
-    cs = ax.contourf(X, Y, Z, locator=AutoLocator(), cmap=cm.PuBu_r)
-    # cs = ax.contour(X, Y, Z)
+    best_gradients = [analyse.bestGradient(grad) for grad in descents]
 
-    # ----------------------- all starts are identical ----------------------- #
-    start = datas[list(datas.keys())[0]][0]
-    ax.scatter(*start, label='start')
+    # ---------------- plot the points and the best gradient ----------------- #
+    colors = list(cm.rainbow(np.linspace(0, 1, len(gradients_names))))
+    scatters = {}
 
-    # ------------------- plot the descent and end points -------------------- #
-    colors = iter(cm.rainbow(np.linspace(0, 1, len(datas))))
-
-    # ------------ plots distinctly start and stop of the descent ------------ #
-    for name, data in datas.items():
-        color = next(colors)
-        end = data[-1]
-        e = ax.scatter(*end, color=color)
-        d = ax.plot([x for (x,y) in data], [y for (x,y) in data], linewidth=1,
-                label=name, color=color)
-        if steps:
-            st = ax.scatter(data[:,0], data[:,1], color=color, s=12)
+    for i in range(len(points)):
+        p, (grad_name, grad_dict) = points[i], best_gradients[i]
+        color = colors[gradients_names.index(grad_name)]
+        scatters[grad_name] = ax.scatter(*p, color=color, s=12, alpha=0.8)
 
     # ---------------------------- titles & misc ----------------------------- #
-    cbar = fig.colorbar(cs) # bar with scales
-
     ax.set(xlabel='${}$'.format(str(function)),
             title='{} function'.format(type(function).__name__))
-    plt.legend(loc='best')
+    keys = list(scatters.keys())
+    plt.legend([scatters[key] for key in keys], keys,
+           scatterpoints=1,
+           loc='best',
+           fontsize=8)
     plt.show()
 
 if __name__ == '__main__':
@@ -59,6 +52,5 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("function")
     args = parser.parse_args()
-    print(args.function)
 
     function_graph(args.function)

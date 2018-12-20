@@ -71,7 +71,6 @@ def writeSummary(file_name, gradient, function):
         sum_file.write(text_display(function,
             {gradient.nom : gradient.points},
             {gradient.nom : gradient.tempsDescent}))
-        
 
 def writeShortData(file_name, gradient):
     with open(file_name, "w") as file:
@@ -83,8 +82,3 @@ def writeShortData(file_name, gradient):
         file.write(str(gradient.valeurs[-1])+"\n")
         file.write(str(gradient.tempsDescent)+"\n")
         file.write(str(gradient.iteration))
-        
-        
-        
-        
-        
