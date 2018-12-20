@@ -7,7 +7,7 @@ from matplotlib.ticker import LinearLocator, FormatStrFormatter, AutoLocator
 from mpl_toolkits.mplot3d import Axes3D
 
 methods = "batch momentum nesterov adagrad adadelta rmsprop adam".split()
-colors = cm.rainbow(np.linspace(0, 1, len(methods)))
+colors = cm.rainbow_r(np.linspace(0, 1, len(methods)))
 colors_dict = dict(zip(methods, colors))
 
 # --------------------- discretize the definition space ---------------------- #
@@ -89,8 +89,9 @@ def plot3d(function, def_space, datas, n=40, steps=False):
     Z = compute_over_grid(function, n, X, Y)
 
     # ----------------------- all starts are identical ----------------------- #
-    (start_x, start_y) = datas[list(datas.keys())[0]][0]
-    ax.scatter(start_x, start_y, function(start_x, start_y), label='start')
+    if datas:
+        (start_x, start_y) = datas[list(datas.keys())[0]][0]
+        ax.scatter(start_x, start_y, function(start_x, start_y), label='start')
 
     # ------------------- plot the descent and end points -------------------- #
 

@@ -223,7 +223,7 @@ class hessian(Function):
     default_start = [0,0]
     name = "hessian"
     args = 'x,y'
-    formula = ''
+    formula = 'x^2 - y^2'
 
     def __call__(self, x, y):
         f = np.power(x, 2) - np.power(y, 2)

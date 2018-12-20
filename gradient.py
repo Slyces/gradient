@@ -235,7 +235,7 @@ if __name__ == '__main__':
         x_0 = parse_starting_point(function.default_start, args)
 
     # algorithms
-    algorithms = args.algorithms if args.algorithms is not None else ['batch']
+    algorithms = args.algorithms if args.algorithms is not None else []
     for (i, alg) in enumerate(algorithms):
         if alg in [str(x) for x in range(len(implemented))]:
             algorithms[i] = (['all'] + implemented)[int(alg)]
@@ -279,7 +279,8 @@ if __name__ == '__main__':
         # -------------------------------------------------------------------- #
 
     # ----------------------- display the text results ----------------------- #
-    print(text_display(function, datas, times))
+    if algorithms:
+        print(text_display(function, datas, times))
 
     # ----------------- displaying the function to optimize ------------------ #
     if not args.no_display:
